@@ -5,6 +5,58 @@ Format: `[YYYY-MM-DD] TYPE: description`
 
 ---
 
+## [2026-03-17] — Phase 1~5 완전 완료 + 4-SSP ETCCDI + GEV 분석 + 글로벌 확장
+
+### Added (Phase 1: 추가 기후 지수)
+- **`calc_phase1.py`** — 5개 추가 기후 지수 계산 (13사업장 × 4SSP × 8기간):
+  - CDD/HDD (냉난방도일, base 18°C)
+  - Humidex + Apparent Temperature (Environment Canada 공식)
+  - SPI-3 (3개월 표준화 강수지수, log-normal 근사)
+  - FWI proxy (화재기상지수, 0-100 스케일)
+  - P-E Balance (강수-증발산 균형)
+- **`ph1_cdd_hdd.csv`** — CDD/HDD 8기간 × 13사업장 × 4SSP (26×19)
+- **`ph1_humidex.csv`** — Humidex + AT 8기간 × 13사업장 × 4SSP (26×20)
+- **`ph1_spi3.csv`** — SPI-3 8기간 × 13사업장 × 2SSP (26×11)
+- **`ph1_fwi.csv`** — FWI 8기간 × 13사업장 × 4SSP (26×19)
+- **`ph1_pe_balance.csv`** — P-E 8기간 × 13사업장 × 2SSP (26×11)
+
+### Added (Phase 2: SSP1-2.6 + SSP3-7.0 일별 데이터)
+- **`download_daily_ssp13.py`** — SSP1-2.6 + SSP3-7.0 일별 CMIP6 다운로드
+  - 3지역(korea_china, japan, philippines) × 2시나리오 × 3변수 = 18파일 (~165 MB)
+  - 저장: `scenarios_v2/daily/{ssp1_2_6,ssp3_7_0}/`
+
+### Added (Phase 3: 4-SSP ETCCDI 완전 세트)
+- **`calc_etccdi_4ssp.py`** — 4개 SSP 전체에 대한 ETCCDI 13지수 계산
+- **`ph3_etccdi_4ssp.csv`** — 13지수 × 4SSP × 8기간 × 13사업장 (5408×7)
+  - SSP1-2.6 / SSP2-4.5 / SSP3-7.0 / SSP5-8.5 완전 세트
+
+### Added (Phase 4: GEV 재현기간 + 복합극한)
+- **`calc_phase4.py`** — GEV 분포 피팅 및 복합극한 이벤트 분석
+  - GEV (scipy.stats.genextreme): 10/50/100년 재현기간 강수량
+  - 복합극한: P(Tmax > 90th pct AND pr < 1mm) — 근기(2020-2059) / 원기(2060-2099)
+- **`ph4_return_period.csv`** — GEV 재현기간 강수량 (26×11)
+- **`ph4_compound_events.csv`** — 복합 폭염+건조 이벤트 확률 (26×7)
+
+### Added (Phase 5: 최종 통합)
+- **`calc_phase5_final.py`** — Phase 1~4 전체 통합 마스터 파일 생성
+- **`OCI_4SSP_ETCCDI_SUMMARY.csv`** — 4SSP × 13지수 2090s 와이드 피벗 (13×54)
+- **`OCI_MASTER_SUMMARY_SSP585.csv`** — SSP5-8.5 2090s 전체 지수 통합 (13×23)
+- **`OCI_TXx_4SSP_Trajectory.csv`** — TXx 4SSP × 8기간 궤적 (13×34)
+
+### Added (글로벌 확장)
+- **`download_global_monthly.py`** — 11개 글로벌 지역 월별 CMIP6 (12var × 4SSP = 528파일)
+- **`download_global_daily.py`** — 11개 글로벌 지역 일별 CMIP6 (3var × 2SSP = 66파일)
+- 대상 지역: europe_west, europe_east, north_america_east/west, southeast_asia, south_asia, middle_east, south_america, australia, africa_north, africa_south
+
+### Key Results (Phase 5 Master Summary, SSP5-8.5 2090s)
+- **Philippines Philko Makati**: CDD 5,133일, WBGT 30.7°C, RL100yr 543.5mm, CompoundHotDry 7.6%
+- **China Shandong/Jianyang**: TXx 33.1°C, CompoundHotDry 8.2%, RL100yr 291mm
+- **Japan Tokyo**: RL100yr 471.5mm (동아시아 최고 홍수위험), CompoundHotDry 5.9%
+- **Korea HQ Seoul**: CDD 1,036일, TXx 24.8°C, RL100yr 460mm
+- **TXx SSP Spread** (서울 기준): SSP1 +20.6°C → SSP2 +21.3°C → SSP3 +23.1°C → SSP5 +24.8°C
+
+---
+
 ## [2026-03-17] — ETCCDI Indices + Annual Resolution + GitHub Cleanup
 
 ### Added
@@ -104,24 +156,15 @@ Format: `[YYYY-MM-DD] TYPE: description`
 
 | Dataset | Files | Size | Location |
 |---------|-------|------|----------|
-| CMIP6 Monthly SSP2-4.5 (korea_china) | 12 zip | ~120 MB | scenarios_v2/ssp2_4_5/ |
-| CMIP6 Monthly SSP5-8.5 (korea_china) | 12 zip | ~120 MB | scenarios_v2/ssp5_8_5/ |
-| CMIP6 Monthly SSP1-2.6 (korea_china) | 12 zip | ~120 MB | scenarios_v2/ssp1_2_6/ |
-| CMIP6 Monthly SSP3-7.0 (korea_china) | 12 zip | ~120 MB | scenarios_v2/ssp3_7_0/ |
-| CMIP6 Monthly SSP2-4.5 (japan) | 12 zip | ~90 MB | scenarios_v2/japan/ssp2_4_5/ |
-| CMIP6 Monthly SSP5-8.5 (japan) | 12 zip | ~90 MB | scenarios_v2/japan/ssp5_8_5/ |
-| CMIP6 Monthly SSP1-2.6 (japan) | 12 zip | ~90 MB | scenarios_v2/japan/ssp1_2_6/ |
-| CMIP6 Monthly SSP3-7.0 (japan) | 12 zip | ~90 MB | scenarios_v2/japan/ssp3_7_0/ |
-| CMIP6 Monthly SSP2-4.5 (philippines) | 12 zip | ~50 MB | scenarios_v2/philippines/ssp2_4_5/ |
-| CMIP6 Monthly SSP5-8.5 (philippines) | 12 zip | ~50 MB | scenarios_v2/philippines/ssp5_8_5/ |
-| CMIP6 Monthly SSP1-2.6 (philippines) | 12 zip | ~50 MB | scenarios_v2/philippines/ssp1_2_6/ |
-| CMIP6 Monthly SSP3-7.0 (philippines) | 12 zip | ~50 MB | scenarios_v2/philippines/ssp3_7_0/ |
-| CMIP6 Daily SSP2-4.5 (korea_china) | 3 zip | ~34 MB | scenarios_v2/daily/ssp2_4_5/ |
-| CMIP6 Daily SSP5-8.5 (korea_china) | 3 zip | ~34 MB | scenarios_v2/daily/ssp5_8_5/ |
-| CMIP6 Daily SSP2-4.5 (japan) | 3 zip | ~25 MB | scenarios_v2/daily/japan/ssp2_4_5/ |
-| CMIP6 Daily SSP5-8.5 (japan) | 3 zip | ~25 MB | scenarios_v2/daily/japan/ssp5_8_5/ |
-| CMIP6 Daily SSP2-4.5 (philippines) | 3 zip | ~16 MB | scenarios_v2/daily/philippines/ssp2_4_5/ |
-| CMIP6 Daily SSP5-8.5 (philippines) | 3 zip | ~16 MB | scenarios_v2/daily/philippines/ssp5_8_5/ |
+| CMIP6 Monthly 4SSP (korea_china) | 48 zip | ~480 MB | scenarios_v2/{ssp}/ |
+| CMIP6 Monthly 4SSP (japan) | 48 zip | ~360 MB | scenarios_v2/japan/{ssp}/ |
+| CMIP6 Monthly 4SSP (philippines) | 48 zip | ~200 MB | scenarios_v2/philippines/{ssp}/ |
+| CMIP6 Daily 4SSP (korea_china) | 12 zip | ~68 MB | scenarios_v2/daily/{ssp}/ |
+| CMIP6 Daily 4SSP (japan) | 12 zip | ~50 MB | scenarios_v2/daily/japan/{ssp}/ |
+| CMIP6 Daily 4SSP (philippines) | 12 zip | ~32 MB | scenarios_v2/daily/philippines/{ssp}/ |
+| CMIP6 Monthly 4SSP (global 11 regions) | 528 zip | ~진행중 | data/global/{region}/{ssp}/ |
+| CMIP6 Daily 2SSP (global 11 regions) | 66 zip | ~진행중 | data/global_daily/{region}/{ssp}/ |
 | CLIMADA Hazard (flood/TC/quake/fire) | multiple | ~25 GB | data/hazard/ |
 | LitPop (CHN) | 3 hdf5 | ~500 MB | data/exposures/ |
-| **Analysis outputs** | **8 CSV + 40 PNG** | **~5 MB** | **scenarios_v2/output/** |
+| **Phase 1~5 Analysis outputs** | **11 CSV** | **~2 MB** | **scenarios_v2/output/** |
+| **FINAL outputs** | **4 CSV + 40 PNG** | **~3 MB** | **output/** |
