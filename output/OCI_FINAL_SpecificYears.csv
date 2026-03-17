@@ -1,0 +1,365 @@
+﻿Site,Variable,Scenario,2030,2035,2040,2045
+HQ Seoul,Tmean(C),SSP1-2.6,11.348,11.646,10.915,11.725
+HQ Seoul,Tmax(C),SSP1-2.6,14.38,14.596,13.921,14.746
+HQ Seoul,Tmin(C),SSP1-2.6,8.129,8.519,7.668,8.485
+HQ Seoul,Pr(mm/d),SSP1-2.6,2.795,3.16,2.546,2.914
+HQ Seoul,Wind(m/s),SSP1-2.6,2.482,2.451,2.55,2.549
+HQ Seoul,Huss(g/kg),SSP1-2.6,7.236,7.507,7.155,7.633
+HQ Seoul,Rsds(W/m2),SSP1-2.6,178.421,179.962,183.44,183.842
+HQ Seoul,Tmean(C),SSP2-4.5,10.958,11.076,11.407,11.671
+HQ Seoul,Tmax(C),SSP2-4.5,14.006,13.967,14.445,14.62
+HQ Seoul,Tmin(C),SSP2-4.5,7.607,7.974,8.213,8.436
+HQ Seoul,Pr(mm/d),SSP2-4.5,2.073,3.219,2.549,3.056
+HQ Seoul,Wind(m/s),SSP2-4.5,2.538,2.455,2.442,2.471
+HQ Seoul,Huss(g/kg),SSP2-4.5,6.923,7.387,7.442,7.41
+HQ Seoul,Rsds(W/m2),SSP2-4.5,180.142,171.899,175.81,179.139
+HQ Seoul,Tmean(C),SSP3-7.0,11.095,11.528,11.206,10.898
+HQ Seoul,Tmax(C),SSP3-7.0,14.09,14.51,14.292,13.907
+HQ Seoul,Tmin(C),SSP3-7.0,7.817,8.416,7.945,7.715
+HQ Seoul,Pr(mm/d),SSP3-7.0,2.359,3.544,2.408,3.406
+HQ Seoul,Wind(m/s),SSP3-7.0,2.383,2.461,2.509,2.528
+HQ Seoul,Huss(g/kg),SSP3-7.0,7.039,7.711,7.208,7.268
+HQ Seoul,Rsds(W/m2),SSP3-7.0,172.37,167.035,169.098,167.246
+HQ Seoul,Tmean(C),SSP5-8.5,11.277,11.183,11.663,12.373
+HQ Seoul,Tmax(C),SSP5-8.5,14.231,14.286,14.644,15.558
+HQ Seoul,Tmin(C),SSP5-8.5,8.127,7.817,8.458,9.013
+HQ Seoul,Pr(mm/d),SSP5-8.5,3.78,2.099,3.198,2.647
+HQ Seoul,Wind(m/s),SSP5-8.5,2.528,2.545,2.461,2.444
+HQ Seoul,Huss(g/kg),SSP5-8.5,7.532,6.907,7.584,7.661
+HQ Seoul,Rsds(W/m2),SSP5-8.5,172.145,182.636,177.029,183.776
+R&D Seongnam,Tmean(C),SSP1-2.6,12.337,12.496,11.665,12.49
+R&D Seongnam,Tmax(C),SSP1-2.6,13.727,13.866,13.047,13.859
+R&D Seongnam,Tmin(C),SSP1-2.6,10.725,10.941,10.067,10.916
+R&D Seongnam,Pr(mm/d),SSP1-2.6,2.411,3.701,2.694,3.288
+R&D Seongnam,Wind(m/s),SSP1-2.6,3.728,3.655,3.697,3.724
+R&D Seongnam,Huss(g/kg),SSP1-2.6,7.715,7.96,7.589,8.077
+R&D Seongnam,Rsds(W/m2),SSP1-2.6,181.68,180.256,183.306,181.536
+R&D Seongnam,Tmean(C),SSP2-4.5,11.66,11.985,12.421,12.495
+R&D Seongnam,Tmax(C),SSP2-4.5,13.064,13.377,13.841,13.874
+R&D Seongnam,Tmin(C),SSP2-4.5,10.041,10.406,10.804,10.889
+R&D Seongnam,Pr(mm/d),SSP2-4.5,2.405,2.995,2.717,3.082
+R&D Seongnam,Wind(m/s),SSP2-4.5,3.718,3.692,3.607,3.634
+R&D Seongnam,Huss(g/kg),SSP2-4.5,7.421,7.825,7.949,7.967
+R&D Seongnam,Rsds(W/m2),SSP2-4.5,180.154,171.748,177.007,182.785
+R&D Seongnam,Tmean(C),SSP3-7.0,11.961,12.446,12.086,11.632
+R&D Seongnam,Tmax(C),SSP3-7.0,13.367,13.913,13.56,13.064
+R&D Seongnam,Tmin(C),SSP3-7.0,10.333,10.832,10.397,10.029
+R&D Seongnam,Pr(mm/d),SSP3-7.0,2.359,3.081,2.947,3.394
+R&D Seongnam,Wind(m/s),SSP3-7.0,3.499,3.656,3.701,3.799
+R&D Seongnam,Huss(g/kg),SSP3-7.0,7.584,8.082,7.712,7.614
+R&D Seongnam,Rsds(W/m2),SSP3-7.0,173.706,169.963,172.367,167.772
+R&D Seongnam,Tmean(C),SSP5-8.5,12.131,11.887,12.527,13.172
+R&D Seongnam,Tmax(C),SSP5-8.5,13.55,13.36,13.916,14.636
+R&D Seongnam,Tmin(C),SSP5-8.5,10.493,10.218,10.939,11.522
+R&D Seongnam,Pr(mm/d),SSP5-8.5,3.232,1.598,3.453,3.104
+R&D Seongnam,Wind(m/s),SSP5-8.5,3.809,3.825,3.695,3.622
+R&D Seongnam,Huss(g/kg),SSP5-8.5,7.849,7.376,7.989,8.227
+R&D Seongnam,Rsds(W/m2),SSP5-8.5,175.946,182.31,177.854,185.491
+Pohang Plant,Tmean(C),SSP1-2.6,13.826,14.021,13.334,14.228
+Pohang Plant,Tmax(C),SSP1-2.6,15.578,15.697,15.053,15.917
+Pohang Plant,Tmin(C),SSP1-2.6,11.912,12.197,11.432,12.399
+Pohang Plant,Pr(mm/d),SSP1-2.6,3.516,4.338,3.765,4.675
+Pohang Plant,Wind(m/s),SSP1-2.6,4.037,4.077,4.046,4.223
+Pohang Plant,Huss(g/kg),SSP1-2.6,8.509,8.843,8.51,9.057
+Pohang Plant,Rsds(W/m2),SSP1-2.6,175.919,173.353,177.065,174.611
+Pohang Plant,Tmean(C),SSP2-4.5,13.345,13.534,14.017,13.944
+Pohang Plant,Tmax(C),SSP2-4.5,15.06,15.243,15.793,15.659
+Pohang Plant,Tmin(C),SSP2-4.5,11.445,11.703,12.124,12.056
+Pohang Plant,Pr(mm/d),SSP2-4.5,4.022,4.032,3.871,3.928
+Pohang Plant,Wind(m/s),SSP2-4.5,4.176,4.157,4.073,4.063
+Pohang Plant,Huss(g/kg),SSP2-4.5,8.398,8.652,8.768,8.734
+Pohang Plant,Rsds(W/m2),SSP2-4.5,173.199,164.575,173.14,176.781
+Pohang Plant,Tmean(C),SSP3-7.0,13.646,14.029,13.94,13.262
+Pohang Plant,Tmax(C),SSP3-7.0,15.432,15.758,15.739,15.013
+Pohang Plant,Tmin(C),SSP3-7.0,11.706,12.208,11.969,11.389
+Pohang Plant,Pr(mm/d),SSP3-7.0,3.305,4.104,3.301,4.188
+Pohang Plant,Wind(m/s),SSP3-7.0,3.943,4.168,4.148,4.091
+Pohang Plant,Huss(g/kg),SSP3-7.0,8.462,8.935,8.616,8.462
+Pohang Plant,Rsds(W/m2),SSP3-7.0,170.456,161.877,166.631,161.778
+Pohang Plant,Tmean(C),SSP5-8.5,13.859,13.585,14.194,14.831
+Pohang Plant,Tmax(C),SSP5-8.5,15.615,15.376,15.93,16.574
+Pohang Plant,Tmin(C),SSP5-8.5,11.921,11.622,12.281,12.912
+Pohang Plant,Pr(mm/d),SSP5-8.5,4.636,2.022,4.351,4.072
+Pohang Plant,Wind(m/s),SSP5-8.5,4.287,4.208,4.137,4.043
+Pohang Plant,Huss(g/kg),SSP5-8.5,8.787,8.291,8.847,9.109
+Pohang Plant,Rsds(W/m2),SSP5-8.5,167.878,178.181,173.266,176.971
+Gunsan Plant,Tmean(C),SSP1-2.6,13.188,13.379,12.577,13.408
+Gunsan Plant,Tmax(C),SSP1-2.6,14.567,14.712,13.94,14.765
+Gunsan Plant,Tmin(C),SSP1-2.6,11.717,11.971,11.079,11.958
+Gunsan Plant,Pr(mm/d),SSP1-2.6,2.723,3.48,3.099,3.702
+Gunsan Plant,Wind(m/s),SSP1-2.6,4.321,4.245,4.249,4.309
+Gunsan Plant,Huss(g/kg),SSP1-2.6,8.062,8.351,7.937,8.48
+Gunsan Plant,Rsds(W/m2),SSP1-2.6,181.377,177.07,181.317,177.947
+Gunsan Plant,Tmean(C),SSP2-4.5,12.49,12.88,13.303,13.336
+Gunsan Plant,Tmax(C),SSP2-4.5,13.879,14.261,14.715,14.688
+Gunsan Plant,Tmin(C),SSP2-4.5,10.966,11.404,11.796,11.839
+Gunsan Plant,Pr(mm/d),SSP2-4.5,3.121,3.183,2.983,3.19
+Gunsan Plant,Wind(m/s),SSP2-4.5,4.288,4.248,4.152,4.164
+Gunsan Plant,Huss(g/kg),SSP2-4.5,7.839,8.183,8.332,8.327
+Gunsan Plant,Rsds(W/m2),SSP2-4.5,177.499,169.852,176.538,180.139
+Gunsan Plant,Tmean(C),SSP3-7.0,12.796,13.334,12.993,12.49
+Gunsan Plant,Tmax(C),SSP3-7.0,14.199,14.756,14.452,13.912
+Gunsan Plant,Tmin(C),SSP3-7.0,11.265,11.863,11.439,10.995
+Gunsan Plant,Pr(mm/d),SSP3-7.0,2.423,2.759,2.622,3.27
+Gunsan Plant,Wind(m/s),SSP3-7.0,4.085,4.235,4.255,4.277
+Gunsan Plant,Huss(g/kg),SSP3-7.0,7.925,8.431,8.094,7.974
+Gunsan Plant,Rsds(W/m2),SSP3-7.0,175.394,169.437,173.456,167.173
+Gunsan Plant,Tmean(C),SSP5-8.5,13.06,12.745,13.423,14.026
+Gunsan Plant,Tmax(C),SSP5-8.5,14.47,14.179,14.827,15.457
+Gunsan Plant,Tmin(C),SSP5-8.5,11.52,11.217,11.931,12.527
+Gunsan Plant,Pr(mm/d),SSP5-8.5,3.27,1.67,3.702,3.134
+Gunsan Plant,Wind(m/s),SSP5-8.5,4.421,4.341,4.297,4.179
+Gunsan Plant,Huss(g/kg),SSP5-8.5,8.223,7.733,8.335,8.578
+Gunsan Plant,Rsds(W/m2),SSP5-8.5,176.651,182.014,177.713,183.063
+Iksan Plant,Tmean(C),SSP1-2.6,13.188,13.379,12.577,13.408
+Iksan Plant,Tmax(C),SSP1-2.6,14.567,14.712,13.94,14.765
+Iksan Plant,Tmin(C),SSP1-2.6,11.717,11.971,11.079,11.958
+Iksan Plant,Pr(mm/d),SSP1-2.6,2.723,3.48,3.099,3.702
+Iksan Plant,Wind(m/s),SSP1-2.6,4.321,4.245,4.249,4.309
+Iksan Plant,Huss(g/kg),SSP1-2.6,8.062,8.351,7.937,8.48
+Iksan Plant,Rsds(W/m2),SSP1-2.6,181.377,177.07,181.317,177.947
+Iksan Plant,Tmean(C),SSP2-4.5,12.49,12.88,13.303,13.336
+Iksan Plant,Tmax(C),SSP2-4.5,13.879,14.261,14.715,14.688
+Iksan Plant,Tmin(C),SSP2-4.5,10.966,11.404,11.796,11.839
+Iksan Plant,Pr(mm/d),SSP2-4.5,3.121,3.183,2.983,3.19
+Iksan Plant,Wind(m/s),SSP2-4.5,4.288,4.248,4.152,4.164
+Iksan Plant,Huss(g/kg),SSP2-4.5,7.839,8.183,8.332,8.327
+Iksan Plant,Rsds(W/m2),SSP2-4.5,177.499,169.852,176.538,180.139
+Iksan Plant,Tmean(C),SSP3-7.0,12.796,13.334,12.993,12.49
+Iksan Plant,Tmax(C),SSP3-7.0,14.199,14.756,14.452,13.912
+Iksan Plant,Tmin(C),SSP3-7.0,11.265,11.863,11.439,10.995
+Iksan Plant,Pr(mm/d),SSP3-7.0,2.423,2.759,2.622,3.27
+Iksan Plant,Wind(m/s),SSP3-7.0,4.085,4.235,4.255,4.277
+Iksan Plant,Huss(g/kg),SSP3-7.0,7.925,8.431,8.094,7.974
+Iksan Plant,Rsds(W/m2),SSP3-7.0,175.394,169.437,173.456,167.173
+Iksan Plant,Tmean(C),SSP5-8.5,13.06,12.745,13.423,14.026
+Iksan Plant,Tmax(C),SSP5-8.5,14.47,14.179,14.827,15.457
+Iksan Plant,Tmin(C),SSP5-8.5,11.52,11.217,11.931,12.527
+Iksan Plant,Pr(mm/d),SSP5-8.5,3.27,1.67,3.702,3.134
+Iksan Plant,Wind(m/s),SSP5-8.5,4.421,4.341,4.297,4.179
+Iksan Plant,Huss(g/kg),SSP5-8.5,8.223,7.733,8.335,8.578
+Iksan Plant,Rsds(W/m2),SSP5-8.5,176.651,182.014,177.713,183.063
+Gwangyang Plant,Tmean(C),SSP1-2.6,15.657,15.844,15.093,16.05
+Gwangyang Plant,Tmax(C),SSP1-2.6,16.423,16.63,15.837,16.85
+Gwangyang Plant,Tmin(C),SSP1-2.6,14.716,14.93,14.204,15.109
+Gwangyang Plant,Pr(mm/d),SSP1-2.6,4.078,4.693,4.939,4.894
+Gwangyang Plant,Wind(m/s),SSP1-2.6,5.669,5.785,5.689,5.955
+Gwangyang Plant,Huss(g/kg),SSP1-2.6,8.822,9.141,8.815,9.396
+Gwangyang Plant,Rsds(W/m2),SSP1-2.6,177.293,173.407,173.268,175.024
+Gwangyang Plant,Tmean(C),SSP2-4.5,15.185,15.365,15.92,15.721
+Gwangyang Plant,Tmax(C),SSP2-4.5,15.978,16.158,16.725,16.474
+Gwangyang Plant,Tmin(C),SSP2-4.5,14.226,14.419,14.966,14.794
+Gwangyang Plant,Pr(mm/d),SSP2-4.5,4.22,4.819,4.809,5.368
+Gwangyang Plant,Wind(m/s),SSP2-4.5,5.91,5.854,5.791,5.767
+Gwangyang Plant,Huss(g/kg),SSP2-4.5,8.77,8.952,9.106,9.026
+Gwangyang Plant,Rsds(W/m2),SSP2-4.5,169.362,167.11,175.245,174.403
+Gwangyang Plant,Tmean(C),SSP3-7.0,15.47,15.903,15.864,15.061
+Gwangyang Plant,Tmax(C),SSP3-7.0,16.248,16.698,16.663,15.85
+Gwangyang Plant,Tmin(C),SSP3-7.0,14.524,14.967,14.89,14.109
+Gwangyang Plant,Pr(mm/d),SSP3-7.0,3.921,4.452,4.599,4.668
+Gwangyang Plant,Wind(m/s),SSP3-7.0,5.563,5.857,5.767,5.756
+Gwangyang Plant,Huss(g/kg),SSP3-7.0,8.803,9.187,8.993,8.728
+Gwangyang Plant,Rsds(W/m2),SSP3-7.0,170.638,164.754,167.019,163.068
+Gwangyang Plant,Tmean(C),SSP5-8.5,15.71,15.293,15.95,16.659
+Gwangyang Plant,Tmax(C),SSP5-8.5,16.525,16.045,16.724,17.412
+Gwangyang Plant,Tmin(C),SSP5-8.5,14.747,14.366,15.032,15.741
+Gwangyang Plant,Pr(mm/d),SSP5-8.5,5.361,2.905,4.933,5.155
+Gwangyang Plant,Wind(m/s),SSP5-8.5,5.987,5.743,5.811,5.711
+Gwangyang Plant,Huss(g/kg),SSP5-8.5,9.194,8.73,9.154,9.49
+Gwangyang Plant,Rsds(W/m2),SSP5-8.5,170.223,176.218,173.436,176.233
+Saehan Jeongeup,Tmean(C),SSP1-2.6,13.188,13.379,12.577,13.408
+Saehan Jeongeup,Tmax(C),SSP1-2.6,14.567,14.712,13.94,14.765
+Saehan Jeongeup,Tmin(C),SSP1-2.6,11.717,11.971,11.079,11.958
+Saehan Jeongeup,Pr(mm/d),SSP1-2.6,2.723,3.48,3.099,3.702
+Saehan Jeongeup,Wind(m/s),SSP1-2.6,4.321,4.245,4.249,4.309
+Saehan Jeongeup,Huss(g/kg),SSP1-2.6,8.062,8.351,7.937,8.48
+Saehan Jeongeup,Rsds(W/m2),SSP1-2.6,181.377,177.07,181.317,177.947
+Saehan Jeongeup,Tmean(C),SSP2-4.5,12.49,12.88,13.303,13.336
+Saehan Jeongeup,Tmax(C),SSP2-4.5,13.879,14.261,14.715,14.688
+Saehan Jeongeup,Tmin(C),SSP2-4.5,10.966,11.404,11.796,11.839
+Saehan Jeongeup,Pr(mm/d),SSP2-4.5,3.121,3.183,2.983,3.19
+Saehan Jeongeup,Wind(m/s),SSP2-4.5,4.288,4.248,4.152,4.164
+Saehan Jeongeup,Huss(g/kg),SSP2-4.5,7.839,8.183,8.332,8.327
+Saehan Jeongeup,Rsds(W/m2),SSP2-4.5,177.499,169.852,176.538,180.139
+Saehan Jeongeup,Tmean(C),SSP3-7.0,12.796,13.334,12.993,12.49
+Saehan Jeongeup,Tmax(C),SSP3-7.0,14.199,14.756,14.452,13.912
+Saehan Jeongeup,Tmin(C),SSP3-7.0,11.265,11.863,11.439,10.995
+Saehan Jeongeup,Pr(mm/d),SSP3-7.0,2.423,2.759,2.622,3.27
+Saehan Jeongeup,Wind(m/s),SSP3-7.0,4.085,4.235,4.255,4.277
+Saehan Jeongeup,Huss(g/kg),SSP3-7.0,7.925,8.431,8.094,7.974
+Saehan Jeongeup,Rsds(W/m2),SSP3-7.0,175.394,169.437,173.456,167.173
+Saehan Jeongeup,Tmean(C),SSP5-8.5,13.06,12.745,13.423,14.026
+Saehan Jeongeup,Tmax(C),SSP5-8.5,14.47,14.179,14.827,15.457
+Saehan Jeongeup,Tmin(C),SSP5-8.5,11.52,11.217,11.931,12.527
+Saehan Jeongeup,Pr(mm/d),SSP5-8.5,3.27,1.67,3.702,3.134
+Saehan Jeongeup,Wind(m/s),SSP5-8.5,4.421,4.341,4.297,4.179
+Saehan Jeongeup,Huss(g/kg),SSP5-8.5,8.223,7.733,8.335,8.578
+Saehan Jeongeup,Rsds(W/m2),SSP5-8.5,176.651,182.014,177.713,183.063
+OCI Shanghai,Tmean(C),SSP1-2.6,16.942,17.127,16.624,17.439
+OCI Shanghai,Tmax(C),SSP1-2.6,18.995,19.118,18.641,19.459
+OCI Shanghai,Tmin(C),SSP1-2.6,15.005,15.225,14.695,15.491
+OCI Shanghai,Pr(mm/d),SSP1-2.6,4.621,5.124,4.764,5.489
+OCI Shanghai,Wind(m/s),SSP1-2.6,3.573,3.521,3.646,3.639
+OCI Shanghai,Huss(g/kg),SSP1-2.6,10.522,10.823,10.541,10.938
+OCI Shanghai,Rsds(W/m2),SSP1-2.6,165.77,164.339,166.188,170.755
+OCI Shanghai,Tmean(C),SSP2-4.5,16.267,16.847,17.243,17.0
+OCI Shanghai,Tmax(C),SSP2-4.5,18.251,18.882,19.327,19.058
+OCI Shanghai,Tmin(C),SSP2-4.5,14.38,14.899,15.243,15.048
+OCI Shanghai,Pr(mm/d),SSP2-4.5,5.192,4.9,4.813,5.006
+OCI Shanghai,Wind(m/s),SSP2-4.5,3.544,3.567,3.548,3.461
+OCI Shanghai,Huss(g/kg),SSP2-4.5,10.479,10.575,10.828,10.644
+OCI Shanghai,Rsds(W/m2),SSP2-4.5,153.786,158.094,165.149,162.567
+OCI Shanghai,Tmean(C),SSP3-7.0,16.352,17.015,16.973,16.927
+OCI Shanghai,Tmax(C),SSP3-7.0,18.413,19.072,19.146,19.149
+OCI Shanghai,Tmin(C),SSP3-7.0,14.4,15.062,14.957,14.855
+OCI Shanghai,Pr(mm/d),SSP3-7.0,5.018,5.52,5.697,4.765
+OCI Shanghai,Wind(m/s),SSP3-7.0,3.512,3.504,3.391,3.476
+OCI Shanghai,Huss(g/kg),SSP3-7.0,10.314,10.879,10.796,10.737
+OCI Shanghai,Rsds(W/m2),SSP3-7.0,150.137,149.959,150.985,155.545
+OCI Shanghai,Tmean(C),SSP5-8.5,17.104,16.425,17.251,17.754
+OCI Shanghai,Tmax(C),SSP5-8.5,19.226,18.523,19.38,19.826
+OCI Shanghai,Tmin(C),SSP5-8.5,15.056,14.414,15.199,15.801
+OCI Shanghai,Pr(mm/d),SSP5-8.5,4.542,4.289,4.852,5.072
+OCI Shanghai,Wind(m/s),SSP5-8.5,3.627,3.577,3.501,3.486
+OCI Shanghai,Huss(g/kg),SSP5-8.5,10.731,10.128,10.759,11.183
+OCI Shanghai,Rsds(W/m2),SSP5-8.5,163.83,163.137,164.513,165.749
+Shandong OCI (ZZ),Tmean(C),SSP1-2.6,15.595,16.241,15.195,16.32
+Shandong OCI (ZZ),Tmax(C),SSP1-2.6,20.465,21.131,19.76,21.139
+Shandong OCI (ZZ),Tmin(C),SSP1-2.6,11.046,11.632,10.865,11.753
+Shandong OCI (ZZ),Pr(mm/d),SSP1-2.6,2.293,2.003,2.498,2.293
+Shandong OCI (ZZ),Wind(m/s),SSP1-2.6,2.927,2.875,2.875,2.829
+Shandong OCI (ZZ),Huss(g/kg),SSP1-2.6,7.54,7.615,7.798,7.853
+Shandong OCI (ZZ),Rsds(W/m2),SSP1-2.6,190.302,190.355,189.344,195.71
+Shandong OCI (ZZ),Tmean(C),SSP2-4.5,15.295,15.097,15.702,15.749
+Shandong OCI (ZZ),Tmax(C),SSP2-4.5,20.025,19.524,20.48,20.321
+Shandong OCI (ZZ),Tmin(C),SSP2-4.5,10.809,10.911,11.266,11.427
+Shandong OCI (ZZ),Pr(mm/d),SSP2-4.5,1.894,2.798,2.29,2.459
+Shandong OCI (ZZ),Wind(m/s),SSP2-4.5,2.894,2.796,2.874,2.754
+Shandong OCI (ZZ),Huss(g/kg),SSP2-4.5,7.561,7.961,8.101,8.202
+Shandong OCI (ZZ),Rsds(W/m2),SSP2-4.5,180.607,179.871,186.173,186.136
+Shandong OCI (ZZ),Tmean(C),SSP3-7.0,14.44,15.505,15.348,15.262
+Shandong OCI (ZZ),Tmax(C),SSP3-7.0,19.025,20.265,20.205,20.007
+Shandong OCI (ZZ),Tmin(C),SSP3-7.0,10.251,11.135,10.921,10.906
+Shandong OCI (ZZ),Pr(mm/d),SSP3-7.0,2.574,2.242,2.589,2.474
+Shandong OCI (ZZ),Wind(m/s),SSP3-7.0,2.767,2.755,2.777,2.795
+Shandong OCI (ZZ),Huss(g/kg),SSP3-7.0,7.924,8.199,8.268,8.259
+Shandong OCI (ZZ),Rsds(W/m2),SSP3-7.0,169.634,171.443,173.606,174.797
+Shandong OCI (ZZ),Tmean(C),SSP5-8.5,15.514,15.699,15.948,16.959
+Shandong OCI (ZZ),Tmax(C),SSP5-8.5,20.183,20.661,20.784,22.241
+Shandong OCI (ZZ),Tmin(C),SSP5-8.5,11.144,11.084,11.442,12.069
+Shandong OCI (ZZ),Pr(mm/d),SSP5-8.5,2.917,1.987,2.983,1.841
+Shandong OCI (ZZ),Wind(m/s),SSP5-8.5,2.819,2.816,2.827,2.935
+Shandong OCI (ZZ),Huss(g/kg),SSP5-8.5,8.207,7.359,7.96,7.618
+Shandong OCI (ZZ),Rsds(W/m2),SSP5-8.5,184.366,186.205,186.716,193.013
+MaSteel OCI (MAS),Tmean(C),SSP1-2.6,15.618,15.596,15.061,15.826
+MaSteel OCI (MAS),Tmax(C),SSP1-2.6,19.972,19.787,19.098,20.07
+MaSteel OCI (MAS),Tmin(C),SSP1-2.6,11.511,11.741,11.319,11.834
+MaSteel OCI (MAS),Pr(mm/d),SSP1-2.6,3.814,4.121,5.289,4.311
+MaSteel OCI (MAS),Wind(m/s),SSP1-2.6,2.651,2.611,2.681,2.638
+MaSteel OCI (MAS),Huss(g/kg),SSP1-2.6,9.554,10.085,9.913,10.121
+MaSteel OCI (MAS),Rsds(W/m2),SSP1-2.6,177.505,173.775,176.102,180.046
+MaSteel OCI (MAS),Tmean(C),SSP2-4.5,14.685,15.234,15.663,15.509
+MaSteel OCI (MAS),Tmax(C),SSP2-4.5,18.72,19.261,19.901,19.73
+MaSteel OCI (MAS),Tmin(C),SSP2-4.5,11.009,11.432,11.74,11.639
+MaSteel OCI (MAS),Pr(mm/d),SSP2-4.5,4.907,4.669,5.171,4.702
+MaSteel OCI (MAS),Wind(m/s),SSP2-4.5,2.649,2.624,2.589,2.56
+MaSteel OCI (MAS),Huss(g/kg),SSP2-4.5,9.943,9.916,10.282,10.051
+MaSteel OCI (MAS),Rsds(W/m2),SSP2-4.5,165.357,167.141,173.416,171.709
+MaSteel OCI (MAS),Tmean(C),SSP3-7.0,14.735,15.476,15.353,15.417
+MaSteel OCI (MAS),Tmax(C),SSP3-7.0,18.857,19.572,19.725,19.734
+MaSteel OCI (MAS),Tmin(C),SSP3-7.0,10.958,11.725,11.39,11.548
+MaSteel OCI (MAS),Pr(mm/d),SSP3-7.0,4.783,4.564,4.448,4.935
+MaSteel OCI (MAS),Wind(m/s),SSP3-7.0,2.63,2.606,2.57,2.547
+MaSteel OCI (MAS),Huss(g/kg),SSP3-7.0,9.695,10.285,10.142,10.319
+MaSteel OCI (MAS),Rsds(W/m2),SSP3-7.0,156.97,158.146,161.019,161.259
+MaSteel OCI (MAS),Tmean(C),SSP5-8.5,15.778,15.395,15.851,16.245
+MaSteel OCI (MAS),Tmax(C),SSP5-8.5,20.122,19.913,20.114,20.608
+MaSteel OCI (MAS),Tmin(C),SSP5-8.5,11.735,11.275,11.907,12.23
+MaSteel OCI (MAS),Pr(mm/d),SSP5-8.5,4.272,3.355,4.814,4.463
+MaSteel OCI (MAS),Wind(m/s),SSP5-8.5,2.676,2.705,2.62,2.612
+MaSteel OCI (MAS),Huss(g/kg),SSP5-8.5,9.868,9.133,10.048,10.41
+MaSteel OCI (MAS),Rsds(W/m2),SSP5-8.5,174.155,173.221,173.08,174.885
+Jianyang Carbon (ZZ),Tmean(C),SSP1-2.6,15.595,16.241,15.195,16.32
+Jianyang Carbon (ZZ),Tmax(C),SSP1-2.6,20.465,21.131,19.76,21.139
+Jianyang Carbon (ZZ),Tmin(C),SSP1-2.6,11.046,11.632,10.865,11.753
+Jianyang Carbon (ZZ),Pr(mm/d),SSP1-2.6,2.293,2.003,2.498,2.293
+Jianyang Carbon (ZZ),Wind(m/s),SSP1-2.6,2.927,2.875,2.875,2.829
+Jianyang Carbon (ZZ),Huss(g/kg),SSP1-2.6,7.54,7.615,7.798,7.853
+Jianyang Carbon (ZZ),Rsds(W/m2),SSP1-2.6,190.302,190.355,189.344,195.71
+Jianyang Carbon (ZZ),Tmean(C),SSP2-4.5,15.295,15.097,15.702,15.749
+Jianyang Carbon (ZZ),Tmax(C),SSP2-4.5,20.025,19.524,20.48,20.321
+Jianyang Carbon (ZZ),Tmin(C),SSP2-4.5,10.809,10.911,11.266,11.427
+Jianyang Carbon (ZZ),Pr(mm/d),SSP2-4.5,1.894,2.798,2.29,2.459
+Jianyang Carbon (ZZ),Wind(m/s),SSP2-4.5,2.894,2.796,2.874,2.754
+Jianyang Carbon (ZZ),Huss(g/kg),SSP2-4.5,7.561,7.961,8.101,8.202
+Jianyang Carbon (ZZ),Rsds(W/m2),SSP2-4.5,180.607,179.871,186.173,186.136
+Jianyang Carbon (ZZ),Tmean(C),SSP3-7.0,14.44,15.505,15.348,15.262
+Jianyang Carbon (ZZ),Tmax(C),SSP3-7.0,19.025,20.265,20.205,20.007
+Jianyang Carbon (ZZ),Tmin(C),SSP3-7.0,10.251,11.135,10.921,10.906
+Jianyang Carbon (ZZ),Pr(mm/d),SSP3-7.0,2.574,2.242,2.589,2.474
+Jianyang Carbon (ZZ),Wind(m/s),SSP3-7.0,2.767,2.755,2.777,2.795
+Jianyang Carbon (ZZ),Huss(g/kg),SSP3-7.0,7.924,8.199,8.268,8.259
+Jianyang Carbon (ZZ),Rsds(W/m2),SSP3-7.0,169.634,171.443,173.606,174.797
+Jianyang Carbon (ZZ),Tmean(C),SSP5-8.5,15.514,15.699,15.948,16.959
+Jianyang Carbon (ZZ),Tmax(C),SSP5-8.5,20.183,20.661,20.784,22.241
+Jianyang Carbon (ZZ),Tmin(C),SSP5-8.5,11.144,11.084,11.442,12.069
+Jianyang Carbon (ZZ),Pr(mm/d),SSP5-8.5,2.917,1.987,2.983,1.841
+Jianyang Carbon (ZZ),Wind(m/s),SSP5-8.5,2.819,2.816,2.827,2.935
+Jianyang Carbon (ZZ),Huss(g/kg),SSP5-8.5,8.207,7.359,7.96,7.618
+Jianyang Carbon (ZZ),Rsds(W/m2),SSP5-8.5,184.366,186.205,186.716,193.013
+OCI Japan Tokyo,Tmean(C),SSP1-2.6,14.1,14.26,13.787,14.737
+OCI Japan Tokyo,Tmax(C),SSP1-2.6,16.586,16.659,16.225,17.14
+OCI Japan Tokyo,Tmin(C),SSP1-2.6,11.657,11.906,11.406,12.356
+OCI Japan Tokyo,Pr(mm/d),SSP1-2.6,5.149,5.18,4.232,4.782
+OCI Japan Tokyo,Wind(m/s),SSP1-2.6,2.491,2.483,2.499,2.479
+OCI Japan Tokyo,Huss(g/kg),SSP1-2.6,9.071,9.364,9.046,9.67
+OCI Japan Tokyo,Rsds(W/m2),SSP1-2.6,167.331,159.855,166.237,168.01
+OCI Japan Tokyo,Tmean(C),SSP2-4.5,14.514,14.765,14.698,14.587
+OCI Japan Tokyo,Tmax(C),SSP2-4.5,15.99,16.577,16.825,16.935
+OCI Japan Tokyo,Tmin(C),SSP2-4.5,11.253,11.848,12.011,11.983
+OCI Japan Tokyo,Pr(mm/d),SSP2-4.5,4.775,5.31,5.021,5.192
+OCI Japan Tokyo,Wind(m/s),SSP2-4.5,2.517,2.449,2.472,2.432
+OCI Japan Tokyo,Huss(g/kg),SSP2-4.5,8.943,9.363,9.439,9.357
+OCI Japan Tokyo,Rsds(W/m2),SSP2-4.5,159.98,156.796,161.446,165.655
+OCI Japan Tokyo,Tmean(C),SSP3-7.0,13.919,14.46,14.442,13.977
+OCI Japan Tokyo,Tmax(C),SSP3-7.0,16.432,16.811,16.997,16.491
+OCI Japan Tokyo,Tmin(C),SSP3-7.0,11.39,12.127,11.971,11.544
+OCI Japan Tokyo,Pr(mm/d),SSP3-7.0,4.344,4.776,3.713,3.857
+OCI Japan Tokyo,Wind(m/s),SSP3-7.0,2.456,2.55,2.455,2.43
+OCI Japan Tokyo,Huss(g/kg),SSP3-7.0,8.995,9.503,9.184,9.156
+OCI Japan Tokyo,Rsds(W/m2),SSP3-7.0,162.703,156.924,166.376,163.029
+OCI Japan Tokyo,Tmean(C),SSP5-8.5,14.352,13.706,14.508,15.339
+OCI Japan Tokyo,Tmax(C),SSP5-8.5,16.819,16.137,16.945,17.854
+OCI Japan Tokyo,Tmin(C),SSP5-8.5,11.935,11.293,12.06,12.907
+OCI Japan Tokyo,Pr(mm/d),SSP5-8.5,5.342,4.241,5.566,4.668
+OCI Japan Tokyo,Wind(m/s),SSP5-8.5,2.519,2.551,2.449,2.43
+OCI Japan Tokyo,Huss(g/kg),SSP5-8.5,9.419,8.91,9.448,9.901
+OCI Japan Tokyo,Rsds(W/m2),SSP5-8.5,158.868,164.128,163.371,166.12
+Philko Makati,Tmean(C),SSP1-2.6,28.264,28.299,28.734,28.647
+Philko Makati,Tmax(C),SSP1-2.6,30.334,30.403,30.791,30.708
+Philko Makati,Tmin(C),SSP1-2.6,26.605,26.604,27.082,27.021
+Philko Makati,Pr(mm/d),SSP1-2.6,6.589,7.811,6.846,6.742
+Philko Makati,Wind(m/s),SSP1-2.6,2.826,3.085,2.852,3.028
+Philko Makati,Huss(g/kg),SSP1-2.6,18.577,18.658,19.042,19.079
+Philko Makati,Rsds(W/m2),SSP1-2.6,212.812,212.796,211.29,213.098
+Philko Makati,Tmean(C),SSP2-4.5,27.883,27.666,27.137,27.763
+Philko Makati,Tmax(C),SSP2-4.5,30.387,30.718,30.427,30.865
+Philko Makati,Tmin(C),SSP2-4.5,26.708,26.93,26.844,27.164
+Philko Makati,Pr(mm/d),SSP2-4.5,6.783,6.188,7.059,7.194
+Philko Makati,Wind(m/s),SSP2-4.5,0.668,0.652,0.664,0.652
+Philko Makati,Huss(g/kg),SSP2-4.5,18.829,18.799,19.049,19.161
+Philko Makati,Rsds(W/m2),SSP2-4.5,209.036,213.124,208.541,211.393
+Philko Makati,Tmean(C),SSP3-7.0,28.366,28.572,28.775,28.832
+Philko Makati,Tmax(C),SSP3-7.0,30.452,30.622,30.884,30.93
+Philko Makati,Tmin(C),SSP3-7.0,26.693,26.967,27.064,27.172
+Philko Makati,Pr(mm/d),SSP3-7.0,6.867,6.687,7.828,6.626
+Philko Makati,Wind(m/s),SSP3-7.0,2.928,2.978,2.825,2.725
+Philko Makati,Huss(g/kg),SSP3-7.0,18.687,19.085,19.148,19.207
+Philko Makati,Rsds(W/m2),SSP3-7.0,207.571,207.894,206.013,208.257
+Philko Makati,Tmean(C),SSP5-8.5,28.526,28.51,28.512,29.484
+Philko Makati,Tmax(C),SSP5-8.5,30.616,30.483,30.559,31.61
+Philko Makati,Tmin(C),SSP5-8.5,26.861,26.945,26.909,27.765
+Philko Makati,Pr(mm/d),SSP5-8.5,6.747,7.308,7.324,6.213
+Philko Makati,Wind(m/s),SSP5-8.5,2.84,3.155,2.917,2.843
+Philko Makati,Huss(g/kg),SSP5-8.5,18.927,18.938,19.013,19.634
+Philko Makati,Rsds(W/m2),SSP5-8.5,211.117,205.604,207.799,213.999
