@@ -5,6 +5,46 @@ Format: `[YYYY-MM-DD] TYPE: description`
 
 ---
 
+## [2026-03-18] — Phase 11~14: 일별 정밀 ETCCDI + 재무 정량화 + 시급성 매트릭스 + 경영진 요약
+
+### Added (Phase 11: 일별 데이터 정밀 ETCCDI)
+- **`calc_phase11.py`** — 일별 CMIP6 데이터(4SSP) 기반 정밀 극한 지수
+  - TX90p: 기준 90분위 초과 일수/년 (기준기간 2020-2039)
+  - HWD: 폭염 지속일수 최대값 (>=3일 연속 TX>TX90 기준)
+  - TX35/TX37/TX40: 온도 임계값별 초과 일수
+  - FD/TR20/TR25: 서리일 / 열대야(20C/25C)
+  - CDD/CWD: 연속 건조/습윤일 최대값 (실측 일별)
+  - R10/R20/R30mm: 강우 임계값 초과 일수
+  - Rx1day: 연최대 일강수량
+- 출력: ph11_daily_heat/cold/precip/summary.csv (각 52×44~)
+
+### Added (Phase 12: 재무 리스크 정량화)
+- **`calc_phase12.py`** — EAL + 업무중단일수 추정
+  - Sigmoid 피해함수: RiskScore -> 연간 자산 피해율 (0.01~5%)
+  - Portfolio EAL SSP5-8.5 2090s: USD 22.3M/yr (자산 USD 10,750M 대비 0.21%)
+  - 업무중단일수(BID): Philko 67일/yr, 중국사업장 36~39일/yr
+- 출력: ph12_financial_risk/eal/disruption.csv + ph12_financial_bar.png
+
+### Added (Phase 13: 시급성 매트릭스)
+- **`calc_phase13.py`** — RiskScore 임계 도달연도 + 완화 편익
+  - Risk>50 최초 도달: Philko 2025, Shandong/Jianyang 2045, 기타 2100+
+  - 완화 편익(SSP5->SSP1): Portfolio USD 8.1M/yr 절감 가능 (2090s)
+- 출력: ph13_urgency/mitigation_benefit.csv + urgency_heatmap/priority_bubble.png
+
+### Added (Phase 14: 경영진 요약)
+- **`calc_phase14.py`** — 사업장별 30개 KPI 원페이저 + 4패널 대시보드
+  - ph14_executive_summary.csv: 13사업장 x 30개 핵심 지표
+  - ph14_executive_dashboard.png: 리스크 랭킹 + EAL + 업무중단 + 완화편익 4패널
+
+### Key Results (Phase 11~14, SSP5-8.5 2090s)
+- **Philko Makati**: TX90p=294일/yr(!) BID=67일/yr(27% 매출손실), EAL USD 1.1M/yr
+- **Shandong/Jianyang**: HWD 기준 TX35일수 급증, 2045년 Risk>50 최초 도달
+- **한국 서울**: HWD 91일/yr, Rx1day 166mm, EAL USD 3.9M/yr (최대 단일사업장)
+- **포항**: Rx1day 173mm, R30mm 18.7일/yr — 한국 내 홍수위험 최고
+- **글완화 편익**: SSP5->SSP1 전환 시 포트폴리오 USD 81M 절감 (10년 누적)
+
+---
+
 ## [2026-03-17] — Phase 6~10: 계절 분석 + 임계값 도달연도 + 종합 리스크 스코어 + 마스터 통합
 
 ### Added (Phase 6: 계절별 기후 분석)
