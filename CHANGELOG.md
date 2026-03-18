@@ -5,6 +5,38 @@ Format: `[YYYY-MM-DD] TYPE: description`
 
 ---
 
+## [2026-03-18] — Phase 15~17: 마스터 v2 + 시나리오 분기 + 풍속/적설 + 국가별 집계
+
+### Added (Phase 15: OCI_MASTER_ALL_v2)
+- **`calc_phase15.py`** — Ph11~14 통합 + SSP1/3 갭 채우기
+  - SPI-3 4-SSP 전체 재계산 (ph15_spi3_4ssp.csv)
+  - 복합극한 이벤트 4-SSP 재계산 (ph15_compound_4ssp.csv)
+  - **`OCI_MASTER_ALL_v2.csv`**: 416행 × 79열 (v1 대비 20개 컬럼 추가)
+  - 필리핀 복합극한(far): SSP1=11.6% → SSP5=31.7% (3배 차이)
+
+### Added (Phase 16: 시나리오 분기 + 풍속/적설)
+- **`calc_phase16.py`** — SSP 시나리오 분기점 + 풍속/적설 위험
+  - ph16_divergence.csv — SSP5-SSP1 리스크 격차 분석
+  - ph16_wind_risk.csv — 월별 최대풍속, JJA 풍속, 게일일수 (52×38)
+  - ph16_snow_risk.csv — 연간 적설, DJF 적설, 동결월수 감소 추이 (52×27)
+  - ph16_divergence_plot.png / ph16_wind_snow_plot.png
+  - 핵심: 광양공장 최대풍속 9.3m/s (한국 최고)
+
+### Added (Phase 17: 국가별 집계 + 사업장 카드)
+- **`calc_phase17.py`** — 국가별 자산가중 리스크 + 사업장별 요약카드
+  - ph17_country_aggregate.csv — 128행 (4국 × 4SSP × 8기간)
+  - ph17_country_comparison.png — 국가별 리스크 궤적/EAL/레이더/BID 4패널
+  - ph17_site_cards.png — 13사업장 티어별 색상 요약카드
+  - SSP5 2090s: 필리핀 리스크 68.3/EAL 1.1M, 한국 EAL 총 16.3M/yr
+
+### Key Results (Phase 15~17)
+- **국가별 EAL (SSP5-8.5, 2090s)**: 한국 USD 16.3M/yr, 중국 USD 4.7M/yr, 필리핀 USD 1.1M/yr
+- **중국 BID 37.3일/yr** — 한국(25.1) 대비 +50% 업무중단 위험 (열스트레스)
+- **복합극한 필리핀**: SSP5 2060-2099 31.7% (연중 1/3이 폭염+건조 동시 발생)
+- **마스터 데이터셋**: OCI_MASTER_ALL_v2.csv — 416×79 (55+ 기후지표 완전통합)
+
+---
+
 ## [2026-03-18] — Phase 11~14: 일별 정밀 ETCCDI + 재무 정량화 + 시급성 매트릭스 + 경영진 요약
 
 ### Added (Phase 11: 일별 데이터 정밀 ETCCDI)
