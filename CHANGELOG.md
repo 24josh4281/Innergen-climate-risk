@@ -5,6 +5,51 @@ Format: `[YYYY-MM-DD] TYPE: description`
 
 ---
 
+## [2026-03-17] — Phase 6~10: 계절 분석 + 임계값 도달연도 + 종합 리스크 스코어 + 마스터 통합
+
+### Added (Phase 6: 계절별 기후 분석)
+- **`calc_phase6.py`** — 4계절(JJA/DJF/MAM/SON) × 4SSP × 8기간 × 13사업장
+  - `ph6_seasonal_temp.csv` — Tmax/Tmin/Tmean 계절별 (52×99)
+  - `ph6_seasonal_precip.csv` — 강수 + 적설 계절별 (52×67)
+  - `ph6_seasonal_wind.csv` — 풍속 계절별 (52×35)
+  - `ph6_heat_stress.csv` — JJA WBGT + Humidex + Discomfort Index (52×27)
+
+### Added (Phase 7: 임계값 도달 연도)
+- **`calc_phase7.py`** — 기온/극값 임계값 최초 초과 연도 분석
+  - `ph7_exceedance_years.csv` — +1.5/2/3/4°C 도달연도, TXx>35/37/40°C, 마지막 서리일 (52×19)
+  - `ph7_warming_timeline.csv` — 5년 간격 10년 롤링 온난화량 타임라인 (780×5)
+
+### Added (Phase 8: 종합 리스크 스코어)
+- **`calc_phase8.py`** — 8개 위험 차원 0-100 정규화 + 가중 합산
+  - `ph8_risk_score.csv` — 전체 매트릭스 416행 (13사업장×4SSP×8기간) × 14열
+  - `ph8_risk_summary.csv` — SSP5-8.5 2090s 랭킹 (13×14)
+  - `ph8_risk_heatmap.png` — 4SSP × 8차원 리스크 히트맵
+  - `ph8_risk_trajectory.png` — 사업장별 리스크 궤적 3×5 그리드
+  - `ph8_risk_radar.png` — 사업장별 레이더 차트 (4SSP 오버레이)
+
+### Added (Phase 9: 추가 물리 변수)
+- **`calc_phase9.py`** — mrro/mrsos/rsds 지수 추출
+  - `ph9_runoff.csv` — 지표유출 연간/계절별 (52×35)
+  - `ph9_soilmoisture.csv` — 토양수분 + 여름 결핍 지수 (52×35)
+  - `ph9_solar.csv` — 태양복사 연간/JJA/DJF, kWh/m²/day (52×35)
+  - `ph9_water_stress.csv` — 물 스트레스 복합 지수 (52×19)
+
+### Added (Phase 10: 마스터 통합)
+- **`calc_phase10.py`** — Phase 1~9 전체 통합 + 최종 시각화
+  - `OCI_MASTER_ALL.csv` — **416행 × 59열** (13사업장 × 4SSP × 8기간 × 55개 기후 지표)
+  - `ph10_risk_bar_2090s.png` — 4SSP × 13사업장 리스크 스코어 막대 비교
+  - `ph10_trend_summary.png` — 6개 핵심 지표 SSP5-8.5 추세 (사업장 오버레이)
+  - `ph10_exceedance_heatmap.png` — 임계값 도달연도 히트맵 (4SSP × 13사업장)
+
+### Key Results (Phase 6~10, SSP5-8.5 2090s)
+- **Philko Makati (Philippines)**: RiskScore=68.3 (High), JJA WBGT=38.6°C (작업 중단 위험), TR=365일/년
+- **Shandong/Jianyang (China)**: TXx>35°C 2027년 도달, TXx>40°C 2083년, RiskScore=49.2
+- **Seoul HQ**: +1.5°C 2049년, +2°C 2057년, +4°C 2083년 도달
+- **Pohang Plant**: 연간 유출량 2090s 873mm (2020s 533mm 대비 +64%)
+- **SSP5-8.5 평균 리스크**: 44.9점 (범위 37~68), SSP2-4.5: 39.9점
+
+---
+
 ## [2026-03-17] — Phase 1~5 완전 완료 + 4-SSP ETCCDI + GEV 분석 + 글로벌 확장
 
 ### Added (Phase 1: 추가 기후 지수)
