@@ -18,6 +18,14 @@ venv/
 *.nc
 *.zip
 
+# ── Web service data files — KEEP in repo (needed for Render deployment) ──
+# api/data/*.json and api/data/*.csv are committed (total ~19MB, within GitHub limit)
+!api/data/*.json
+!api/data/*.csv
+
+# site_output — generated Excel files, do not commit
+site_output/
+
 # CLIMADA hazard/exposure data — very large (~25 GB)
 climada_python/
 
