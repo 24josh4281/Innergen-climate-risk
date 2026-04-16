@@ -5,6 +5,7 @@ T1 (기존 14사이트 5km 이내): 사전계산 CSV 즉시 반환
 T2 (east_asia/se_asia CMIP6 커버리지): CMIP6 1° 그리드 + 근사 physrisk
 T3 (전구 임의 좌표): CMIP6 2° 전구 그리드 + 근사 physrisk
 """
+from __future__ import annotations
 
 import math
 import asyncio
