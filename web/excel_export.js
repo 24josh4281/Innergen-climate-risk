@@ -13,46 +13,10 @@
  *   9. 분석_정보       — 메타데이터 + 출처
  */
 
-// ── 상수 ─────────────────────────────────────────────────────────────────────
+// 상수: SSP_ORDER, SSP_LABELS, PERIOD_KEYS, PERIOD_LABEL_MAP, CMIP6_KEYS,
+//       PHYSRISK_KEYS, CLIMADA_KEYS, CMIP6_META_EX, CLIMADA_META → constants.js
 
-const PERIOD_LABEL_MAP = {
-  baseline: "현재(2015-24)",
-  near:     "근미래(2025-34)",
-  mid:      "중기(2045-54)",
-  far:      "장기(2075-84)",
-  end:      "말기(2090-99)",
-};
-
-const SSP_ORDER   = ["ssp126", "ssp245", "ssp370", "ssp585"];
-const SSP_LABELS  = { ssp126: "SSP1-2.6", ssp245: "SSP2-4.5", ssp370: "SSP3-7.0", ssp585: "SSP5-8.5" };
-const PERIOD_ORDER = Object.keys(PERIOD_LABEL_MAP);
-
-// 변수 → 카테고리 분류 (source 필드 무관)
-const CMIP6_KEYS = ["tasmax", "tasmin", "tas", "pr", "prsn", "sfcWind", "evspsbl"];
-const PHYSRISK_KEYS = [
-  "heat_stress", "flood_risk", "river_flood", "coastal_flood", "pluvial_flood",
-  "drought_risk", "water_stress", "cyclone_risk", "wildfire_risk",
-  "sea_level_rise", "storm_surge", "earthquake_risk", "landslide_risk",
-];
-const CLIMADA_KEYS = ["TC_EAL", "Flood_EAL", "EQ_EAL", "Wildfire_EAL"];
-
-// CMIP6 변수 상세 (heatmap.js의 DRIVER_META에 없는 메타 보완)
-const CMIP6_META_EX = {
-  tasmax:  { label: "최고기온",  unit: "°C",     desc: "연평균 일최고기온 (Annual mean of daily Tmax)" },
-  tasmin:  { label: "최저기온",  unit: "°C",     desc: "연평균 일최저기온 (Annual mean of daily Tmin)" },
-  tas:     { label: "평균기온",  unit: "°C",     desc: "연평균 기온 (Annual mean temperature)" },
-  pr:      { label: "강수량",    unit: "mm/day", desc: "연평균 일강수량 (Annual mean daily precip.)" },
-  prsn:    { label: "강설량",    unit: "mm/day", desc: "연평균 일강설량 (Annual mean daily snowfall)" },
-  sfcWind: { label: "지표풍속",  unit: "m/s",    desc: "연평균 지표 10m 풍속" },
-  evspsbl: { label: "증발산",    unit: "mm/day", desc: "연평균 일증발산량" },
-};
-
-const CLIMADA_META = {
-  TC_EAL:       { label: "태풍 EAL",    unit: "USD/yr", desc: "CLIMADA LT HDF5 — 열대저기압 연간예상손실" },
-  Flood_EAL:    { label: "홍수 EAL",    unit: "USD/yr", desc: "CLIMADA Flood HDF5 — 하천범람 연간예상손실" },
-  EQ_EAL:       { label: "지진 EAL",    unit: "USD/yr", desc: "GEM PSHA — 지진 연간예상손실" },
-  Wildfire_EAL: { label: "산불 EAL",    unit: "USD/yr", desc: "CLIMADA — 산불 연간예상손실" },
-};
+// PERIOD_KEYS는 PERIOD_KEYS와 동일 — constants.js의 PERIOD_KEYS 사용
 
 // ── 헬퍼 ──────────────────────────────────────────────────────────────────────
 
@@ -102,14 +66,14 @@ function buildCmip6Sheet(drivers) {
   const ssp_span_row = ["변수", "단위", "설명"];
   for (const ssp of SSP_ORDER) {
     ssp_span_row.push(SSP_LABELS[ssp]);          // SSP 그룹 레이블
-    for (let i = 1; i < PERIOD_ORDER.length; i++) ssp_span_row.push(""); // 병합용 빈셀
+    for (let i = 1; i < PERIOD_KEYS.length; i++) ssp_span_row.push(""); // 병합용 빈셀
   }
   rows.push(ssp_span_row);
 
   // 행2: [변수, 단위, 설명, 현재, 근미래, 중기, 장기, 말기, 현재, ...]
   const period_row = ["", "", ""];
   for (const ssp of SSP_ORDER) {
-    for (const p of PERIOD_ORDER) period_row.push(PERIOD_LABEL_MAP[p]);
+    for (const p of PERIOD_KEYS) period_row.push(PERIOD_LABEL_MAP[p]);
   }
   rows.push(period_row);
 
@@ -118,7 +82,7 @@ function buildCmip6Sheet(drivers) {
     const meta = CMIP6_META_EX[dk] || { label: dk, unit: "-", desc: "" };
     const row = [meta.label, meta.unit, meta.desc];
     for (const ssp of SSP_ORDER) {
-      for (const p of PERIOD_ORDER) {
+      for (const p of PERIOD_KEYS) {
         row.push(fmt(getVal(((drivers[ssp] || {})[p] || {})[dk])));
       }
     }
@@ -145,13 +109,13 @@ function buildPhyriskSheet(drivers) {
   const ssp_span_row = ["위험 유형", "단위", "RAG(SSP5-8.5 말기)"];
   for (const ssp of SSP_ORDER) {
     ssp_span_row.push(SSP_LABELS[ssp]);
-    for (let i = 1; i < PERIOD_ORDER.length; i++) ssp_span_row.push("");
+    for (let i = 1; i < PERIOD_KEYS.length; i++) ssp_span_row.push("");
   }
   rows.push(ssp_span_row);
 
   const period_row = ["", "", ""];
   for (const ssp of SSP_ORDER) {
-    for (const p of PERIOD_ORDER) period_row.push(PERIOD_LABEL_MAP[p]);
+    for (const p of PERIOD_KEYS) period_row.push(PERIOD_LABEL_MAP[p]);
   }
   rows.push(period_row);
 
@@ -166,7 +130,7 @@ function buildPhyriskSheet(drivers) {
 
     const row = [meta.label, meta.unit || "score", rag];
     for (const ssp of SSP_ORDER) {
-      for (const p of PERIOD_ORDER) {
+      for (const p of PERIOD_KEYS) {
         row.push(fmt(getVal(((drivers[ssp] || {})[p] || {})[dk])));
       }
     }
@@ -242,14 +206,14 @@ function buildSspSheet(drivers, ssp) {
   // 헤더
   rows.push([
     "카테고리", "기후 동인", "변수키", "단위",
-    ...PERIOD_ORDER.map(p => PERIOD_LABEL_MAP[p]),
+    ...PERIOD_KEYS.map(p => PERIOD_LABEL_MAP[p]),
   ]);
 
   // CMIP6 그룹
   rows.push(["── CMIP6 기후변수 ──"]);
   for (const dk of CMIP6_KEYS) {
     const meta = CMIP6_META_EX[dk] || { label: dk, unit: "-" };
-    const vals = PERIOD_ORDER.map(p => fmt(getVal((sspData[p] || {})[dk])));
+    const vals = PERIOD_KEYS.map(p => fmt(getVal((sspData[p] || {})[dk])));
     rows.push(["CMIP6", meta.label, dk, meta.unit, ...vals]);
   }
 
@@ -260,7 +224,7 @@ function buildSspSheet(drivers, ssp) {
   for (const dk of PHYSRISK_KEYS) {
     const meta = (typeof DRIVER_META !== "undefined") ? DRIVER_META[dk] : { label: dk, unit: "score" };
     if (!meta) continue;
-    const vals = PERIOD_ORDER.map(p => fmt(getVal((sspData[p] || {})[dk])));
+    const vals = PERIOD_KEYS.map(p => fmt(getVal((sspData[p] || {})[dk])));
     rows.push(["PhyRisk", meta.label, dk, meta.unit || "score", ...vals]);
   }
 
@@ -272,7 +236,7 @@ function buildSspSheet(drivers, ssp) {
     rows.push(["── CLIMADA EAL ──"]);
     for (const dk of CLIMADA_KEYS) {
       const info = CLIMADA_META[dk] || { label: dk, unit: "USD/yr" };
-      const vals = PERIOD_ORDER.map(p => fmt(getVal((sspData[p] || {})[dk])));
+      const vals = PERIOD_KEYS.map(p => fmt(getVal((sspData[p] || {})[dk])));
       rows.push(["CLIMADA", info.label, dk, info.unit, ...vals]);
     }
   }
@@ -293,7 +257,7 @@ function buildAllDataRows(drivers) {
 
   for (const ssp of SSP_ORDER) {
     const sspData = drivers[ssp] || {};
-    for (const p of PERIOD_ORDER) {
+    for (const p of PERIOD_KEYS) {
       const periodData = sspData[p] || {};
       // CMIP6 먼저
       for (const dk of CMIP6_KEYS) {
@@ -374,12 +338,12 @@ function exportExcel(apiResult) {
 
   // ① CMIP6_시나리오 (피벗)
   const wsCmip6 = XLSX.utils.aoa_to_sheet(buildCmip6Sheet(drivers));
-  wsCmip6["!cols"] = colW([14, 8, 36, ...SSP_ORDER.flatMap(() => PERIOD_ORDER.map(() => 14))]);
+  wsCmip6["!cols"] = colW([14, 8, 36, ...SSP_ORDER.flatMap(() => PERIOD_KEYS.map(() => 14))]);
   XLSX.utils.book_append_sheet(wb, wsCmip6, "CMIP6_시나리오");
 
   // ② PhyRisk_위험도 (피벗)
   const wsPhysrisk = XLSX.utils.aoa_to_sheet(buildPhyriskSheet(drivers));
-  wsPhysrisk["!cols"] = colW([20, 8, 14, ...SSP_ORDER.flatMap(() => PERIOD_ORDER.map(() => 14))]);
+  wsPhysrisk["!cols"] = colW([20, 8, 14, ...SSP_ORDER.flatMap(() => PERIOD_KEYS.map(() => 14))]);
   XLSX.utils.book_append_sheet(wb, wsPhysrisk, "PhyRisk_위험도");
 
   // ③ CLIMADA_EAL
@@ -390,7 +354,7 @@ function exportExcel(apiResult) {
   // ④~⑦ SSP별 통합 (SSP5-8.5 → SSP1-2.6 순)
   for (const ssp of [...SSP_ORDER].reverse()) {
     const ws = XLSX.utils.aoa_to_sheet(buildSspSheet(drivers, ssp));
-    ws["!cols"] = colW([10, 18, 16, 8, ...PERIOD_ORDER.map(() => 15)]);
+    ws["!cols"] = colW([10, 18, 16, 8, ...PERIOD_KEYS.map(() => 15)]);
     XLSX.utils.book_append_sheet(wb, ws, SSP_LABELS[ssp]);
   }
 

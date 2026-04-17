@@ -1,25 +1,9 @@
 /**
  * chart_render.js — SSP 4선 시계열 차트 (Chart.js)
+ * 상수: SSP_COLORS, SSP_LABELS, PERIOD_MIDPOINTS, PERIOD_KEYS → constants.js
  */
 
 let _chart = null;
-
-const SSP_COLORS = {
-  ssp126: { border: "#00C896", bg: "rgba(0,200,150,0.12)" },
-  ssp245: { border: "#00B4D8", bg: "rgba(0,180,216,0.12)" },
-  ssp370: { border: "#F59E0B", bg: "rgba(245,158,11,0.12)" },
-  ssp585: { border: "#FF4D6D", bg: "rgba(255,77,109,0.12)" },
-};
-
-const SSP_LABELS = {
-  ssp126: "SSP1-2.6",
-  ssp245: "SSP2-4.5",
-  ssp370: "SSP3-7.0",
-  ssp585: "SSP5-8.5",
-};
-
-const PERIOD_MIDPOINTS = ["2020", "2030", "2050", "2080", "2095"];
-// PERIOD_KEYS는 heatmap.js에서 전역 선언됨 — 여기서 재선언하지 않음
 
 function extractSeriesValue(drivers, ssp, period, varKey) {
   const entry = ((drivers[ssp] || {})[period] || {})[varKey];
