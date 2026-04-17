@@ -5,10 +5,10 @@
 let _chart = null;
 
 const SSP_COLORS = {
-  ssp126: { border: "#22c55e", bg: "rgba(34,197,94,0.1)" },
-  ssp245: { border: "#3b82f6", bg: "rgba(59,130,246,0.1)" },
-  ssp370: { border: "#f59e0b", bg: "rgba(245,158,11,0.1)" },
-  ssp585: { border: "#ef4444", bg: "rgba(239,68,68,0.1)" },
+  ssp126: { border: "#00C896", bg: "rgba(0,200,150,0.12)" },
+  ssp245: { border: "#00B4D8", bg: "rgba(0,180,216,0.12)" },
+  ssp370: { border: "#F59E0B", bg: "rgba(245,158,11,0.12)" },
+  ssp585: { border: "#FF4D6D", bg: "rgba(255,77,109,0.12)" },
 };
 
 const SSP_LABELS = {
@@ -19,7 +19,7 @@ const SSP_LABELS = {
 };
 
 const PERIOD_MIDPOINTS = ["2020", "2030", "2050", "2080", "2095"];
-const PERIOD_KEYS = ["baseline", "near", "mid", "far", "end"];
+// PERIOD_KEYS는 heatmap.js에서 전역 선언됨 — 여기서 재선언하지 않음
 
 function extractSeriesValue(drivers, ssp, period, varKey) {
   const entry = ((drivers[ssp] || {})[period] || {})[varKey];
@@ -77,11 +77,11 @@ function renderTimeseriesChart(drivers, varKey) {
           },
         },
         tooltip: {
-          backgroundColor: "#1a1d2e",
-          borderColor: "#2a2d3e",
+          backgroundColor: "#112240",
+          borderColor: "#1E3A5F",
           borderWidth: 1,
-          titleColor: "#e2e8f0",
-          bodyColor: "#94a3b8",
+          titleColor: "#EEF2FF",
+          bodyColor: "#8DAABF",
           callbacks: {
             label: (ctx) => {
               const val = ctx.raw;
