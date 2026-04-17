@@ -106,18 +106,23 @@ def estimate_physrisk(lat: float, lon: float) -> dict:
     slr = _base_sea_level_rise(lat, lon, is_coastal)
 
     return {
-        "flood_risk":     round(flood, 1),
-        "drought_risk":   round(drought, 1),
-        "heat_stress":    round(heat, 1),
-        "water_stress":   round(water, 1),
-        "cyclone_risk":   round(cyclone, 1),
-        "wildfire_risk":  round(max(0, drought - 10), 1),
-        "sea_level_rise": round(slr, 1),
-        "storm_surge":    round(cyclone * 0.8, 1),
-        "landslide_risk": round(min(50, flood * 0.6), 1),
-        "coastal_flood":  round(slr * 0.9, 1),
-        "pluvial_flood":  round(flood * 0.7, 1),
-        "river_flood":    round(flood * 0.85, 1),
+        "flood_risk":       round(flood, 1),
+        "drought_risk":     round(drought, 1),
+        "heat_stress":      round(heat, 1),
+        "extreme_heat_35c": round(heat * 0.55, 1),   # 35°C 초과일수 (열스트레스 상관)
+        "work_loss_high":   round(heat * 0.85, 1),   # 고강도 노동손실 (열에 강하게 비례)
+        "work_loss_medium": round(heat * 0.55, 1),   # 중강도 노동손실
+        "heat_degree_days": round(heat * 0.90, 1),   # 냉방 도일 (열스트레스 연동)
+        "water_stress":     round(water, 1),
+        "water_depletion":  round(water * 0.70, 1),  # 고갈 지수 ≤ 스트레스 지수
+        "cyclone_risk":     round(cyclone, 1),
+        "wildfire_risk":    round(max(0, drought - 10), 1),
+        "sea_level_rise":   round(slr, 1),
+        "storm_surge":      round(cyclone * 0.8, 1),
+        "landslide_risk":   round(min(50, flood * 0.6), 1),
+        "coastal_flood":    round(slr * 0.9, 1),
+        "pluvial_flood":    round(flood * 0.7, 1),
+        "river_flood":      round(flood * 0.85, 1),
     }
 
 

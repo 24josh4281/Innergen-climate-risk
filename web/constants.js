@@ -47,37 +47,51 @@ const PERIOD_MIDPOINTS = ["2020", "2030", "2050", "2080", "2095"];
 const CMIP6_KEYS = ["tasmax", "tasmin", "tas", "pr", "prsn", "sfcWind", "evspsbl"];
 
 const PHYSRISK_KEYS = [
-  "heat_stress", "flood_risk", "river_flood", "coastal_flood", "pluvial_flood",
-  "drought_risk", "water_stress", "cyclone_risk", "wildfire_risk",
-  "sea_level_rise", "storm_surge", "earthquake_risk", "landslide_risk",
+  // 열 위험 그룹
+  "heat_stress", "extreme_heat_35c", "work_loss_high", "work_loss_medium", "heat_degree_days",
+  // 수자원 그룹
+  "water_stress", "water_depletion", "drought_risk",
+  // 홍수/태풍 그룹
+  "flood_risk", "river_flood", "coastal_flood", "pluvial_flood",
+  "cyclone_risk", "storm_surge", "sea_level_rise",
+  // 기타 물리 위험
+  "wildfire_risk", "earthquake_risk", "landslide_risk",
 ];
 
 const CLIMADA_KEYS = ["TC_EAL", "Flood_EAL", "EQ_EAL", "Wildfire_EAL"];
 
 // ── 동인 메타 (heatmap RAG 포함) ─────────────────────────────────────────────
 const DRIVER_META = {
-  // CMIP6 기온/강수
-  tasmax:   { label: "최고기온",    unit: "°C",      rag: (v) => v > 38 ? "red" : v > 33 ? "amber" : "green" },
-  tasmin:   { label: "최저기온",    unit: "°C",      rag: (v) => v < -15 ? "red" : v < -5 ? "amber" : "green" },
-  tas:      { label: "평균기온",    unit: "°C",      rag: (v) => v > 30 ? "red" : v > 25 ? "amber" : "green" },
-  pr:       { label: "강수량",      unit: "mm/day",  rag: (v) => v > 10 ? "red" : v > 6 ? "amber" : "green" },
-  prsn:     { label: "강설량",      unit: "mm/day",  rag: (v) => v > 5 ? "red" : v > 2 ? "amber" : "green" },
-  sfcWind:  { label: "지표풍속",    unit: "m/s",     rag: (v) => v > 10 ? "red" : v > 7 ? "amber" : "green" },
-  evspsbl:  { label: "증발산",      unit: "mm/day",  rag: (v) => v > 5 ? "red" : v > 3 ? "amber" : "green" },
-  // PhyRisk (0-100 스코어)
-  flood_risk:     { label: "홍수 위험",       unit: "score", rag: (v) => v > 60 ? "red" : v > 35 ? "amber" : "green" },
-  drought_risk:   { label: "가뭄 위험",       unit: "score", rag: (v) => v > 60 ? "red" : v > 35 ? "amber" : "green" },
-  heat_stress:    { label: "열 스트레스",     unit: "score", rag: (v) => v > 65 ? "red" : v > 40 ? "amber" : "green" },
-  water_stress:   { label: "수자원 스트레스", unit: "score", rag: (v) => v > 60 ? "red" : v > 35 ? "amber" : "green" },
-  cyclone_risk:   { label: "사이클론 위험",   unit: "score", rag: (v) => v > 55 ? "red" : v > 30 ? "amber" : "green" },
-  wildfire_risk:  { label: "산불 위험",       unit: "score", rag: (v) => v > 50 ? "red" : v > 30 ? "amber" : "green" },
-  sea_level_rise: { label: "해수면 상승",     unit: "score", rag: (v) => v > 55 ? "red" : v > 30 ? "amber" : "green" },
-  storm_surge:    { label: "폭풍 해일",       unit: "score", rag: (v) => v > 50 ? "red" : v > 30 ? "amber" : "green" },
-  earthquake_risk:{ label: "지진 위험",       unit: "score", rag: (v) => v > 60 ? "red" : v > 35 ? "amber" : "green" },
-  landslide_risk: { label: "산사태 위험",     unit: "score", rag: (v) => v > 45 ? "red" : v > 25 ? "amber" : "green" },
-  coastal_flood:  { label: "해안 침수",       unit: "score", rag: (v) => v > 50 ? "red" : v > 30 ? "amber" : "green" },
-  pluvial_flood:  { label: "도시 홍수",       unit: "score", rag: (v) => v > 55 ? "red" : v > 30 ? "amber" : "green" },
-  river_flood:    { label: "하천 홍수",       unit: "score", rag: (v) => v > 60 ? "red" : v > 35 ? "amber" : "green" },
+  // ── CMIP6 기온/강수 (7) ──────────────────────────────────────────────────
+  tasmax:   { label: "최고기온",       unit: "°C",      rag: (v) => v > 38 ? "red" : v > 33 ? "amber" : "green" },
+  tasmin:   { label: "최저기온",       unit: "°C",      rag: (v) => v < -15 ? "red" : v < -5 ? "amber" : "green" },
+  tas:      { label: "평균기온",       unit: "°C",      rag: (v) => v > 30 ? "red" : v > 25 ? "amber" : "green" },
+  pr:       { label: "강수량",         unit: "mm/day",  rag: (v) => v > 10 ? "red" : v > 6 ? "amber" : "green" },
+  prsn:     { label: "강설량",         unit: "mm/day",  rag: (v) => v > 5 ? "red" : v > 2 ? "amber" : "green" },
+  sfcWind:  { label: "지표풍속",       unit: "m/s",     rag: (v) => v > 10 ? "red" : v > 7 ? "amber" : "green" },
+  evspsbl:  { label: "증발산",         unit: "mm/day",  rag: (v) => v > 5 ? "red" : v > 3 ? "amber" : "green" },
+  // ── PhyRisk 열 위험 그룹 (5) ─────────────────────────────────────────────
+  heat_stress:     { label: "열 스트레스",       unit: "score", rag: (v) => v > 65 ? "red" : v > 40 ? "amber" : "green" },
+  extreme_heat_35c:{ label: "35°C 초과일수",     unit: "score", rag: (v) => v > 60 ? "red" : v > 30 ? "amber" : "green" },
+  work_loss_high:  { label: "고강도 노동손실",   unit: "score", rag: (v) => v > 50 ? "red" : v > 25 ? "amber" : "green" },
+  work_loss_medium:{ label: "중강도 노동손실",   unit: "score", rag: (v) => v > 40 ? "red" : v > 20 ? "amber" : "green" },
+  heat_degree_days:{ label: "열 도일 (CDD)",     unit: "score", rag: (v) => v > 60 ? "red" : v > 30 ? "amber" : "green" },
+  // ── PhyRisk 수자원 그룹 (3) ──────────────────────────────────────────────
+  water_stress:    { label: "수자원 스트레스",   unit: "score", rag: (v) => v > 60 ? "red" : v > 35 ? "amber" : "green" },
+  water_depletion: { label: "물 고갈 지수",      unit: "score", rag: (v) => v > 40 ? "red" : v > 20 ? "amber" : "green" },
+  drought_risk:    { label: "가뭄 위험",         unit: "score", rag: (v) => v > 60 ? "red" : v > 35 ? "amber" : "green" },
+  // ── PhyRisk 홍수/태풍 그룹 (6) ───────────────────────────────────────────
+  flood_risk:      { label: "홍수 위험",         unit: "score", rag: (v) => v > 60 ? "red" : v > 35 ? "amber" : "green" },
+  river_flood:     { label: "하천 홍수",         unit: "score", rag: (v) => v > 60 ? "red" : v > 35 ? "amber" : "green" },
+  coastal_flood:   { label: "해안 침수",         unit: "score", rag: (v) => v > 50 ? "red" : v > 30 ? "amber" : "green" },
+  pluvial_flood:   { label: "도시 홍수",         unit: "score", rag: (v) => v > 55 ? "red" : v > 30 ? "amber" : "green" },
+  cyclone_risk:    { label: "사이클론 위험",     unit: "score", rag: (v) => v > 55 ? "red" : v > 30 ? "amber" : "green" },
+  storm_surge:     { label: "폭풍 해일",         unit: "score", rag: (v) => v > 50 ? "red" : v > 30 ? "amber" : "green" },
+  sea_level_rise:  { label: "해수면 상승",       unit: "score", rag: (v) => v > 55 ? "red" : v > 30 ? "amber" : "green" },
+  // ── PhyRisk 기타 물리 위험 (3) ───────────────────────────────────────────
+  wildfire_risk:   { label: "산불 위험",         unit: "score", rag: (v) => v > 50 ? "red" : v > 30 ? "amber" : "green" },
+  earthquake_risk: { label: "지진 위험",         unit: "score", rag: (v) => v > 60 ? "red" : v > 35 ? "amber" : "green" },
+  landslide_risk:  { label: "산사태 위험",       unit: "score", rag: (v) => v > 45 ? "red" : v > 25 ? "amber" : "green" },
 };
 
 const DRIVER_KEYS = Object.keys(DRIVER_META);

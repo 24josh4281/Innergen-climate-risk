@@ -97,50 +97,55 @@ class SiteDataLoader:
                     result[ssp][period][var] = None
         return result
 
-    # ── PhyRisk 위험유형 → driver 키 매핑 ────────────────────────────────
+    # ── PhyRisk 위험유형 → driver 키 매핑 (hazard_raw, driver_key, indicator) ───
+    # 한 위험유형에서 복수 driver 추출 가능
 
-    HAZARD_MAP = {
-        "ChronicHeat":        "heat_stress",
-        "Drought":            "drought_risk",
-        "WaterRisk":          "water_stress",
-        "RiverineInundation": "river_flood",
-        "CoastalInundation":  "coastal_flood",
-        "Wind":               "cyclone_risk",
-        "Fire":               "wildfire_risk",
-        "Precipitation":      "pluvial_flood",
-    }
-
-    # 위험유형별 사용할 primary indicator (physrisk_sites.csv의 indicator 컬럼)
-    INDICATOR_MAP = {
-        "ChronicHeat":        "days_wbgt_above",                # WBGT 초과일수 (일/년)
-        "Drought":            "months/spei12m/below/threshold", # 12개월 SPI 가뭄월수 (월/년)
-        "WaterRisk":          "water_stress",                   # 수자원 스트레스 지수 (0~1)
-        "RiverineInundation": "flood_depth",                    # 홍수 침수깊이 (m)
-        "CoastalInundation":  "flood_depth",                    # 해안 침수깊이 (m)
-        "Wind":               "max_speed",                      # 최대 풍속 (m/s)
-        "Fire":               "fire_probability",               # 화재 발생확률 (0~1)
-        "Precipitation":      "max/daily/water_equivalent",     # 일최대강수량 Rx1day (mm)
-    }
+    HAZARD_DRIVERS: list[tuple[str, str, str]] = [
+        # ChronicHeat — 5개 driver
+        ("ChronicHeat", "heat_stress",      "days_wbgt_above"),                # WBGT 초과일수 (일/yr)
+        ("ChronicHeat", "extreme_heat_35c", "days_tas/above/35c"),             # 35°C 초과일수 (일/yr)
+        ("ChronicHeat", "work_loss_high",   "mean_work_loss/high"),            # 고강도 노동손실 (0~1)
+        ("ChronicHeat", "work_loss_medium", "mean_work_loss/medium"),          # 중강도 노동손실 (0~1)
+        ("ChronicHeat", "heat_degree_days", "mean_degree_days/above/32c"),     # 냉방 도일 CDD
+        # Drought
+        ("Drought",            "drought_risk",    "months/spei12m/below/threshold"),
+        # WaterRisk — 2개 driver
+        ("WaterRisk",          "water_stress",    "water_stress"),
+        ("WaterRisk",          "water_depletion", "water_depletion"),           # 물 고갈 지수 (0~1)
+        # 기타
+        ("RiverineInundation", "river_flood",     "flood_depth"),
+        ("CoastalInundation",  "coastal_flood",   "flood_depth"),
+        ("Wind",               "cyclone_risk",    "max_speed"),
+        ("Fire",               "wildfire_risk",   "fire_probability"),
+        ("Precipitation",      "pluvial_flood",   "max/daily/water_equivalent"),
+    ]
 
     @staticmethod
-    def _normalize(hazard: str, raw: float) -> float:
+    def _normalize(driver_key: str, raw: float) -> float:
         """
-        원시 physrisk 값 → 0~100 위험도 점수 변환.
-        각 위험유형의 물리적 단위에 맞게 개별 정규화.
+        원시 physrisk 값 → 0~100 위험도 점수 변환 (driver_key 기반).
         """
         if raw is None or math.isnan(raw):
             return None
         fns = {
-            "ChronicHeat":        lambda v: v / 3.65,    # 일/년 ÷ 3.65  (365일=100점)
-            "Drought":            lambda v: v / 0.12,    # 월/년 ÷ 0.12  (12개월=100점)
-            "WaterRisk":          lambda v: v * 100,     # 0~1 비율 → 0~100점
-            "RiverineInundation": lambda v: v * 20,      # m × 20        (5m=100점)
-            "CoastalInundation":  lambda v: v * 20,      # m × 20
-            "Wind":               lambda v: v / 0.7,     # m/s ÷ 0.7    (70m/s=100점)
-            "Fire":               lambda v: v * 100,     # 0~1 확률 → 0~100점
-            "Precipitation":      lambda v: v / 5.0,     # mm ÷ 5        (500mm=100점)
+            # ChronicHeat group
+            "heat_stress":      lambda v: v / 3.65,   # WBGT days ÷ 3.65  (365일=100점)
+            "extreme_heat_35c": lambda v: v * 10.0,   # days × 10          (10일=100점)
+            "work_loss_high":   lambda v: v * 100,    # 0~1 비율 → 0~100점
+            "work_loss_medium": lambda v: v * 100,    # 0~1 비율 → 0~100점
+            "heat_degree_days": lambda v: v / 6.0,    # CDD ÷ 6            (600CDD=100점)
+            # Drought / Water
+            "drought_risk":     lambda v: v / 0.12,   # 월/년 ÷ 0.12       (12개월=100점)
+            "water_stress":     lambda v: v * 100,    # 0~1 → 100점
+            "water_depletion":  lambda v: v * 100,    # 0~1 → 100점
+            # Flood / Wind / Fire
+            "river_flood":      lambda v: v * 20,     # m × 20             (5m=100점)
+            "coastal_flood":    lambda v: v * 20,
+            "cyclone_risk":     lambda v: v / 0.7,    # m/s ÷ 0.7          (70m/s=100점)
+            "wildfire_risk":    lambda v: v * 100,    # 0~1 확률 → 100점
+            "pluvial_flood":    lambda v: v / 5.0,    # mm ÷ 5             (500mm=100점)
         }
-        fn = fns.get(hazard, lambda v: v / 3.65)
+        fn = fns.get(driver_key, lambda v: v / 3.65)
         return min(100.0, max(0.0, round(fn(raw), 1)))
 
     def get_site_physrisk(self, site_name: str) -> dict:
@@ -162,25 +167,18 @@ class SiteDataLoader:
 
         result = {}
 
-        for hazard_raw, driver_key in self.HAZARD_MAP.items():
-            indicator = self.INDICATOR_MAP.get(hazard_raw)
-
-            # 해당 위험유형 + primary indicator 필터
+        for hazard_raw, driver_key, indicator in self.HAZARD_DRIVERS:
             hdf = df[df["hazard"] == hazard_raw]
-            if indicator:
-                ind_df = hdf[hdf["indicator"] == indicator]
-                if ind_df.empty:
-                    ind_df = hdf  # fallback: indicator 없으면 전체 사용
-                hdf = ind_df
-
-            if hdf.empty:
+            ind_df = hdf[hdf["indicator"] == indicator]
+            if ind_df.empty:
+                ind_df = hdf  # fallback: indicator 없으면 해당 hazard 전체
+            if ind_df.empty:
                 continue
 
             hazard_ssp = {}
 
-            # SSP126 / SSP245 / SSP585 각각 추출
             for ssp_raw in ["ssp126", "ssp245", "ssp585"]:
-                sdf = hdf[hdf["scenario"] == ssp_raw]
+                sdf = ind_df[ind_df["scenario"] == ssp_raw]
                 periods = {}
                 for _, row in sdf.iterrows():
                     try:
@@ -188,10 +186,9 @@ class SiteDataLoader:
                         raw  = float(row["value"])
                     except (TypeError, ValueError):
                         continue
-                    score = self._normalize(hazard_raw, raw)
+                    score = self._normalize(driver_key, raw)
                     if score is None:
                         continue
-                    # 연도 → 기간 매핑 (복수 기간 프록시)
                     for period in YEAR_TO_PERIODS.get(year, []):
                         periods[period] = score
                 hazard_ssp[ssp_raw] = periods
