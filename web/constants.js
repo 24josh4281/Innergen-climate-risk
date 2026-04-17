@@ -60,6 +60,15 @@ const PHYSRISK_KEYS = [
 
 const CLIMADA_KEYS = ["TC_EAL", "Flood_EAL", "EQ_EAL", "Wildfire_EAL"];
 
+const ETCCDI_KEYS = [
+  // 열 극값
+  "etccdi_txx", "etccdi_tnn", "etccdi_su", "etccdi_tr", "etccdi_fd",
+  "etccdi_wsdi", "etccdi_wbgt",
+  // 강수 극값
+  "etccdi_cdd", "etccdi_cwd", "etccdi_rx1day", "etccdi_rx5day",
+  "etccdi_r95p", "etccdi_sdii",
+];
+
 // ── 동인 메타 (heatmap RAG 포함) ─────────────────────────────────────────────
 const DRIVER_META = {
   // ── CMIP6 기온/강수 (7) ──────────────────────────────────────────────────
@@ -89,9 +98,24 @@ const DRIVER_META = {
   storm_surge:     { label: "폭풍 해일",         unit: "score", rag: (v) => v > 50 ? "red" : v > 30 ? "amber" : "green" },
   sea_level_rise:  { label: "해수면 상승",       unit: "score", rag: (v) => v > 55 ? "red" : v > 30 ? "amber" : "green" },
   // ── PhyRisk 기타 물리 위험 (3) ───────────────────────────────────────────
-  wildfire_risk:   { label: "산불 위험",         unit: "score", rag: (v) => v > 50 ? "red" : v > 30 ? "amber" : "green" },
-  earthquake_risk: { label: "지진 위험",         unit: "score", rag: (v) => v > 60 ? "red" : v > 35 ? "amber" : "green" },
-  landslide_risk:  { label: "산사태 위험",       unit: "score", rag: (v) => v > 45 ? "red" : v > 25 ? "amber" : "green" },
+  wildfire_risk:   { label: "산불 위험",         unit: "score",      rag: (v) => v > 50 ? "red" : v > 30 ? "amber" : "green" },
+  earthquake_risk: { label: "지진 위험",         unit: "score",      rag: (v) => v > 60 ? "red" : v > 35 ? "amber" : "green" },
+  landslide_risk:  { label: "산사태 위험",       unit: "score",      rag: (v) => v > 45 ? "red" : v > 25 ? "amber" : "green" },
+  // ── ETCCDI 극값 지수 — 열 (7) ────────────────────────────────────────────
+  etccdi_txx:    { label: "최고기온 극값(TXx)",  unit: "°C",        rag: (v) => v > 38 ? "red" : v > 33 ? "amber" : "green" },
+  etccdi_tnn:    { label: "최저기온 극값(TNn)",   unit: "°C",        rag: (v) => v < -20 ? "red" : v < -10 ? "amber" : "green" },
+  etccdi_su:     { label: "서머데이(SU>25°C)",    unit: "days/yr",   rag: (v) => v > 150 ? "red" : v > 80 ? "amber" : "green" },
+  etccdi_tr:     { label: "열대야(TR>20°C)",      unit: "days/yr",   rag: (v) => v > 100 ? "red" : v > 50 ? "amber" : "green" },
+  etccdi_fd:     { label: "서리일수(FD<0°C)",     unit: "days/yr",   rag: (v) => v > 100 ? "red" : v > 50 ? "amber" : "green" },
+  etccdi_wsdi:   { label: "고온지속기간(WSDI)",   unit: "days/yr",   rag: (v) => v > 60 ? "red" : v > 20 ? "amber" : "green" },
+  etccdi_wbgt:   { label: "습구흑구온도(WBGT)",   unit: "°C",        rag: (v) => v > 28 ? "red" : v > 23 ? "amber" : "green" },
+  // ── ETCCDI 극값 지수 — 강수 (6) ──────────────────────────────────────────
+  etccdi_cdd:    { label: "연속건조일수(CDD)",    unit: "days",      rag: (v) => v > 60 ? "red" : v > 30 ? "amber" : "green" },
+  etccdi_cwd:    { label: "연속습윤일수(CWD)",    unit: "days",      rag: (v) => v > 20 ? "red" : v > 10 ? "amber" : "green" },
+  etccdi_rx1day: { label: "1일최대강수(Rx1day)",  unit: "mm",        rag: (v) => v > 100 ? "red" : v > 50 ? "amber" : "green" },
+  etccdi_rx5day: { label: "5일최대강수(Rx5day)",  unit: "mm",        rag: (v) => v > 200 ? "red" : v > 100 ? "amber" : "green" },
+  etccdi_r95p:   { label: "극한강수(R95p)",       unit: "mm/yr",     rag: (v) => v > 500 ? "red" : v > 250 ? "amber" : "green" },
+  etccdi_sdii:   { label: "강수강도(SDII)",       unit: "mm/wetday", rag: (v) => v > 20 ? "red" : v > 12 ? "amber" : "green" },
 };
 
 const DRIVER_KEYS = Object.keys(DRIVER_META);
@@ -105,6 +129,23 @@ const CMIP6_META_EX = {
   prsn:    { label: "강설량",    unit: "mm/day", desc: "연평균 일강설량 (Annual mean daily snowfall)" },
   sfcWind: { label: "지표풍속",  unit: "m/s",    desc: "연평균 지표 10m 풍속" },
   evspsbl: { label: "증발산",    unit: "mm/day", desc: "연평균 일증발산량" },
+};
+
+// ── ETCCDI 극값 지수 메타 ─────────────────────────────────────────────────────
+const ETCCDI_META = {
+  etccdi_txx:    { label: "최고기온 극값(TXx)",  unit: "°C",        desc: "연중 일최고기온의 최댓값" },
+  etccdi_tnn:    { label: "최저기온 극값(TNn)",   unit: "°C",        desc: "연중 일최저기온의 최솟값" },
+  etccdi_su:     { label: "서머데이(SU>25°C)",    unit: "days/yr",   desc: "일최고기온 25°C 초과 일수" },
+  etccdi_tr:     { label: "열대야(TR>20°C)",      unit: "days/yr",   desc: "일최저기온 20°C 초과 일수" },
+  etccdi_fd:     { label: "서리일수(FD<0°C)",     unit: "days/yr",   desc: "일최저기온 0°C 미만 일수" },
+  etccdi_wsdi:   { label: "고온지속기간(WSDI)",   unit: "days/yr",   desc: "장기 고온 지속일수 (이상고온 스트레스)" },
+  etccdi_wbgt:   { label: "습구흑구온도(WBGT)",   unit: "°C",        desc: "열·습도·복사 결합 노동안전 지수" },
+  etccdi_cdd:    { label: "연속건조일수(CDD)",    unit: "days",      desc: "최장 연속 강수 1mm 미만 일수" },
+  etccdi_cwd:    { label: "연속습윤일수(CWD)",    unit: "days",      desc: "최장 연속 강수 1mm 이상 일수" },
+  etccdi_rx1day: { label: "1일최대강수(Rx1day)",  unit: "mm",        desc: "연중 1일 최대강수량" },
+  etccdi_rx5day: { label: "5일최대강수(Rx5day)",  unit: "mm",        desc: "연중 5일 누적 최대강수량" },
+  etccdi_r95p:   { label: "극한강수(R95p)",       unit: "mm/yr",     desc: "연 95th 백분위 초과 강수 총량" },
+  etccdi_sdii:   { label: "강수강도(SDII)",       unit: "mm/wetday", desc: "강수일 평균 강수강도" },
 };
 
 // ── CLIMADA EAL 메타 (Excel용) ────────────────────────────────────────────────

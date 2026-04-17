@@ -41,6 +41,14 @@ PERIOD_LABELS = {
 
 CMIP6_VARS = ["tasmax", "tasmin", "tas", "pr", "prsn", "sfcWind", "evspsbl"]
 
+ETCCDI_VARS = [
+    "etccdi_txx", "etccdi_tnn", "etccdi_su",   "etccdi_tr",   "etccdi_fd",
+    "etccdi_wsdi","etccdi_wbgt","etccdi_cdd",   "etccdi_cwd",
+    "etccdi_rx1day","etccdi_rx5day","etccdi_r95p","etccdi_sdii",
+]
+
+ALL_CLIMATE_VARS = CMIP6_VARS + ETCCDI_VARS
+
 
 def haversine_km(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
     """두 좌표 간 Haversine 거리 (km)."""
@@ -137,13 +145,14 @@ def _build_drivers_from_cmip6(cmip6_data: dict, physrisk_data: dict, source_labe
         for period in PERIOD_KEYS:
             result[ssp][period] = {}
 
-            # ── CMIP6 변수 ─────────────────────────────────────────────────
+            # ── CMIP6 + ETCCDI 변수 ────────────────────────────────────────
             cmip6_period = (cmip6_data.get(ssp) or {}).get(period) or {}
-            for var in CMIP6_VARS:
+            for var in ALL_CLIMATE_VARS:
                 val = cmip6_period.get(var)
+                src = "ETCCDI" if var.startswith("etccdi_") else "CMIP6"
                 result[ssp][period][var] = {
                     "value": val,
-                    "source": "CMIP6",
+                    "source": src,
                 }
 
             # ── PhyRisk 변수 (SSP·시점별 개별 값) ──────────────────────────
@@ -185,9 +194,16 @@ async def resolve(lat: float, lon: float) -> dict:
 
     # ── T1: 사전계산 데이터 직접 반환 ───────────────────────────────────────
     if tier == "T1":
-        cmip6_data    = site_data.get_site_cmip6(matched_site)
-        # get_site_physrisk returns {driver_key: {ssp: {period: score}}}
+        cmip6_data      = site_data.get_site_cmip6(matched_site)
+        etccdi_data     = site_data.get_site_etccdi(matched_site)
         physrisk_nested = site_data.get_site_physrisk(matched_site)
+
+        # ETCCDI 데이터를 cmip6_data에 병합 (같은 {ssp: {period: {var: val}}} 구조)
+        for ssp, periods in etccdi_data.items():
+            cmip6_data.setdefault(ssp, {})
+            for period, vars_dict in periods.items():
+                cmip6_data[ssp].setdefault(period, {}).update(vars_dict)
+
         drivers = _build_drivers_from_cmip6(cmip6_data, physrisk_nested, "CMIP6_T1")
         return {"meta": meta, "drivers": drivers}
 

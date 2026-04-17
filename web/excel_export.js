@@ -1,16 +1,17 @@
 /**
  * excel_export.js — 데이터소스별 분리 Excel 다운로드
  *
- * 시트 구성 (9개):
+ * 시트 구성 (10개):
  *   1. CMIP6_시나리오  — CMIP6 7개 기후변수 × 4SSP × 5시점 피벗
- *   2. PhyRisk_위험도  — OS-Climate 13개 위험 유형 점수
- *   3. CLIMADA_EAL     — CLIMADA 연간예상손실 (사전계산 참조 또는 근사)
- *   4. SSP5-8.5        — 전체 동인 통합 (카테고리 구분)
- *   5. SSP3-7.0
- *   6. SSP2-4.5
- *   7. SSP1-2.6
- *   8. 전체_원시데이터 — long 포맷
- *   9. 분석_정보       — 메타데이터 + 출처
+ *   2. ETCCDI_극값지수 — 13개 ETCCDI 극값 지수 × 4SSP × 5시점 피벗
+ *   3. PhyRisk_위험도  — OS-Climate 18개 위험 유형 점수
+ *   4. CLIMADA_EAL     — CLIMADA 연간예상손실 (사전계산 참조 또는 근사)
+ *   5. SSP5-8.5        — 전체 동인 통합 (카테고리 구분)
+ *   6. SSP3-7.0
+ *   7. SSP2-4.5
+ *   8. SSP1-2.6
+ *   9. 전체_원시데이터 — long 포맷
+ *  10. 분석_정보       — 메타데이터 + 출처
  */
 
 // 상수: SSP_ORDER, SSP_LABELS, PERIOD_KEYS, PERIOD_LABEL_MAP, CMIP6_KEYS,
@@ -36,6 +37,7 @@ function fmt(v) { return v === null ? "N/A" : v; }
 /** 변수키 → 카테고리명 */
 function category(dk) {
   if (CMIP6_KEYS.includes(dk))     return "CMIP6";
+  if (ETCCDI_KEYS.includes(dk))    return "ETCCDI";
   if (PHYSRISK_KEYS.includes(dk))  return "PhyRisk";
   if (CLIMADA_KEYS.includes(dk))   return "CLIMADA";
   return "기타";
@@ -92,6 +94,42 @@ function buildCmip6Sheet(drivers) {
   return rows;
 }
 
+// ── 시트 2: ETCCDI_극값지수 ──────────────────────────────────────────────────
+
+function buildEtccdiSheet(drivers) {
+  const rows = [];
+  rows.push(["ETCCDI 기후 극값 지수 (Climate Extremes Indices)"]);
+  rows.push(["출처: CMIP6 17개 모델 앙상블 일별 데이터 → ETCCDI 산출 (PhaseAnalysis)"]);
+  rows.push(["단위: 기온 °C / 일수 days/yr / 강수 mm"]);
+  rows.push([]);
+
+  const ssp_span_row = ["지수", "단위", "설명"];
+  for (const ssp of SSP_ORDER) {
+    ssp_span_row.push(SSP_LABELS[ssp]);
+    for (let i = 1; i < PERIOD_KEYS.length; i++) ssp_span_row.push("");
+  }
+  rows.push(ssp_span_row);
+
+  const period_row = ["", "", ""];
+  for (const ssp of SSP_ORDER) {
+    for (const p of PERIOD_KEYS) period_row.push(PERIOD_LABEL_MAP[p]);
+  }
+  rows.push(period_row);
+
+  for (const dk of ETCCDI_KEYS) {
+    const meta = ETCCDI_META[dk] || { label: dk, unit: "-", desc: "" };
+    const row = [meta.label, meta.unit, meta.desc];
+    for (const ssp of SSP_ORDER) {
+      for (const p of PERIOD_KEYS) {
+        row.push(fmt(getVal(((drivers[ssp] || {})[p] || {})[dk])));
+      }
+    }
+    rows.push(row);
+  }
+  return rows;
+}
+
+// ── 시트 3(구 2): PhyRisk_위험도 ─────────────────────────────────────────────
 // ── 시트 2: PhyRisk_위험도 ───────────────────────────────────────────────────
 // 구조: 위험유형(행) × SSP·시점(열) 피벗
 // PhyRisk는 현재 단일 기준값(SSP5-8.5 / 2050)이지만 API가 전 SSP·시점에 동일값 채움
@@ -219,6 +257,16 @@ function buildSspSheet(drivers, ssp) {
 
   rows.push([]);
 
+  // ETCCDI 그룹
+  rows.push(["── ETCCDI 극값 지수 ──"]);
+  for (const dk of ETCCDI_KEYS) {
+    const meta = ETCCDI_META[dk] || { label: dk, unit: "-" };
+    const vals = PERIOD_KEYS.map(p => fmt(getVal((sspData[p] || {})[dk])));
+    rows.push(["ETCCDI", meta.label, dk, meta.unit, ...vals]);
+  }
+
+  rows.push([]);
+
   // PhyRisk 그룹
   rows.push(["── PhyRisk 위험도 ──"]);
   for (const dk of PHYSRISK_KEYS) {
@@ -251,6 +299,7 @@ function buildAllDataRows(drivers) {
 
   const allMeta = dk => {
     if (CMIP6_META_EX[dk])  return CMIP6_META_EX[dk];
+    if (ETCCDI_META[dk])    return ETCCDI_META[dk];
     if (CLIMADA_META[dk])   return CLIMADA_META[dk];
     return (typeof DRIVER_META !== "undefined" && DRIVER_META[dk]) ? DRIVER_META[dk] : { label: dk, unit: "-" };
   };
@@ -263,6 +312,11 @@ function buildAllDataRows(drivers) {
       for (const dk of CMIP6_KEYS) {
         const m = allMeta(dk);
         rows.push(["CMIP6", SSP_LABELS[ssp], PERIOD_LABEL_MAP[p], dk, m.label, m.unit || "-", fmt(getVal(periodData[dk]))]);
+      }
+      // ETCCDI
+      for (const dk of ETCCDI_KEYS) {
+        const m = allMeta(dk);
+        rows.push(["ETCCDI", SSP_LABELS[ssp], PERIOD_LABEL_MAP[p], dk, m.label, m.unit || "-", fmt(getVal(periodData[dk]))]);
       }
       // PhyRisk
       for (const dk of PHYSRISK_KEYS) {
@@ -341,12 +395,17 @@ function exportExcel(apiResult) {
   wsCmip6["!cols"] = colW([14, 8, 36, ...SSP_ORDER.flatMap(() => PERIOD_KEYS.map(() => 14))]);
   XLSX.utils.book_append_sheet(wb, wsCmip6, "CMIP6_시나리오");
 
-  // ② PhyRisk_위험도 (피벗)
+  // ② ETCCDI_극값지수 (피벗)
+  const wsEtccdi = XLSX.utils.aoa_to_sheet(buildEtccdiSheet(drivers));
+  wsEtccdi["!cols"] = colW([20, 10, 36, ...SSP_ORDER.flatMap(() => PERIOD_KEYS.map(() => 14))]);
+  XLSX.utils.book_append_sheet(wb, wsEtccdi, "ETCCDI_극값지수");
+
+  // ③ PhyRisk_위험도 (피벗)
   const wsPhysrisk = XLSX.utils.aoa_to_sheet(buildPhyriskSheet(drivers));
   wsPhysrisk["!cols"] = colW([20, 8, 14, ...SSP_ORDER.flatMap(() => PERIOD_KEYS.map(() => 14))]);
   XLSX.utils.book_append_sheet(wb, wsPhysrisk, "PhyRisk_위험도");
 
-  // ③ CLIMADA_EAL
+  // ④ CLIMADA_EAL
   const wsClimada = XLSX.utils.aoa_to_sheet(buildClimadaSheet(drivers, meta));
   wsClimada["!cols"] = colW([22, 10, 40, 16, 16, 16, 16, 40]);
   XLSX.utils.book_append_sheet(wb, wsClimada, "CLIMADA_EAL");

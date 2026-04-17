@@ -48,6 +48,20 @@ DRIVER_META = {
     "coastal_flood":   {"label": "해안 침수",        "unit": "score", "source_type": "physrisk"},
     "pluvial_flood":   {"label": "도시 홍수",        "unit": "score", "source_type": "physrisk"},
     "river_flood":     {"label": "하천 홍수",        "unit": "score", "source_type": "physrisk"},
+    # ETCCDI 기후 극값 지수 (13)
+    "etccdi_txx":    {"label": "최고기온 극값(TXx)",  "unit": "°C",        "source_type": "etccdi"},
+    "etccdi_tnn":    {"label": "최저기온 극값(TNn)",   "unit": "°C",        "source_type": "etccdi"},
+    "etccdi_su":     {"label": "서머데이(SU>25°C)",    "unit": "days/yr",   "source_type": "etccdi"},
+    "etccdi_tr":     {"label": "열대야(TR>20°C)",      "unit": "days/yr",   "source_type": "etccdi"},
+    "etccdi_fd":     {"label": "서리일수(FD<0°C)",     "unit": "days/yr",   "source_type": "etccdi"},
+    "etccdi_wsdi":   {"label": "고온지속기간(WSDI)",   "unit": "days/yr",   "source_type": "etccdi"},
+    "etccdi_wbgt":   {"label": "습구흑구온도(WBGT)",   "unit": "°C",        "source_type": "etccdi"},
+    "etccdi_cdd":    {"label": "연속건조일수(CDD)",    "unit": "days",      "source_type": "etccdi"},
+    "etccdi_cwd":    {"label": "연속습윤일수(CWD)",    "unit": "days",      "source_type": "etccdi"},
+    "etccdi_rx1day": {"label": "1일최대강수(Rx1day)",  "unit": "mm",        "source_type": "etccdi"},
+    "etccdi_rx5day": {"label": "5일최대강수(Rx5day)",  "unit": "mm",        "source_type": "etccdi"},
+    "etccdi_r95p":   {"label": "극한강수(R95p)",       "unit": "mm/yr",     "source_type": "etccdi"},
+    "etccdi_sdii":   {"label": "강수강도(SDII)",       "unit": "mm/wetday", "source_type": "etccdi"},
 }
 
 # CMIP6 변수 단위 변환 (K → °C, kg/m²/s → mm/day)

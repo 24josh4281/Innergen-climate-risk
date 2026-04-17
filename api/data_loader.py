@@ -48,11 +48,13 @@ class SiteDataLoader:
     def __init__(self):
         self._cmip6: Optional[pd.DataFrame] = None
         self._physrisk: Optional[pd.DataFrame] = None
+        self._etccdi: Optional[pd.DataFrame] = None
         self._loaded = False
 
     def load(self):
-        cmip6_path = DATA_DIR / "cmip6_sites.csv"
+        cmip6_path    = DATA_DIR / "cmip6_sites.csv"
         physrisk_path = DATA_DIR / "physrisk_sites.csv"
+        etccdi_path   = DATA_DIR / "etccdi_sites.csv"
 
         if cmip6_path.exists():
             df = pd.read_csv(cmip6_path)
@@ -71,6 +73,12 @@ class SiteDataLoader:
         else:
             logger.warning(f"physrisk_sites.csv not found at {physrisk_path}")
 
+        if etccdi_path.exists():
+            self._etccdi = pd.read_csv(etccdi_path)
+            logger.info(f"etccdi_sites.csv loaded: {len(self._etccdi)} rows")
+        else:
+            logger.warning(f"etccdi_sites.csv not found at {etccdi_path}")
+
         self._loaded = True
 
     # ── CMIP6 데이터 조회 ──────────────────────────────────────────────────
@@ -88,6 +96,30 @@ class SiteDataLoader:
             ssp    = row.get("ssp", "")
             period = row.get("period", "")
             var    = row.get("variable", "")
+            val    = row.get("ens_mean", None)
+            if ssp and period and var:
+                result.setdefault(ssp, {}).setdefault(period, {})
+                try:
+                    result[ssp][period][var] = float(val) if val is not None and not math.isnan(float(val)) else None
+                except (TypeError, ValueError):
+                    result[ssp][period][var] = None
+        return result
+
+    # ── ETCCDI 데이터 조회 ─────────────────────────────────────────────────────
+
+    def get_site_etccdi(self, site_name: str) -> dict:
+        """ETCCDI 기후 극값 지수 조회. Returns {ssp: {period: {var: value}}}"""
+        if self._etccdi is None:
+            return {}
+        df = self._etccdi[self._etccdi["site"] == site_name]
+        if df.empty:
+            return {}
+
+        result = {}
+        for _, row in df.iterrows():
+            ssp    = str(row.get("ssp", ""))
+            period = str(row.get("period", ""))
+            var    = str(row.get("variable", ""))
             val    = row.get("ens_mean", None)
             if ssp and period and var:
                 result.setdefault(ssp, {}).setdefault(period, {})
