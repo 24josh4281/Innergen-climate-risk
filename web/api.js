@@ -54,7 +54,7 @@ async function queryRisk(lat, lon) {
 }
 
 /**
- * 14개 OCI 사업장 목록 조회
+ * 저장된 사업장 목록 조회
  */
 async function fetchSites() {
   try {

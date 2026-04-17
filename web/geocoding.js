@@ -20,7 +20,7 @@ async function geocodeAddress(address) {
 
   const url = `${NOMINATIM_URL}?${params}`;
   const resp = await fetch(url, {
-    headers: { "User-Agent": "OCI-ClimateRisk/1.0 (contact@oci.com)" },
+    headers: { "User-Agent": "InnergenClimateScenario/2.0 (contact@inng.co.kr)" },
     signal: AbortSignal.timeout(8000),
   });
 

@@ -29,7 +29,7 @@ function bindTabSwitcher() {
   });
 }
 
-// ── OCI 사업장 칩 ────────────────────────────────────────────────────────────
+// ── 저장된 사업장 칩 ─────────────────────────────────────────────────────────
 
 async function loadSiteChips() {
   const sites = await fetchSites().catch(() => []);
@@ -37,11 +37,11 @@ async function loadSiteChips() {
   if (!container) return;
 
   const fallback = [
-    { id: "OCI_HQ_Seoul",     display: "OCI 본사 (서울)",  lat: 37.5649, lon: 126.9793 },
-    { id: "Pohang_Plant",     display: "포항",             lat: 36.0095, lon: 129.3435 },
-    { id: "OCI_Shanghai",     display: "상해",             lat: 31.2304, lon: 121.4737 },
-    { id: "OCI_Japan_Tokyo",  display: "도쿄",             lat: 35.6762, lon: 139.6503 },
-    { id: "Philko_Makati",    display: "마카티",           lat: 14.5995, lon: 120.9842 },
+    { id: "OCI_HQ_Seoul",     display: "서울 본사",  lat: 37.5649, lon: 126.9793 },
+    { id: "Pohang_Plant",     display: "포항",       lat: 36.0095, lon: 129.3435 },
+    { id: "OCI_Shanghai",     display: "상해",       lat: 31.2304, lon: 121.4737 },
+    { id: "OCI_Japan_Tokyo",  display: "도쿄",       lat: 35.6762, lon: 139.6503 },
+    { id: "Philko_Makati",    display: "마카티",     lat: 14.5995, lon: 120.9842 },
   ];
 
   const list = (sites.length > 0 ? sites : fallback).slice(0, 10);
