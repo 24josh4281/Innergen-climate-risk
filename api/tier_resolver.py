@@ -104,9 +104,29 @@ def _infer_country(lat: float, lon: float) -> str:
     return "GLB"
 
 
+def _expand_flat_physrisk(flat: dict) -> dict:
+    """
+    T2/T3 physrisk 근사값(flat dict) → nested 구조 변환.
+    {driver_key: score} → {driver_key: {ssp: {period: score}}}
+    (시나리오 구분 없는 단일 근사값을 모든 SSP·시점에 복사)
+    """
+    result = {}
+    for driver_key, score in flat.items():
+        result[driver_key] = {
+            ssp: {period: score for period in PERIOD_KEYS}
+            for ssp in SSP_KEYS
+        }
+    return result
+
+
 def _build_drivers_from_cmip6(cmip6_data: dict, physrisk_data: dict, source_label: str) -> dict:
     """
     CMIP6 + physrisk 데이터를 합쳐 drivers 딕셔너리 생성.
+
+    Args:
+        cmip6_data:    {ssp: {period: {var: value}}}
+        physrisk_data: {driver_key: {ssp: {period: score}}}  ← SSP·시점별 구조
+        source_label:  CMIP6 데이터 출처 레이블
 
     Returns:
         {ssp: {period: {var: {value, source}}}}
@@ -117,22 +137,27 @@ def _build_drivers_from_cmip6(cmip6_data: dict, physrisk_data: dict, source_labe
         for period in PERIOD_KEYS:
             result[ssp][period] = {}
 
-            # CMIP6 변수
+            # ── CMIP6 변수 ─────────────────────────────────────────────────
             cmip6_period = (cmip6_data.get(ssp) or {}).get(period) or {}
             for var in CMIP6_VARS:
                 val = cmip6_period.get(var)
                 result[ssp][period][var] = {
                     "value": val,
-                    "source": source_label,
+                    "source": "CMIP6",
                 }
 
-            # PhyRisk (ssp/period 무관하게 현재 단일 값으로 처리)
+            # ── PhyRisk 변수 (SSP·시점별 개별 값) ──────────────────────────
             for hazard, meta in DRIVER_META.items():
                 if meta.get("source_type") in ("physrisk", "psha"):
-                    val = physrisk_data.get(hazard)
+                    # physrisk_data: {driver_key: {ssp: {period: score}}}
+                    nested = physrisk_data.get(hazard)
+                    if isinstance(nested, dict):
+                        val = nested.get(ssp, {}).get(period)
+                    else:
+                        val = None
                     result[ssp][period][hazard] = {
                         "value": val,
-                        "source": "physrisk_estimate",
+                        "source": "PhyRisk",
                     }
 
     return result
@@ -160,11 +185,10 @@ async def resolve(lat: float, lon: float) -> dict:
 
     # ── T1: 사전계산 데이터 직접 반환 ───────────────────────────────────────
     if tier == "T1":
-        cmip6_data = site_data.get_site_cmip6(matched_site)
-        # get_site_physrisk now returns flat {driver_key: val}
-        physrisk_flat = site_data.get_site_physrisk(matched_site)
-
-        drivers = _build_drivers_from_cmip6(cmip6_data, physrisk_flat, "precomputed_t1")
+        cmip6_data    = site_data.get_site_cmip6(matched_site)
+        # get_site_physrisk returns {driver_key: {ssp: {period: score}}}
+        physrisk_nested = site_data.get_site_physrisk(matched_site)
+        drivers = _build_drivers_from_cmip6(cmip6_data, physrisk_nested, "CMIP6_T1")
         return {"meta": meta, "drivers": drivers}
 
     # ── T2/T3: CMIP6 그리드 + 비동기 physrisk/PSHA ──────────────────────────
@@ -183,10 +207,11 @@ async def resolve(lat: float, lon: float) -> dict:
         logger.warning(f"PSHA failed: {psha_result}")
         psha_result = {}
 
-    # PSHA 결과 병합
-    combined_physrisk = {**physrisk_result, **psha_result}
+    # T2/T3 physrisk는 flat dict → nested 변환 (시나리오 구분 없는 근사값)
+    combined_flat = {**physrisk_result, **psha_result}
+    combined_physrisk = _expand_flat_physrisk(combined_flat)
 
-    source_label = "cmip6_grid_1deg" if tier == "T2" else "cmip6_grid_2deg"
+    source_label = "CMIP6_T2" if tier == "T2" else "CMIP6_T3"
     drivers = _build_drivers_from_cmip6(cmip6_data, combined_physrisk, source_label)
 
     # CLIMADA HDF5 조회 불가 명시
