@@ -78,6 +78,8 @@ const IBTRACS_KEYS = ["tc_annual_freq", "tc_max_wind_kt", "tc_cat3_count"];
 
 const PSHA_KEYS = ["psha_pga_475", "psha_pga_2475"];
 
+const CCKP_KEYS = ["cckp_hi35", "cckp_hd40", "cckp_tr26", "cckp_cdd65", "cckp_hdd65"];
+
 // ── 동인 메타 (heatmap RAG 포함) ─────────────────────────────────────────────
 const DRIVER_META = {
   // ── CMIP6 기온/강수 (7) ──────────────────────────────────────────────────

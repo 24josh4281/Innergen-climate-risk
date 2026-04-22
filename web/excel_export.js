@@ -46,6 +46,7 @@ function category(dk) {
   if (AQUEDUCT_KEYS.includes(dk))   return "Aqueduct";
   if (IBTRACS_KEYS.includes(dk))    return "IBTrACS";
   if (PSHA_KEYS.includes(dk))       return "PSHA";
+  if (CCKP_KEYS.includes(dk))       return "CCKP";
   return "기타";
 }
 
@@ -325,6 +326,16 @@ function buildSspSheet(drivers, ssp) {
     rows.push(["PSHA", meta.label, dk, meta.unit, val, val, val, val, val]);
   }
 
+  rows.push([]);
+
+  // CCKP 그룹 (SSP별 시계열)
+  rows.push(["── World Bank CCKP 에너지·극한열 (0.25°) ──"]);
+  for (const dk of CCKP_KEYS) {
+    const meta = DRIVER_META[dk] || { label: dk, unit: "-" };
+    const vals = PERIOD_KEYS.map(p => fmt(getVal((sspData[p] || {})[dk])));
+    rows.push(["CCKP", meta.label, dk, meta.unit, ...vals]);
+  }
+
   return rows;
 }
 
@@ -428,6 +439,10 @@ function buildAllDataRows(drivers) {
       for (const dk of PHYSRISK_KEYS) {
         const m = allMeta(dk);
         rows.push(["PhyRisk", SSP_LABELS[ssp], PERIOD_LABEL_MAP[p], dk, m.label, m.unit || "score", fmt(getVal(periodData[dk]))]);
+      }
+      for (const dk of CCKP_KEYS) {
+        const m = allMeta(dk);
+        rows.push(["CCKP", SSP_LABELS[ssp], PERIOD_LABEL_MAP[p], dk, m.label, m.unit || "-", fmt(getVal(periodData[dk]))]);
       }
       for (const dk of CLIMADA_KEYS) {
         if (periodData[dk] === undefined) continue;
