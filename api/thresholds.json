@@ -868,31 +868,9 @@
       }
     },
 
-    "cckp_cdd18": {
-      "label": "냉방도일 (CDD base 18°C)",
-      "unit": "°C·day/yr",
-      "tcfd_type": "chronic",
-      "inverse": false,
-      "levels": {
-        "LOW":       {"min": 0,    "max": 200,  "label": "낮음"},
-        "MEDIUM":    {"min": 200,  "max": 500,  "label": "중간"},
-        "HIGH":      {"min": 500,  "max": 1000, "label": "높음"},
-        "VERY_HIGH": {"min": 1000, "max": null, "label": "매우 높음"}
-      },
-      "reference": {
-        "source": "World Bank CCKP CMIP6 0.25° — Cooling Degree Days base 18°C (ASHRAE/IEA)",
-        "institution": "World Bank CCKP",
-        "url": "https://climateknowledgeportal.worldbank.org"
-      },
-      "business_impacts": {
-        "HIGH": ["CDD 500+: 냉방 에너지 수요 50%+ 증가, 냉방설비 용량 증설 투자 필요"],
-        "VERY_HIGH": ["CDD 1000+: 냉방 에너지 비용 운영비 핵심 항목, 전력 피크 단전 리스크 증가"]
-      }
-    },
-
-    "cckp_hdd18": {
-      "label": "난방도일 (HDD base 18°C)",
-      "unit": "°C·day/yr",
+    "cckp_cdd65": {
+      "label": "냉방도일 (CDD base 65°F)",
+      "unit": "°F·day/yr",
       "tcfd_type": "chronic",
       "inverse": false,
       "levels": {
@@ -902,13 +880,35 @@
         "VERY_HIGH": {"min": 2500, "max": null, "label": "매우 높음"}
       },
       "reference": {
-        "source": "World Bank CCKP CMIP6 0.25° — Heating Degree Days base 18°C (ASHRAE/IEA)",
+        "source": "World Bank CCKP CMIP6 0.25° — Cooling Degree Days base 65°F (ASHRAE)",
         "institution": "World Bank CCKP",
         "url": "https://climateknowledgeportal.worldbank.org"
       },
       "business_impacts": {
-        "HIGH": ["HDD 1500+: 동절기 난방 에너지 비용 상당, 가스·열원 가격 변동 취약"],
-        "VERY_HIGH": ["HDD 2500+: 혹한 지역, 동파·한랭 설비 손상 리스크, 동절기 BCP 별도 수립 필요"]
+        "HIGH": ["CDD 1500+: 냉방 에너지 수요 50%+ 증가, 냉방설비 용량 증설 투자 필요"],
+        "VERY_HIGH": ["CDD 2500+: 냉방 에너지 비용 운영비 핵심 항목, 전력 피크 단전 리스크 증가"]
+      }
+    },
+
+    "cckp_hdd65": {
+      "label": "난방도일 (HDD base 65°F)",
+      "unit": "°F·day/yr",
+      "tcfd_type": "chronic",
+      "inverse": true,
+      "levels": {
+        "LOW":       {"min": 0,    "max": 2000, "label": "낮음"},
+        "MEDIUM":    {"min": 2000, "max": 3000, "label": "중간"},
+        "HIGH":      {"min": 3000, "max": 4000, "label": "높음"},
+        "VERY_HIGH": {"min": 4000, "max": null, "label": "매우 높음"}
+      },
+      "reference": {
+        "source": "World Bank CCKP CMIP6 0.25° — Heating Degree Days base 65°F (ASHRAE)",
+        "institution": "World Bank CCKP",
+        "url": "https://climateknowledgeportal.worldbank.org"
+      },
+      "business_impacts": {
+        "HIGH": ["HDD 3000+: 동절기 난방 에너지 비용 상당, 가스·열원 가격 변동 취약"],
+        "VERY_HIGH": ["HDD 4000+: 혹한 지역, 동파·한랭 설비 손상 리스크, 동절기 BCP 별도 수립 필요"]
       }
     }
 

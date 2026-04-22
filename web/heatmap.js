@@ -14,7 +14,7 @@ const DRIVER_GROUPS = [
   { label: "Aqueduct 수자원", keys: ["aq_water_stress","aq_river_flood","aq_coastal_flood","aq_drought","aq_interann_var","aq_water_stress_2050"] },
   { label: "IBTrACS 태풍", keys: ["tc_annual_freq","tc_max_wind_kt","tc_cat3_count"] },
   { label: "PSHA 지진재해", keys: ["psha_pga_475","psha_pga_2475"] },
-  { label: "CCKP — 에너지·극한열 (World Bank 0.25°)", keys: ["cckp_hi35","cckp_hd40","cckp_tr26","cckp_cdd18","cckp_hdd18"] },
+  { label: "CCKP — 에너지·극한열 (World Bank 0.25°)", keys: ["cckp_hi35","cckp_hd40","cckp_tr26","cckp_cdd65","cckp_hdd65"] },
 ];
 
 /**
