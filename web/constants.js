@@ -139,6 +139,12 @@ const DRIVER_META = {
   // ── GEM PSHA 지진 (2) — 정적 문헌값 ────────────────────────────────────────
   psha_pga_475:   { label: "PGA 475년 빈도(PSHA)",  unit: "g", rag: (v) => v > 0.3 ? "red" : v > 0.15 ? "amber" : "green" },
   psha_pga_2475:  { label: "PGA 2475년 빈도(PSHA)", unit: "g", rag: (v) => v > 0.6 ? "red" : v > 0.3 ? "amber" : "green" },
+  // ── World Bank CCKP 0.25° (5) — 신규 ────────────────────────────────────
+  cckp_hi35:   { label: "열지수초과일(HI>35°C)",  unit: "days/yr",   rag: (v) => v > 60 ? "red" : v > 20 ? "amber" : "green" },
+  cckp_hd40:   { label: "극한고온일(Tmax>40°C)",  unit: "days/yr",   rag: (v) => v > 30 ? "red" : v > 10 ? "amber" : "green" },
+  cckp_tr26:   { label: "열대야한국기준(>26°C)",   unit: "days/yr",   rag: (v) => v > 30 ? "red" : v > 10 ? "amber" : "green" },
+  cckp_cdd18:  { label: "냉방도일(CDD base 18°C)", unit: "°C·day/yr", rag: (v) => v > 500 ? "red" : v > 200 ? "amber" : "green" },
+  cckp_hdd18:  { label: "난방도일(HDD base 18°C)", unit: "°C·day/yr", rag: (v) => v > 2500 ? "red" : v > 1500 ? "amber" : "green" },
 };
 
 const DRIVER_KEYS = Object.keys(DRIVER_META);

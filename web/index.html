@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Innergen Climate Scenario — 기후 물리적 리스크 분석 플랫폼</title>
-  <meta name="description" content="49개 기후 동인 · 4가지 배출 시나리오 · 9개 시점의 기후 물리적 리스크를 즉시 분석합니다.">
+  <meta name="description" content="54개 기후 동인 · 4가지 배출 시나리오 · 9개 시점의 기후 물리적 리스크를 즉시 분석합니다.">
   <link rel="stylesheet" href="style.css">
   <!-- Leaflet.js -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
@@ -26,7 +26,7 @@
       <span class="logo-product">Climate Scenario</span>
     </div>
     <div class="header-right">
-      <span class="header-tag">49 DRIVERS · 4 SSP · 9 PERIODS</span>
+      <span class="header-tag">54 DRIVERS · 4 SSP · 9 PERIODS</span>
       <span style="opacity: 0.5;">v2.0</span>
     </div>
   </div>
@@ -37,7 +37,7 @@
   <section class="hero">
     <div class="container">
       <h1>기후 물리적 리스크 <span>시나리오 분석</span></h1>
-      <p>주소 또는 위도/경도를 입력하면 49개 기후 동인의 4가지 배출 시나리오 × 9개 시점 리스크를 즉시 시각화합니다.</p>
+      <p>주소 또는 위도/경도를 입력하면 54개 기후 동인의 4가지 배출 시나리오 × 9개 시점 리스크를 즉시 시각화합니다.</p>
 
       <!-- Search Card -->
       <div class="search-card">
@@ -99,7 +99,7 @@
         <!-- RAG 히트맵 -->
         <div class="card card-full">
           <div class="card-title">
-            RAG 기후 위험 히트맵 — 49개 동인 × 9시점
+            RAG 기후 위험 히트맵 — 54개 동인 × 9시점
           </div>
           <div class="ssp-tabs" id="heatmap-ssp-tabs">
             <button class="ssp-tab active" data-ssp="ssp585">SSP5-8.5</button>
@@ -190,6 +190,13 @@
               <optgroup label="── PSHA 지진재해">
                 <option value="psha_pga_475">PGA 475년 재현주기</option>
                 <option value="psha_pga_2475">PGA 2475년 재현주기</option>
+              </optgroup>
+              <optgroup label="── CCKP 에너지·극한열 (World Bank 0.25°)">
+                <option value="cckp_hi35">열지수 초과일 (HI&gt;35°C)</option>
+                <option value="cckp_hd40">극한고온일 (Tmax&gt;40°C)</option>
+                <option value="cckp_tr26">열대야 한국기준 (&gt;26°C)</option>
+                <option value="cckp_cdd18">냉방도일 (CDD base 18°C)</option>
+                <option value="cckp_hdd18">난방도일 (HDD base 18°C)</option>
               </optgroup>
             </select>
           </div>

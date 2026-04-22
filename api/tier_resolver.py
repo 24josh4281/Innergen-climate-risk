@@ -24,6 +24,12 @@ from static_estimator import query_static
 from physrisk_client import estimate_physrisk_cmip6
 from psha_client import pga_to_risk_score
 from interpret_engine import interpret as _interpret_drivers
+try:
+    from cckp_client import query_cckp as _query_cckp
+    _CCKP_AVAILABLE = True
+except ImportError:
+    _CCKP_AVAILABLE = False
+    logger.warning("cckp_client 로드 실패 — CCKP 변수 비활성화")
 
 logger = logging.getLogger(__name__)
 
@@ -271,6 +277,29 @@ def _inject_climada(drivers: dict, lat: float, lon: float) -> None:
                     }
 
 
+async def _inject_cckp(drivers: dict, lat: float, lon: float) -> None:
+    """
+    CCKP 0.25° 신규 변수 5개를 drivers에 병합.
+    netCDF4 미설치 또는 S3 접근 실패 시 조용히 스킵.
+    """
+    if not _CCKP_AVAILABLE:
+        return
+    try:
+        cckp = await _query_cckp(lat, lon)
+    except Exception as e:
+        logger.warning("CCKP query failed (%s,%s): %s", lat, lon, e)
+        return
+
+    for var_key, ssp_dict in cckp.items():
+        for ssp in SSP_KEYS:
+            for period in PERIOD_KEYS:
+                val = (ssp_dict.get(ssp) or {}).get(period)
+                drivers[ssp][period][var_key] = {
+                    "value":  val,
+                    "source": "CCKP_0.25deg" if val is not None else "no_data",
+                }
+
+
 _RES_MAP = {"T1": "precomputed", "T2": "1deg",  "T3": "2deg"}
 _SRC_MAP = {"T1": "ensemble_17models", "T2": "cmip6_1deg_grid", "T3": "cmip6_2deg_grid"}
 
@@ -306,6 +335,7 @@ async def resolve(lat: float, lon: float) -> dict:
 
         drivers = _build_drivers_from_cmip6(cmip6_data, physrisk_nested, "CMIP6_T1", static_data, lat=lat)
         _inject_climada(drivers, lat, lon)
+        await _inject_cckp(drivers, lat, lon)
         result = {"meta": meta, "drivers": drivers}
         result["interpretation"] = _interpret_drivers(drivers)
         return result
@@ -340,6 +370,7 @@ async def resolve(lat: float, lon: float) -> dict:
 
     drivers = _build_drivers_from_cmip6(cmip6_data, combined_physrisk, "CMIP6", static_data, lat=lat)
     _inject_climada(drivers, lat, lon)
+    await _inject_cckp(drivers, lat, lon)
 
     result = {"meta": meta, "drivers": drivers}
     result["interpretation"] = _interpret_drivers(drivers)

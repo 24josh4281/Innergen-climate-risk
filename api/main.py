@@ -24,6 +24,11 @@ from cmip6_grid import cmip6_grid
 import httpx
 from tier_resolver import resolve, resolve_with_ensemble, resolve_model, list_available_models, build_summary
 from interpret_engine import get_narrative
+try:
+    from cckp_client import list_cckp_vars, verify_cckp_access
+    _cckp_loaded = True
+except ImportError:
+    _cckp_loaded = False
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 logger = logging.getLogger(__name__)
@@ -179,6 +184,23 @@ async def interpret_narrative(
     except Exception as e:
         logger.error(f"interpret_narrative failed ({lat},{lon}): {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/cckp/vars")
+async def cckp_vars():
+    """World Bank CCKP 추가 변수 5개 메타데이터 반환."""
+    if not _cckp_loaded:
+        raise HTTPException(status_code=503, detail="cckp_client 모듈 미설치")
+    return {"vars": list_cckp_vars(), "count": 5}
+
+
+@app.get("/api/cckp/health")
+async def cckp_health():
+    """CCKP S3 버킷 접근 가능 여부 확인 (헬스체크)."""
+    if not _cckp_loaded:
+        return {"available": False, "reason": "cckp_client not installed"}
+    result = await verify_cckp_access()
+    return {"available": result.get("ok", False), **result}
 
 
 @app.get("/api/sites")
