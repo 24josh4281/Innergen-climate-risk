@@ -78,7 +78,8 @@ const IBTRACS_KEYS = ["tc_annual_freq", "tc_max_wind_kt", "tc_cat3_count"];
 
 const PSHA_KEYS = ["psha_pga_475", "psha_pga_2475"];
 
-const CCKP_KEYS = ["cckp_hi35", "cckp_hd40", "cckp_tr26", "cckp_cdd65", "cckp_hdd65"];
+const CCKP_KEYS = ["cckp_hi35", "cckp_hd40", "cckp_tr26", "cckp_cdd65", "cckp_hdd65",
+                   "cckp_csdi", "cckp_wsdi", "cckp_cdd_consec"];
 
 // ── 동인 메타 (heatmap RAG 포함) ─────────────────────────────────────────────
 const DRIVER_META = {
@@ -147,6 +148,10 @@ const DRIVER_META = {
   cckp_tr26:   { label: "열대야한국기준(>26°C)",   unit: "days/yr",   rag: (v) => v > 30 ? "red" : v > 10 ? "amber" : "green" },
   cckp_cdd65:  { label: "냉방도일(CDD base 65°F)", unit: "°F·day/yr", rag: (v) => v > 2500 ? "red" : v > 1500 ? "amber" : "green" },
   cckp_hdd65:  { label: "난방도일(HDD base 65°F)", unit: "°F·day/yr", rag: (v) => v > 4000 ? "red" : v > 2000 ? "amber" : "green" },
+  // ── CCKP ETCCDI 교차검증 (온도 계열) ────────────────────────────────────────
+  cckp_csdi:        { label: "한파지속기간(CSDI)",    unit: "days/yr", rag: (v) => v > 10 ? "red" : v > 4 ? "amber" : "green" },
+  cckp_wsdi:        { label: "온난지속기간(WSDI-CP)", unit: "days/yr", rag: (v) => v > 30 ? "red" : v > 10 ? "amber" : "green" },
+  cckp_cdd_consec:  { label: "연속건조일수(CDD-CP)",  unit: "days",    rag: (v) => v > 60 ? "red" : v > 30 ? "amber" : "green" },
 };
 
 const DRIVER_KEYS = Object.keys(DRIVER_META);

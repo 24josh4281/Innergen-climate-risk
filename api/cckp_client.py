@@ -82,6 +82,28 @@ CCKP_VARS: dict[str, dict] = {
         "unit":      "°F·day/yr",
         "desc":      "난방에너지 수요 지표 — Σmax(65°F-T, 0), ASHRAE 기준",
     },
+    # ── ETCCDI 교차검증 변수 (온도 계열, CCKP CMIP6 0.25°) ─────────────────────
+    "cckp_csdi": {
+        "cckp_name": "csdi",
+        "label":     "한파 지속기간 (CSDI)",
+        "unit":      "days/yr",
+        "min_val":   0,
+        "desc":      "Cold Spell Duration Index — 연속 6일 이상 Tmin<p10 기간 합계",
+    },
+    "cckp_wsdi": {
+        "cckp_name": "wsdi",
+        "label":     "온난 지속기간 (WSDI-CP)",
+        "unit":      "days/yr",
+        "min_val":   0,
+        "desc":      "Warm Spell Duration Index (CCKP) — 연속 6일 이상 Tmax>p90 기간",
+    },
+    "cckp_cdd_consec": {
+        "cckp_name": "cdd",
+        "label":     "연속건조일수 (CDD-CP)",
+        "unit":      "days",
+        "min_val":   0,
+        "desc":      "Consecutive Dry Days (CCKP) — 최장 연속 강수<1mm 기간 (연간 최대)",
+    },
 }
 
 # ── 기간 매핑: 우리 period_key → CCKP 20년 기간 ────────────────────────────────
@@ -267,9 +289,15 @@ async def query_cckp(
                     anomaly = _extract_point(path, cname, lat, lon) if path.exists() else None
                     _POINT_CACHE[pt_key] = anomaly
 
-                result[var_key][ssp][period] = (
-                    round(base_val + anomaly, 3) if anomaly is not None else base_val
-                )
+                if anomaly is not None:
+                    raw = base_val + anomaly
+                    # 일수 계열 변수는 음수 불가 (온난화로 csdi 등이 0에 수렴)
+                    min_val = meta.get("min_val", None)
+                    if min_val is not None:
+                        raw = max(min_val, raw)
+                    result[var_key][ssp][period] = round(raw, 3)
+                else:
+                    result[var_key][ssp][period] = base_val
 
     return result
 

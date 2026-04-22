@@ -910,6 +910,72 @@
         "HIGH": ["HDD 3000+: 동절기 난방 에너지 비용 상당, 가스·열원 가격 변동 취약"],
         "VERY_HIGH": ["HDD 4000+: 혹한 지역, 동파·한랭 설비 손상 리스크, 동절기 BCP 별도 수립 필요"]
       }
+    },
+
+    "cckp_csdi": {
+      "label": "한파 지속기간 (CSDI)",
+      "unit": "days/yr",
+      "tcfd_type": "acute",
+      "inverse": true,
+      "levels": {
+        "LOW":       {"min": 0,  "max": 4,  "label": "낮음"},
+        "MEDIUM":    {"min": 4,  "max": 10, "label": "중간"},
+        "HIGH":      {"min": 10, "max": 20, "label": "높음"},
+        "VERY_HIGH": {"min": 20, "max": null, "label": "매우 높음"}
+      },
+      "reference": {
+        "source": "World Bank CCKP CMIP6 0.25° — Cold Spell Duration Index (ETCCDI)",
+        "institution": "World Bank CCKP",
+        "url": "https://climateknowledgeportal.worldbank.org"
+      },
+      "business_impacts": {
+        "HIGH": ["CSDI 10+일: 한파 지속 시 생산라인 동파, 외부 작업 중단, 에너지 피크 리스크"],
+        "VERY_HIGH": ["CSDI 20+일: 혹한 지속, 설비 동파·파손 및 공급망 교란 위험 매우 높음"]
+      }
+    },
+
+    "cckp_wsdi": {
+      "label": "온난 지속기간 (WSDI-CP)",
+      "unit": "days/yr",
+      "tcfd_type": "chronic",
+      "inverse": false,
+      "levels": {
+        "LOW":       {"min": 0,  "max": 10, "label": "낮음"},
+        "MEDIUM":    {"min": 10, "max": 20, "label": "중간"},
+        "HIGH":      {"min": 20, "max": 40, "label": "높음"},
+        "VERY_HIGH": {"min": 40, "max": null, "label": "매우 높음"}
+      },
+      "reference": {
+        "source": "World Bank CCKP CMIP6 0.25° — Warm Spell Duration Index (ETCCDI)",
+        "institution": "World Bank CCKP",
+        "url": "https://climateknowledgeportal.worldbank.org"
+      },
+      "business_impacts": {
+        "HIGH": ["WSDI 20+일: 장기 폭염 지속 — 냉방 부하 급증, 실외 작업 생산성 저하"],
+        "VERY_HIGH": ["WSDI 40+일: 극단적 온난 지속, 냉방 설비 과부하·전력망 불안정 리스크"]
+      }
+    },
+
+    "cckp_cdd_consec": {
+      "label": "연속건조일수 (CDD-CP)",
+      "unit": "days",
+      "tcfd_type": "chronic",
+      "inverse": false,
+      "levels": {
+        "LOW":       {"min": 0,  "max": 20, "label": "낮음"},
+        "MEDIUM":    {"min": 20, "max": 40, "label": "중간"},
+        "HIGH":      {"min": 40, "max": 80, "label": "높음"},
+        "VERY_HIGH": {"min": 80, "max": null, "label": "매우 높음"}
+      },
+      "reference": {
+        "source": "World Bank CCKP CMIP6 0.25° — Max Consecutive Dry Days (ETCCDI)",
+        "institution": "World Bank CCKP",
+        "url": "https://climateknowledgeportal.worldbank.org"
+      },
+      "business_impacts": {
+        "HIGH": ["CDD 40+일: 장기 가뭄 — 냉각수 가용성 저하, 공정용수 제한 리스크"],
+        "VERY_HIGH": ["CDD 80+일: 극심한 건조 지속, 용수 공급 제한·생산 중단 위험"]
+      }
     }
 
   }
