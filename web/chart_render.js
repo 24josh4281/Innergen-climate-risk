@@ -21,11 +21,15 @@ function renderTimeseriesChart(drivers, varKey) {
   const ctx = document.getElementById("timeseries-chart");
   if (!ctx) return;
 
-  // 기존 차트 파괴
   if (_chart) {
     _chart.destroy();
     _chart = null;
   }
+
+  const meta = DRIVER_META[varKey] || {};
+  const unitLabel = meta.unit ? `${meta.label} (${meta.unit})` : (meta.label || varKey);
+  const cardTitle = ctx.closest(".card")?.querySelector(".card-title");
+  if (cardTitle) cardTitle.textContent = `SSP 시계열 추이 — ${meta.label || varKey}`;
 
   const datasets = Object.entries(SSP_COLORS).map(([ssp, colors]) => {
     const data = PERIOD_KEYS.map(period => extractSeriesValue(drivers, ssp, period, varKey));
@@ -82,6 +86,12 @@ function renderTimeseriesChart(drivers, varKey) {
         y: {
           ticks: { color: "#64748b", font: { size: 11 } },
           grid: { color: "rgba(255,255,255,0.06)" },
+          title: {
+            display: !!meta.unit,
+            text: unitLabel,
+            color: "#4a6280",
+            font: { size: 10 },
+          },
         },
       },
     },

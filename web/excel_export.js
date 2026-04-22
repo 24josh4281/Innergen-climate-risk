@@ -1,17 +1,20 @@
 /**
  * excel_export.js — 데이터소스별 분리 Excel 다운로드
  *
- * 시트 구성 (10개):
- *   1. CMIP6_시나리오  — CMIP6 7개 기후변수 × 4SSP × 5시점 피벗
- *   2. ETCCDI_극값지수 — 13개 ETCCDI 극값 지수 × 4SSP × 5시점 피벗
- *   3. PhyRisk_위험도  — OS-Climate 18개 위험 유형 점수
- *   4. CLIMADA_EAL     — CLIMADA 연간예상손실 (사전계산 참조 또는 근사)
- *   5. SSP5-8.5        — 전체 동인 통합 (카테고리 구분)
- *   6. SSP3-7.0
- *   7. SSP2-4.5
- *   8. SSP1-2.6
- *   9. 전체_원시데이터 — long 포맷
- *  10. 분석_정보       — 메타데이터 + 출처
+ * 시트 구성 (13개):
+ *   1. CMIP6_시나리오   — CMIP6 7개 기후변수 × 4SSP × 5시점 피벗
+ *   2. ETCCDI_극값지수  — 13개 ETCCDI 극값 지수 × 4SSP × 5시점 피벗
+ *   3. PhyRisk_위험도   — OS-Climate 18개 위험 유형 점수
+ *   4. CLIMADA_EAL      — CLIMADA 연간예상손실
+ *   5. Aqueduct_수자원  — WRI Aqueduct 4.0 수자원 위험 6종
+ *   6. IBTrACS_태풍     — 역사적 태풍 통계 3종 (1980-2023)
+ *   7. PSHA_지진        — GEM PSHA 지진위험 2종
+ *   8. SSP5-8.5         — 전체 동인 통합 (카테고리 구분)
+ *   9. SSP3-7.0
+ *  10. SSP2-4.5
+ *  11. SSP1-2.6
+ *  12. 전체_원시데이터  — long 포맷
+ *  13. 분석_정보        — 메타데이터 + 출처
  */
 
 // 상수: SSP_ORDER, SSP_LABELS, PERIOD_KEYS, PERIOD_LABEL_MAP, CMIP6_KEYS,
@@ -36,10 +39,13 @@ function fmt(v) { return v === null ? "N/A" : v; }
 
 /** 변수키 → 카테고리명 */
 function category(dk) {
-  if (CMIP6_KEYS.includes(dk))     return "CMIP6";
-  if (ETCCDI_KEYS.includes(dk))    return "ETCCDI";
-  if (PHYSRISK_KEYS.includes(dk))  return "PhyRisk";
-  if (CLIMADA_KEYS.includes(dk))   return "CLIMADA";
+  if (CMIP6_KEYS.includes(dk))      return "CMIP6";
+  if (ETCCDI_KEYS.includes(dk))     return "ETCCDI";
+  if (PHYSRISK_KEYS.includes(dk))   return "PhyRisk";
+  if (CLIMADA_KEYS.includes(dk))    return "CLIMADA";
+  if (AQUEDUCT_KEYS.includes(dk))   return "Aqueduct";
+  if (IBTRACS_KEYS.includes(dk))    return "IBTrACS";
+  if (PSHA_KEYS.includes(dk))       return "PSHA";
   return "기타";
 }
 
@@ -72,7 +78,7 @@ function buildCmip6Sheet(drivers) {
   }
   rows.push(ssp_span_row);
 
-  // 행2: [변수, 단위, 설명, 현재, 근미래, 중기, 장기, 말기, 현재, ...]
+  // 행2: [변수, 단위, 설명, 현재, 단기, 중기, 장기, 장기+, 현재, ...]
   const period_row = ["", "", ""];
   for (const ssp of SSP_ORDER) {
     for (const p of PERIOD_KEYS) period_row.push(PERIOD_LABEL_MAP[p]);
@@ -140,11 +146,11 @@ function buildPhyriskSheet(drivers) {
   rows.push(["OS-Climate PhyRisk 위험도 점수"]);
   rows.push(["출처: OS-Climate Physical Risk & Resilience (physrisk API)"]);
   rows.push(["스코어: 0~100점 — 원시값(일수 등)을 365일 기준 환산 (100점=최고위험)"]);
-  rows.push(["※ 현재 API는 SSP5-8.5/2050년 단일 기준값을 전 시점에 동일 적용"]);
+  rows.push(["※ 현재 API는 SSP2-4.5/2050년 단일 기준값을 전 시점에 동일 적용"]);
   rows.push([]);
 
   // 2-단 헤더 (CMIP6 시트와 동일 구조)
-  const ssp_span_row = ["위험 유형", "단위", "RAG(SSP5-8.5 말기)"];
+  const ssp_span_row = ["위험 유형", "단위", "RAG(SSP2-4.5 중기)"];
   for (const ssp of SSP_ORDER) {
     ssp_span_row.push(SSP_LABELS[ssp]);
     for (let i = 1; i < PERIOD_KEYS.length; i++) ssp_span_row.push("");
@@ -162,8 +168,8 @@ function buildPhyriskSheet(drivers) {
     const meta = (typeof DRIVER_META !== "undefined") ? DRIVER_META[dk] : null;
     if (!meta) continue;
 
-    // RAG는 SSP5-8.5 말기 기준
-    const refVal = getVal(((drivers["ssp585"] || {})["end"] || {})[dk]);
+    // RAG는 SSP2-4.5 중기 기준
+    const refVal = getVal(((drivers["ssp245"] || {})["mid"] || {})[dk]);
     const rag = ragLabel(dk, refVal);
 
     const row = [meta.label, meta.unit || "score", rag];
@@ -187,13 +193,13 @@ function buildClimadaSheet(drivers, meta) {
   rows.push(["출처: CLIMADA HDF5 (태풍·홍수·산불), GEM PSHA (지진)"]);
   rows.push([]);
 
-  const base585 = (drivers["ssp585"] || {})["baseline"] || {};
+  const base585 = (drivers["ssp245"] || {})["baseline"] || {};
   const hasCLIMADA = CLIMADA_KEYS.some(k => base585[k] !== undefined);
 
   if (hasCLIMADA) {
     // T2/T3: entries exist (값은 null, note 있음)
     rows.push(["CLIMADA 변수", "단위", "설명", "SSP1-2.6", "SSP2-4.5", "SSP3-7.0", "SSP5-8.5", "비고"]);
-    rows.push(["", "", "", "(각 열: 현재~말기 평균 / 현재 단일값)", "", "", "", ""]);
+    rows.push(["", "", "", "(각 열: 현재~장기+ 평균 / 현재 단일값)", "", "", "", ""]);
 
     for (const dk of CLIMADA_KEYS) {
       const info = CLIMADA_META[dk] || { label: dk, unit: "-", desc: "" };
@@ -221,10 +227,10 @@ function buildClimadaSheet(drivers, meta) {
     }
     rows.push([]);
     rows.push(["항목", "포트폴리오 수준 요약 (참고)"]);
-    rows.push(["태풍 (TC) EAL",    "SSP5-8.5 말기 포트폴리오 EAL 분석 완료"]);
-    rows.push(["홍수 (Flood) EAL", "SSP5-8.5 말기 포트폴리오 EAL 분석 완료"]);
+    rows.push(["태풍 (TC) EAL",    "오프라인 포트폴리오 EAL 분석 완료 (별도 파일 참조)"]);
+    rows.push(["홍수 (Flood) EAL", "오프라인 포트폴리오 EAL 분석 완료 (별도 파일 참조)"]);
     rows.push(["지진 (EQ) EAL",    "GEM PSHA 기반 분석 완료"]);
-    rows.push(["산불 (Wildfire) EAL", "SSP5-8.5 말기 분석 완료"]);
+    rows.push(["산불 (Wildfire) EAL", "오프라인 EAL 분석 완료 (별도 파일 참조)"]);
   }
 
   return rows;
@@ -289,10 +295,113 @@ function buildSspSheet(drivers, ssp) {
     }
   }
 
+  rows.push([]);
+
+  // Aqueduct 그룹 (정적 — 모든 시점 동일)
+  rows.push(["── Aqueduct 4.0 수자원 위험 ──"]);
+  for (const dk of AQUEDUCT_KEYS) {
+    const meta = DRIVER_META[dk] || { label: dk, unit: "0-5" };
+    const val = fmt(getVal((sspData["baseline"] || {})[dk]));
+    rows.push(["Aqueduct", meta.label, dk, meta.unit, val, val, val, val, val]);
+  }
+
+  rows.push([]);
+
+  // IBTrACS 그룹 (역사적 — 모든 시점 동일)
+  rows.push(["── IBTrACS 태풍 통계 (1980-2023) ──"]);
+  for (const dk of IBTRACS_KEYS) {
+    const meta = DRIVER_META[dk] || { label: dk, unit: "-" };
+    const val = fmt(getVal((sspData["baseline"] || {})[dk]));
+    rows.push(["IBTrACS", meta.label, dk, meta.unit, val, val, val, val, val]);
+  }
+
+  rows.push([]);
+
+  // PSHA 그룹 (정적)
+  rows.push(["── GEM PSHA 지진위험 ──"]);
+  for (const dk of PSHA_KEYS) {
+    const meta = DRIVER_META[dk] || { label: dk, unit: "g" };
+    const val = fmt(getVal((sspData["baseline"] || {})[dk]));
+    rows.push(["PSHA", meta.label, dk, meta.unit, val, val, val, val, val]);
+  }
+
   return rows;
 }
 
-// ── 시트 8: 전체_원시데이터 ──────────────────────────────────────────────────
+// ── 시트 5: Aqueduct_수자원 ──────────────────────────────────────────────────
+
+function buildAqueductSheet(drivers) {
+  const rows = [];
+  rows.push(["WRI Aqueduct 4.0 — 수자원 위험 지수 (0~5 스케일)"]);
+  rows.push(["출처: World Resources Institute Aqueduct 4.0 (2023)"]);
+  rows.push(["※ 기준: 0=Low, 1=Low-Med, 2=Med, 3=Med-High, 4=High, 5=Ext.High"]);
+  rows.push([]);
+  rows.push(["변수키", "변수명", "단위", "값 (정적)", "RAG", "설명"]);
+
+  const base = (drivers["ssp245"] || {})["baseline"] || {};
+  const AQ_DESC = {
+    aq_water_stress:      "연평균 취수량 / 가용수량 비율 (0~5)",
+    aq_river_flood:       "하천범람 노출 위험도 (0~5)",
+    aq_coastal_flood:     "해안침수 노출 위험도 (0~5)",
+    aq_drought:           "가뭄 노출 빈도 위험도 (0~5)",
+    aq_interann_var:      "연간 강수 변동성 (0~5)",
+    aq_water_stress_2050: "SSP3 2050년 미래 취수 스트레스 전망 (0~5)",
+  };
+  for (const dk of AQUEDUCT_KEYS) {
+    const meta = DRIVER_META[dk] || { label: dk, unit: "0-5" };
+    const val = getVal(base[dk]);
+    rows.push([dk, meta.label, meta.unit, fmt(val), ragLabel(dk, val), AQ_DESC[dk] || ""]);
+  }
+  return rows;
+}
+
+// ── 시트 6: IBTrACS_태풍 ────────────────────────────────────────────────────
+
+function buildIbtracSheet(drivers) {
+  const rows = [];
+  rows.push(["IBTrACS v04 — 역사적 태풍 통계 (1980-2023)"]);
+  rows.push(["출처: NOAA International Best Track Archive for Climate Stewardship (IBTrACS)"]);
+  rows.push(["※ 반경 300km 내 경로 통계 기준"]);
+  rows.push([]);
+  rows.push(["변수키", "변수명", "단위", "값 (역사적)", "RAG", "설명"]);
+
+  const base = (drivers["ssp245"] || {})["baseline"] || {};
+  const IB_DESC = {
+    tc_annual_freq:  "연평균 태풍 통과 횟수 (반경 300km, 1980-2023)",
+    tc_max_wind_kt:  "역사 최대풍속 극값 (kt, Tropical Storm 이상)",
+    tc_cat3_count:   "Category 3 이상 태풍 총 통과 횟수",
+  };
+  for (const dk of IBTRACS_KEYS) {
+    const meta = DRIVER_META[dk] || { label: dk, unit: "-" };
+    const val = getVal(base[dk]);
+    rows.push([dk, meta.label, meta.unit, fmt(val), ragLabel(dk, val), IB_DESC[dk] || ""]);
+  }
+  return rows;
+}
+
+// ── 시트 7: PSHA_지진 ────────────────────────────────────────────────────────
+
+function buildPshaSheet(drivers) {
+  const rows = [];
+  rows.push(["GEM PSHA — 지진 위험도 (최대지반가속도, g 단위)"]);
+  rows.push(["출처: GEM Global Seismic Hazard Assessment Programme / 각국 국가지진위험지도"]);
+  rows.push([]);
+  rows.push(["변수키", "변수명", "단위", "값 (정적)", "RAG", "설명"]);
+
+  const base = (drivers["ssp245"] || {})["baseline"] || {};
+  const PSHA_DESC = {
+    psha_pga_475:   "재현주기 475년 (연초과확률 10%/50yr) PGA",
+    psha_pga_2475:  "재현주기 2475년 (연초과확률 2%/50yr) PGA",
+  };
+  for (const dk of PSHA_KEYS) {
+    const meta = DRIVER_META[dk] || { label: dk, unit: "g" };
+    const val = getVal(base[dk]);
+    rows.push([dk, meta.label, meta.unit, fmt(val), ragLabel(dk, val), PSHA_DESC[dk] || ""]);
+  }
+  return rows;
+}
+
+// ── 시트 12: 전체_원시데이터 ─────────────────────────────────────────────────
 
 function buildAllDataRows(drivers) {
   const rows = [["카테고리", "SSP", "시점", "변수키", "변수명", "단위", "값"]];
@@ -308,28 +417,39 @@ function buildAllDataRows(drivers) {
     const sspData = drivers[ssp] || {};
     for (const p of PERIOD_KEYS) {
       const periodData = sspData[p] || {};
-      // CMIP6 먼저
       for (const dk of CMIP6_KEYS) {
         const m = allMeta(dk);
         rows.push(["CMIP6", SSP_LABELS[ssp], PERIOD_LABEL_MAP[p], dk, m.label, m.unit || "-", fmt(getVal(periodData[dk]))]);
       }
-      // ETCCDI
       for (const dk of ETCCDI_KEYS) {
         const m = allMeta(dk);
         rows.push(["ETCCDI", SSP_LABELS[ssp], PERIOD_LABEL_MAP[p], dk, m.label, m.unit || "-", fmt(getVal(periodData[dk]))]);
       }
-      // PhyRisk
       for (const dk of PHYSRISK_KEYS) {
         const m = allMeta(dk);
         rows.push(["PhyRisk", SSP_LABELS[ssp], PERIOD_LABEL_MAP[p], dk, m.label, m.unit || "score", fmt(getVal(periodData[dk]))]);
       }
-      // CLIMADA
       for (const dk of CLIMADA_KEYS) {
         if (periodData[dk] === undefined) continue;
         const m = allMeta(dk);
         const note = getNote(periodData[dk]);
         rows.push(["CLIMADA", SSP_LABELS[ssp], PERIOD_LABEL_MAP[p], dk, m.label, m.unit || "USD/yr",
           note || fmt(getVal(periodData[dk]))]);
+      }
+      // 정적 변수는 baseline만 기록 (중복 방지)
+      if (p === "baseline") {
+        for (const dk of AQUEDUCT_KEYS) {
+          const m = allMeta(dk);
+          rows.push(["Aqueduct", "공통", "정적", dk, m.label, m.unit || "0-5", fmt(getVal(periodData[dk]))]);
+        }
+        for (const dk of IBTRACS_KEYS) {
+          const m = allMeta(dk);
+          rows.push(["IBTrACS", "공통", "역사적", dk, m.label, m.unit || "-", fmt(getVal(periodData[dk]))]);
+        }
+        for (const dk of PSHA_KEYS) {
+          const m = allMeta(dk);
+          rows.push(["PSHA", "공통", "정적", dk, m.label, m.unit || "g", fmt(getVal(periodData[dk]))]);
+        }
       }
     }
   }
@@ -362,8 +482,8 @@ function buildInfoRows(meta) {
     [
       "PhyRisk",
       "OS-Climate Physical Risk & Resilience",
-      "heat_stress / flood_risk / drought_risk 등 13개",
-      "0~100점 위험도 점수 (원시값 365일 기준 환산)",
+      "heat_stress / flood_risk / drought_risk 등 18개",
+      "0~100점 위험도 점수 (원시값 물리 단위 → 정규화 환산)",
     ],
     [
       "CLIMADA",
@@ -371,15 +491,117 @@ function buildInfoRows(meta) {
       "TC_EAL / Flood_EAL / EQ_EAL / Wildfire_EAL",
       "T1 사전계산 EAL / T2·T3 서버 제약으로 N/A",
     ],
+    [
+      "Aqueduct",
+      "WRI Aqueduct 4.0 (2023)",
+      "aq_water_stress / aq_river_flood / aq_coastal_flood 등 6개",
+      "0~5 수자원 위험 지수 (baseline + SSP3 2050 전망)",
+    ],
+    [
+      "IBTrACS",
+      "NOAA IBTrACS v04r01",
+      "tc_annual_freq / tc_max_wind_kt / tc_cat3_count",
+      "역사적 태풍 통계 (1980-2023, 반경 300km)",
+    ],
+    [
+      "PSHA",
+      "GEM Global Seismic Hazard Assessment Programme",
+      "psha_pga_475 / psha_pga_2475",
+      "재현주기 475/2475년 최대지반가속도 (g)",
+    ],
     [],
     ["시트명", "내용"],
-    ["CMIP6_시나리오",   "CMIP6 7개 변수 × 4SSP × 5시점 피벗 테이블"],
-    ["PhyRisk_위험도",   "OS-Climate 13개 위험유형 × 4SSP × 5시점 피벗 테이블"],
-    ["CLIMADA_EAL",      "연간예상손실 (T1 오프라인 참조 / T2-T3 N/A)"],
-    ["SSP5-8.5 ~ SSP1-2.6", "SSP별 CMIP6·PhyRisk·CLIMADA 통합 (카테고리 구분)"],
-    ["전체_원시데이터",  "카테고리·SSP·시점별 long 포맷 원시값"],
-    ["분석_정보",        "본 시트 — 메타데이터 및 데이터소스 출처"],
+    ["CMIP6_시나리오",    "CMIP6 7개 변수 × 4SSP × 5시점 피벗 테이블"],
+    ["ETCCDI_극값지수",   "ETCCDI 13개 기후극값 × 4SSP × 5시점 피벗"],
+    ["PhyRisk_위험도",    "OS-Climate 18개 위험유형 × 4SSP × 5시점 피벗"],
+    ["CLIMADA_EAL",       "연간예상손실 (T1 오프라인 참조 / T2-T3 N/A)"],
+    ["Aqueduct_수자원",   "WRI Aqueduct 4.0 수자원 위험 6종 (정적)"],
+    ["IBTrACS_태풍",      "역사적 태풍 통계 3종 (1980-2023)"],
+    ["PSHA_지진",         "GEM PSHA 지진위험 2종 (정적)"],
+    ["SSP5-8.5 ~ SSP1-2.6", "SSP별 전체 동인 통합 (53개 변수 + 정적)"],
+    ["전체_원시데이터",   "카테고리·SSP·시점별 long 포맷 원시값"],
+    ["분석_정보",         "본 시트 — 메타데이터 및 데이터소스 출처"],
   ];
+}
+
+// ── 리스크 해석 시트 ─────────────────────────────────────────────────────────
+
+function buildInterpretSheet(apiResult) {
+  const interp = apiResult.interpretation || {};
+  const mat    = interp.materiality || {};
+  const tcfd   = interp.tcfd || {};
+  const risks  = interp.top_risks || [];
+
+  const ssp    = interp.evaluated_ssp    || "ssp245";
+  const period = interp.evaluated_period || "mid";
+  const sspLbl = (SSP_LABELS || {})[ssp]        || ssp;
+  const perLbl = (PERIOD_LABEL_MAP || {})[period] || period;
+
+  const rows = [];
+
+  // ── 섹션 1: 물질성 평가 요약 ────────────────────────────────
+  rows.push(["리스크 해석 — 국제기준 기반 (IPCC AR6 · WMO · TCFD · ISSB S2 · WRI Aqueduct)"]);
+  rows.push([`평가 시나리오: ${sspLbl}  |  평가 시점: ${perLbl}`]);
+  rows.push([]);
+  rows.push(["[섹션 1] 물질성 평가 요약"]);
+  rows.push(["항목", "내용"]);
+  rows.push(["물질성 수준 (Materiality Level)", mat.level || "N/A"]);
+  rows.push(["ISSB S2 (IFRS S2) 참조", mat.issb_s2_note || ""]);
+  rows.push(["CDP 참조", mat.cdp_ref || ""]);
+  rows.push(["급성 리스크 고위험 항목 수", mat.acute_red ?? "N/A"]);
+  rows.push(["만성 리스크 고위험 항목 수", mat.chronic_red ?? "N/A"]);
+  rows.push(["전체 고위험 항목 수 (HIGH 이상)", mat.total_red ?? "N/A"]);
+  rows.push([]);
+
+  // TCFD 분류
+  rows.push(["TCFD 분류 — 급성 리스크 (Acute)", (tcfd.acute || []).join(", ")]);
+  rows.push(["TCFD 분류 — 만성 리스크 (Chronic)", (tcfd.chronic || []).join(", ")]);
+  rows.push([]);
+
+  // ── 섹션 2: 핵심 리스크 항목 ────────────────────────────────
+  rows.push(["[섹션 2] 핵심 고위험 항목 (HIGH 이상)"]);
+  rows.push([
+    "변수키", "변수명", "값", "단위", "등급", "TCFD 분류",
+    "임계값(기준값)", "출처 기관", "출처 문서",
+    "수치 맥락", "비즈니스 영향(1)", "비즈니스 영향(2)", "비즈니스 영향(3)",
+  ]);
+
+  const highRisks = risks.filter(r => ["HIGH", "VERY_HIGH"].includes(r.level));
+  for (const r of highRisks) {
+    const impacts = r.business_impacts || [];
+    rows.push([
+      r.var,
+      r.label,
+      r.value,
+      r.unit,
+      r.level,
+      r.tcfd_type === "acute" ? "급성" : r.tcfd_type === "chronic" ? "만성" : "기타",
+      r.threshold_min != null ? r.threshold_min : "",
+      r.threshold_inst || "",
+      r.threshold_source || "",
+      r.context || "",
+      impacts[0] || "",
+      impacts[1] || "",
+      impacts[2] || "",
+    ]);
+  }
+
+  if (!highRisks.length) {
+    rows.push(["(현 시나리오 기준 HIGH 이상 항목 없음)"]);
+  }
+  rows.push([]);
+
+  // ── 섹션 3: AI 내러티브 ──────────────────────────────────────
+  rows.push(["[섹션 3] 공시용 AI 내러티브 (ISSB S2 / CDP 초안)"]);
+  rows.push(["모델: claude-haiku-4-5-20251001  |  생성 기준: TCFD 급성·만성 분류 포함"]);
+  rows.push(["※ AI 생성 초안입니다. 실제 공시 전 ESG 전문가 검토가 필요합니다."]);
+  rows.push(["내러티브 텍스트", "(웹 UI에서 먼저 조회 후 복사 — Excel 다운로드 시점에는 실시간 생성 미포함)"]);
+  rows.push([]);
+  rows.push(["참조 프레임워크", "IPCC AR6 (2021-2022), WMO Extreme Weather Guidelines (2020)"]);
+  rows.push(["", "TCFD Recommendations (2017), ISSB S2 (IFRS S2, 2023)"]);
+  rows.push(["", "WRI Aqueduct 4.0 (2023), ISO 7933 (열 스트레스), GEM PSHA (2018)"]);
+
+  return rows;
 }
 
 // ── 메인 export ───────────────────────────────────────────────────────────────
@@ -389,6 +611,11 @@ function exportExcel(apiResult) {
   const wb = XLSX.utils.book_new();
 
   const colW = (widths) => widths.map(w => ({ wch: w }));
+
+  // ⓪ 리스크해석 (첫 번째 시트 — 공시 담당자가 바로 볼 수 있도록)
+  const wsInterp = XLSX.utils.aoa_to_sheet(buildInterpretSheet(apiResult));
+  wsInterp["!cols"] = colW([20, 60, 12, 10, 12, 8, 12, 20, 55, 40, 55, 55, 55]);
+  XLSX.utils.book_append_sheet(wb, wsInterp, "리스크해석");
 
   // ① CMIP6_시나리오 (피벗)
   const wsCmip6 = XLSX.utils.aoa_to_sheet(buildCmip6Sheet(drivers));
@@ -410,21 +637,36 @@ function exportExcel(apiResult) {
   wsClimada["!cols"] = colW([22, 10, 40, 16, 16, 16, 16, 40]);
   XLSX.utils.book_append_sheet(wb, wsClimada, "CLIMADA_EAL");
 
-  // ④~⑦ SSP별 통합 (SSP5-8.5 → SSP1-2.6 순)
+  // ⑤ Aqueduct_수자원
+  const wsAq = XLSX.utils.aoa_to_sheet(buildAqueductSheet(drivers));
+  wsAq["!cols"] = colW([24, 28, 6, 10, 8, 50]);
+  XLSX.utils.book_append_sheet(wb, wsAq, "Aqueduct_수자원");
+
+  // ⑥ IBTrACS_태풍
+  const wsIbt = XLSX.utils.aoa_to_sheet(buildIbtracSheet(drivers));
+  wsIbt["!cols"] = colW([18, 22, 8, 12, 8, 50]);
+  XLSX.utils.book_append_sheet(wb, wsIbt, "IBTrACS_태풍");
+
+  // ⑦ PSHA_지진
+  const wsPsha = XLSX.utils.aoa_to_sheet(buildPshaSheet(drivers));
+  wsPsha["!cols"] = colW([16, 26, 4, 10, 8, 50]);
+  XLSX.utils.book_append_sheet(wb, wsPsha, "PSHA_지진");
+
+  // ⑧~⑪ SSP별 통합 (SSP5-8.5 → SSP1-2.6 순)
   for (const ssp of [...SSP_ORDER].reverse()) {
     const ws = XLSX.utils.aoa_to_sheet(buildSspSheet(drivers, ssp));
-    ws["!cols"] = colW([10, 18, 16, 8, ...PERIOD_KEYS.map(() => 15)]);
+    ws["!cols"] = colW([10, 28, 24, 8, ...PERIOD_KEYS.map(() => 15)]);
     XLSX.utils.book_append_sheet(wb, ws, SSP_LABELS[ssp]);
   }
 
-  // ⑧ 전체_원시데이터
+  // ⑫ 전체_원시데이터
   const wsAll = XLSX.utils.aoa_to_sheet(buildAllDataRows(drivers));
-  wsAll["!cols"] = colW([10, 10, 16, 18, 18, 8, 14]);
+  wsAll["!cols"] = colW([10, 10, 10, 24, 28, 8, 14]);
   XLSX.utils.book_append_sheet(wb, wsAll, "전체_원시데이터");
 
-  // ⑨ 분석_정보
+  // ⑬ 분석_정보
   const wsInfo = XLSX.utils.aoa_to_sheet(buildInfoRows(meta));
-  wsInfo["!cols"] = colW([20, 30, 45, 50]);
+  wsInfo["!cols"] = colW([20, 30, 45, 55]);
   XLSX.utils.book_append_sheet(wb, wsInfo, "분석_정보");
 
   // 파일명

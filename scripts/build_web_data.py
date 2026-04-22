@@ -227,7 +227,9 @@ def extract_region_cmip6(region, resolution, nc):
                 grid_vals = []
                 for (tlat, tlon), vals in pts_dict.items():
                     if vals:
-                        ens_mean = round(float(np.nanmean(vals)), 4)
+                        # pr/prsn/evspsbl in kg/m²/s need 8dp (typical ~0.00003-0.0003)
+                        precision = 8 if var in ("pr", "prsn", "evspsbl") else 4
+                        ens_mean = round(float(np.nanmean(vals)), precision)
                         grid_vals.append([tlat, tlon, ens_mean])
                 result[ssp_key][var][period_key] = grid_vals
 

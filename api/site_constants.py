@@ -62,6 +62,20 @@ DRIVER_META = {
     "etccdi_rx5day": {"label": "5일최대강수(Rx5day)",  "unit": "mm",        "source_type": "etccdi"},
     "etccdi_r95p":   {"label": "극한강수(R95p)",       "unit": "mm/yr",     "source_type": "etccdi"},
     "etccdi_sdii":   {"label": "강수강도(SDII)",       "unit": "mm/wetday", "source_type": "etccdi"},
+    # Aqueduct 4.0 수자원 위험 (6) — WRI 0~5 스케일
+    "aq_water_stress":      {"label": "수자원 스트레스(Aq)",  "unit": "0-5",  "source_type": "aqueduct"},
+    "aq_river_flood":       {"label": "하천홍수 위험(Aq)",    "unit": "0-5",  "source_type": "aqueduct"},
+    "aq_coastal_flood":     {"label": "해안침수 위험(Aq)",    "unit": "0-5",  "source_type": "aqueduct"},
+    "aq_drought":           {"label": "가뭄 위험(Aq)",        "unit": "0-5",  "source_type": "aqueduct"},
+    "aq_interann_var":      {"label": "연간변동성(Aq)",       "unit": "0-5",  "source_type": "aqueduct"},
+    "aq_water_stress_2050": {"label": "수자원 스트레스 2050(Aq)", "unit": "0-5", "source_type": "aqueduct"},
+    # IBTrACS 태풍 통계 (3) — 역사적 1980-2023
+    "tc_annual_freq":  {"label": "태풍 연간빈도(IBT)",   "unit": "회/yr", "source_type": "ibtracs"},
+    "tc_max_wind_kt":  {"label": "최대풍속 극값(IBT)",   "unit": "kt",    "source_type": "ibtracs"},
+    "tc_cat3_count":   {"label": "Cat3+ 태풍수(IBT)",   "unit": "회",    "source_type": "ibtracs"},
+    # GEM PSHA 지진위험 (2) — 문헌 기반 정적값
+    "psha_pga_475":    {"label": "PGA 475년 빈도(PSHA)", "unit": "g",     "source_type": "psha_static"},
+    "psha_pga_2475":   {"label": "PGA 2475년 빈도(PSHA)","unit": "g",     "source_type": "psha_static"},
 }
 
 # CMIP6 변수 단위 변환 (K → °C, kg/m²/s → mm/day)

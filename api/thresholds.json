@@ -1,0 +1,806 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "last_updated": "2026-04-22",
+    "description": "국제기관 기후 임계값 DB — ISSB S2 / CDP 기후공시 대응",
+    "frameworks": ["IPCC AR6", "WMO", "TCFD", "ISSB S2 (IFRS S2)", "WRI Aqueduct 4.0", "GEM PSHA", "ISO 7933", "ILO OSH"]
+  },
+  "thresholds": {
+
+    "etccdi_su": {
+      "label": "서머데이(SU>25°C)",
+      "unit": "days/yr",
+      "tcfd_type": "chronic",
+      "inverse": false,
+      "levels": {
+        "LOW":       {"min": 0,   "max": 60,  "label": "낮음"},
+        "MEDIUM":    {"min": 60,  "max": 90,  "label": "중간"},
+        "HIGH":      {"min": 90,  "max": 120, "label": "높음"},
+        "VERY_HIGH": {"min": 120, "max": null,"label": "매우 높음"}
+      },
+      "reference": {
+        "source": "IPCC AR6 WG1 Chapter 12 (2021), Table 12.SM.1",
+        "institution": "IPCC",
+        "url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-12/"
+      },
+      "business_impacts": {
+        "MEDIUM": ["냉방 수요 증가로 전력 피크 부담 상승"],
+        "HIGH": [
+          "냉방 에너지 비용 연간 +15~30% 증가 예상 (IEA Energy Outlook 2023)",
+          "야외 작업환경 제한 강화 필요 (WBGT 연동 시 효율 저하)",
+          "냉각 물류 수요 증가 및 공급망 관리 비용 상승"
+        ],
+        "VERY_HIGH": [
+          "냉방 에너지 비용 연간 +30% 이상 증가 예상",
+          "야외 작업 중단 가능성 증가, 노동 생산성 심각한 저하",
+          "냉각 인프라 추가 투자 필요 (자본지출 증가)",
+          "열사병·온열질환 산재 리스크 급증"
+        ]
+      }
+    },
+
+    "etccdi_tr": {
+      "label": "열대야(TR>20°C)",
+      "unit": "days/yr",
+      "tcfd_type": "chronic",
+      "inverse": false,
+      "levels": {
+        "LOW":       {"min": 0,   "max": 30,  "label": "낮음"},
+        "MEDIUM":    {"min": 30,  "max": 60,  "label": "중간"},
+        "HIGH":      {"min": 60,  "max": 90,  "label": "높음"},
+        "VERY_HIGH": {"min": 90,  "max": null,"label": "매우 높음"}
+      },
+      "reference": {
+        "source": "WMO Guidelines on the Definition and Monitoring of Extreme Weather (2020)",
+        "institution": "WMO",
+        "url": "https://library.wmo.int/records/item/55803"
+      },
+      "business_impacts": {
+        "HIGH": [
+          "야간 냉방 수요 급증으로 전력 비용 상승",
+          "작업자 수면 부족에 따른 생산성 저하 (보건 영향)",
+          "냉각 설비 24시간 가동 필요성 증가"
+        ],
+        "VERY_HIGH": [
+          "야간 작업 환경 관리 비용 급증",
+          "근로자 보건 리스크 증가 → 노동법상 의무 강화 가능성",
+          "데이터센터·정밀 제조시설 냉각 신뢰성 위험"
+        ]
+      }
+    },
+
+    "etccdi_txx": {
+      "label": "최고기온 극값(TXx)",
+      "unit": "°C",
+      "tcfd_type": "acute",
+      "inverse": false,
+      "levels": {
+        "LOW":       {"min": 0,   "max": 33,  "label": "낮음"},
+        "MEDIUM":    {"min": 33,  "max": 37,  "label": "중간"},
+        "HIGH":      {"min": 37,  "max": 40,  "label": "높음"},
+        "VERY_HIGH": {"min": 40,  "max": null,"label": "매우 높음"}
+      },
+      "reference": {
+        "source": "WMO Statement on the State of the Global Climate 2023; IPCC AR6 WG1 Ch.11",
+        "institution": "WMO / IPCC",
+        "url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-11/"
+      },
+      "business_impacts": {
+        "HIGH": [
+          "37°C 이상 기온: 옥외 중노동 ILO 기준 위험수준 도달",
+          "냉각수 수요 급증 → 공업용수 공급 제약 가능",
+          "전기·전자 설비 과열 보호 시스템 가동 증가"
+        ],
+        "VERY_HIGH": [
+          "40°C 초과: 야외 작업 전면 중단 가능성 (KOR·CHN 노동부 지침)",
+          "산업 프로세스 고온 한계 도달 → 생산 중단 리스크",
+          "전력 계통 최대 부하 → 정전 리스크 증가"
+        ]
+      }
+    },
+
+    "etccdi_wsdi": {
+      "label": "고온지속기간(WSDI)",
+      "unit": "days/yr",
+      "tcfd_type": "acute",
+      "inverse": false,
+      "levels": {
+        "LOW":       {"min": 0,   "max": 10,  "label": "낮음"},
+        "MEDIUM":    {"min": 10,  "max": 20,  "label": "중간"},
+        "HIGH":      {"min": 20,  "max": 40,  "label": "높음"},
+        "VERY_HIGH": {"min": 40,  "max": null,"label": "매우 높음"}
+      },
+      "reference": {
+        "source": "IPCC AR6 WG1 Chapter 11, Box 11.1 (Heatwave Indices, 2021)",
+        "institution": "IPCC",
+        "url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-11/"
+      },
+      "business_impacts": {
+        "HIGH": [
+          "연속 폭염 기간 중 BCP(사업연속성계획) 발동 빈도 증가",
+          "전력 공급 불안정 리스크 누적 (장기 폭염 동반 정전)"
+        ],
+        "VERY_HIGH": [
+          "연간 40일 이상 폭염 지속: 설비 열화 가속 및 가동률 저하",
+          "공급망 전반 충격 (농산물·냉각재 수급 불안)"
+        ]
+      }
+    },
+
+    "etccdi_wbgt": {
+      "label": "습구흑구온도(WBGT)",
+      "unit": "°C",
+      "tcfd_type": "chronic",
+      "inverse": false,
+      "levels": {
+        "LOW":       {"min": 0,   "max": 24,  "label": "낮음"},
+        "MEDIUM":    {"min": 24,  "max": 26,  "label": "중간"},
+        "HIGH":      {"min": 26,  "max": 28,  "label": "높음"},
+        "VERY_HIGH": {"min": 28,  "max": null,"label": "매우 높음"}
+      },
+      "reference": {
+        "source": "ISO 7933:2004 Ergonomics — Analytical determination of thermal stress; ILO Working in the Heat (2019)",
+        "institution": "ISO / ILO",
+        "url": "https://www.iso.org/standard/37600.html"
+      },
+      "business_impacts": {
+        "HIGH": [
+          "WBGT 26~28°C: 중강도 야외 작업 효율 15~25% 저하 (ISO 7933 기준)",
+          "근로자 수분 보충·휴식 간격 의무화 → 운영 비용 증가"
+        ],
+        "VERY_HIGH": [
+          "WBGT 28°C 초과: 중강도 작업 1시간당 15분 이상 강제 휴식 (ISO 7933)",
+          "야외 중노동 사실상 불가 → 노동 생산성 30% 이상 저하",
+          "온열질환 산재 급증 → 보험료·법적 책임 리스크"
+        ]
+      }
+    },
+
+    "etccdi_rx1day": {
+      "label": "1일최대강수(Rx1day)",
+      "unit": "mm",
+      "tcfd_type": "acute",
+      "inverse": false,
+      "levels": {
+        "LOW":       {"min": 0,   "max": 50,  "label": "낮음"},
+        "MEDIUM":    {"min": 50,  "max": 80,  "label": "중간"},
+        "HIGH":      {"min": 80,  "max": 100, "label": "높음"},
+        "VERY_HIGH": {"min": 100, "max": null,"label": "매우 높음"}
+      },
+      "reference": {
+        "source": "JRC Science for Policy Report — Global Flood Risk (Alfieri et al. 2017); WMO Extreme Weather Events",
+        "institution": "JRC / WMO",
+        "url": "https://publications.jrc.ec.europa.eu/repository/handle/JRC107197"
+      },
+      "business_impacts": {
+        "HIGH": [
+          "80~100mm/일: 도시 침수 및 물류 경로 차단 빈도 증가",
+          "설비 방수 기준 초과 가능성 → BCP 대응 비용 상승"
+        ],
+        "VERY_HIGH": [
+          "100mm 초과: 저지대 시설 침수 직접 피해 위험",
+          "물류 경로 전면 차단 가능 → 생산 중단 및 공급 지연",
+          "배수 시스템 용량 초과 → 설비 손상 리스크"
+        ]
+      }
+    },
+
+    "etccdi_rx5day": {
+      "label": "5일최대강수(Rx5day)",
+      "unit": "mm",
+      "tcfd_type": "acute",
+      "inverse": false,
+      "levels": {
+        "LOW":       {"min": 0,   "max": 100, "label": "낮음"},
+        "MEDIUM":    {"min": 100, "max": 150, "label": "중간"},
+        "HIGH":      {"min": 150, "max": 200, "label": "높음"},
+        "VERY_HIGH": {"min": 200, "max": null,"label": "매우 높음"}
+      },
+      "reference": {
+        "source": "IPCC AR6 WG1 Chapter 11, Table 11.1 (2021)",
+        "institution": "IPCC",
+        "url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-11/"
+      },
+      "business_impacts": {
+        "HIGH": [
+          "연속 강우로 인한 지반 포화 → 사면·지반 안정성 저하",
+          "저수지·댐 방류 리스크에 따른 하류 시설 피해 가능성"
+        ],
+        "VERY_HIGH": [
+          "200mm 초과 5일 강우: 대규모 홍수 발생 가능성 HIGH",
+          "사업장 침수 및 복구 비용 급증"
+        ]
+      }
+    },
+
+    "etccdi_r95p": {
+      "label": "극한강수(R95p)",
+      "unit": "mm/yr",
+      "tcfd_type": "acute",
+      "inverse": false,
+      "levels": {
+        "LOW":       {"min": 0,   "max": 200, "label": "낮음"},
+        "MEDIUM":    {"min": 200, "max": 400, "label": "중간"},
+        "HIGH":      {"min": 400, "max": 600, "label": "높음"},
+        "VERY_HIGH": {"min": 600, "max": null,"label": "매우 높음"}
+      },
+      "reference": {
+        "source": "IPCC AR6 WG1 Chapter 11 (2021); ETCCDI Expert Team",
+        "institution": "IPCC / ETCCDI",
+        "url": "https://www.ipcc.ch/report/ar6/wg1/"
+      },
+      "business_impacts": {
+        "HIGH": [
+          "극한 강수 이벤트 연간 누적 증가 → 홍수 빈도 상승",
+          "배수 설비 과부하 발생 빈도 증가 (연간 유지보수비 상승)"
+        ],
+        "VERY_HIGH": [
+          "연간 극한 강수량 급증 → 홍수 피해 보험료 대폭 상승",
+          "설비 방호 기준 전면 재검토 필요"
+        ]
+      }
+    },
+
+    "etccdi_cdd": {
+      "label": "연속건조일수(CDD)",
+      "unit": "days",
+      "tcfd_type": "chronic",
+      "inverse": false,
+      "levels": {
+        "LOW":       {"min": 0,   "max": 20,  "label": "낮음"},
+        "MEDIUM":    {"min": 20,  "max": 40,  "label": "중간"},
+        "HIGH":      {"min": 40,  "max": 60,  "label": "높음"},
+        "VERY_HIGH": {"min": 60,  "max": null,"label": "매우 높음"}
+      },
+      "reference": {
+        "source": "IPCC AR6 WG1 Chapter 11 (2021); WMO Drought Index Guidelines",
+        "institution": "IPCC / WMO",
+        "url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-11/"
+      },
+      "business_impacts": {
+        "HIGH": [
+          "공업용수 취수 가능성 감소 → 생산 제약 리스크",
+          "가뭄에 따른 원자재(농산물·목재) 수급 불안 및 가격 변동성"
+        ],
+        "VERY_HIGH": [
+          "극심한 가뭄: 냉각수 공급 중단 가능 → 생산 설비 가동 제한",
+          "물 집약적 공정의 영업 지속성 위협"
+        ]
+      }
+    },
+
+    "etccdi_sdii": {
+      "label": "강수강도(SDII)",
+      "unit": "mm/wetday",
+      "tcfd_type": "acute",
+      "inverse": false,
+      "levels": {
+        "LOW":       {"min": 0,   "max": 12,  "label": "낮음"},
+        "MEDIUM":    {"min": 12,  "max": 18,  "label": "중간"},
+        "HIGH":      {"min": 18,  "max": 25,  "label": "높음"},
+        "VERY_HIGH": {"min": 25,  "max": null,"label": "매우 높음"}
+      },
+      "reference": {
+        "source": "WMO ETCCDI Index Definitions (2009); IPCC AR6 WG1 Ch.11",
+        "institution": "WMO / ETCCDI",
+        "url": "https://www.wmo.int/pages/prog/wcp/ccl/opace/opace4/etccdi.php"
+      },
+      "business_impacts": {
+        "HIGH": [
+          "강수 강도 증가로 도시 배수 시스템 단기 과부하 빈도 증가",
+          "야외 작업·배송 효율 저하 (강우 강도 의존)"
+        ],
+        "VERY_HIGH": [
+          "극강 강수강도: 배수 설비 설계 기준 초과 → 침수 직접 피해",
+          "인프라 침식·손상 가속"
+        ]
+      }
+    },
+
+    "tas": {
+      "label": "연평균기온",
+      "unit": "°C",
+      "tcfd_type": "chronic",
+      "inverse": false,
+      "levels": {
+        "LOW":       {"min": -50, "max": 20,  "label": "낮음"},
+        "MEDIUM":    {"min": 20,  "max": 25,  "label": "중간"},
+        "HIGH":      {"min": 25,  "max": 30,  "label": "높음"},
+        "VERY_HIGH": {"min": 30,  "max": null,"label": "매우 높음"}
+      },
+      "reference": {
+        "source": "IPCC AR6 WG2 Chapter 16 — Key Risks (2022); TCFD Technical Supplement",
+        "institution": "IPCC / TCFD",
+        "url": "https://www.ipcc.ch/report/ar6/wg2/chapter/chapter-16/"
+      },
+      "business_impacts": {
+        "HIGH": [
+          "연평균 기온 25°C 이상: 냉방 에너지 의존도 상시 높음",
+          "열 관련 생산성 손실 상시화 (연중 고온 지역)"
+        ],
+        "VERY_HIGH": [
+          "연평균 30°C 이상: 열대 기후 수준 → 근로 환경 전면 재설계 필요",
+          "전력망 냉방 피크 부하 연중 고착화"
+        ]
+      }
+    },
+
+    "tasmax": {
+      "label": "일최고기온 평균",
+      "unit": "°C",
+      "tcfd_type": "chronic",
+      "inverse": false,
+      "levels": {
+        "LOW":       {"min": -50, "max": 30,  "label": "낮음"},
+        "MEDIUM":    {"min": 30,  "max": 35,  "label": "중간"},
+        "HIGH":      {"min": 35,  "max": 40,  "label": "높음"},
+        "VERY_HIGH": {"min": 40,  "max": null,"label": "매우 높음"}
+      },
+      "reference": {
+        "source": "WMO Statement on Global Climate 2023; IPCC AR6 WG1 Ch.12",
+        "institution": "WMO / IPCC",
+        "url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-12/"
+      },
+      "business_impacts": {
+        "HIGH": [
+          "35°C 이상: 한국·중국 야외작업 폭염특보 발령 기준 초과",
+          "옥외 설비 과열 위험 증가 (전기·기계 설비)"
+        ],
+        "VERY_HIGH": [
+          "40°C 초과: 산업 설비 냉각 한계 및 전력 안전 차단 위험",
+          "야외 작업 전면 중단 → 생산 손실 직접 발생"
+        ]
+      }
+    },
+
+    "pr": {
+      "label": "일강수량 평균",
+      "unit": "mm/day",
+      "tcfd_type": "chronic",
+      "inverse": false,
+      "levels": {
+        "LOW":       {"min": 0,   "max": 5,   "label": "낮음"},
+        "MEDIUM":    {"min": 5,   "max": 8,   "label": "중간"},
+        "HIGH":      {"min": 8,   "max": 12,  "label": "높음"},
+        "VERY_HIGH": {"min": 12,  "max": null,"label": "매우 높음"}
+      },
+      "reference": {
+        "source": "IPCC AR6 WG1 Chapter 8 (2021) — Water Cycle Changes",
+        "institution": "IPCC",
+        "url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-8/"
+      },
+      "business_impacts": {
+        "HIGH": [
+          "강수량 증가: 배수·홍수 관리 비용 증가",
+          "농산물·원자재 공급망 품질 변동성 상승"
+        ],
+        "VERY_HIGH": [
+          "지속적 고강수: 설비 부식·열화 가속",
+          "홍수 빈도 증가 → 운영 중단 리스크 상시화"
+        ]
+      }
+    },
+
+    "sfcWind": {
+      "label": "지표풍속 평균",
+      "unit": "m/s",
+      "tcfd_type": "acute",
+      "inverse": false,
+      "levels": {
+        "LOW":       {"min": 0,   "max": 7,   "label": "낮음"},
+        "MEDIUM":    {"min": 7,   "max": 10,  "label": "중간"},
+        "HIGH":      {"min": 10,  "max": 14,  "label": "높음"},
+        "VERY_HIGH": {"min": 14,  "max": null,"label": "매우 높음"}
+      },
+      "reference": {
+        "source": "WMO Beaufort Scale; Saffir-Simpson Hurricane Wind Scale (WMO/NHC)",
+        "institution": "WMO",
+        "url": "https://www.wmo.int/pages/prog/www/TCP/Cyclone.html"
+      },
+      "business_impacts": {
+        "HIGH": [
+          "10~14m/s: 야외 작업(크레인·고소작업) 안전 기준 초과 가능",
+          "구조물 설계 하중 재검토 필요성 증가"
+        ],
+        "VERY_HIGH": [
+          "14m/s 초과: 옥외 시설 구조 피해 직접 리스크",
+          "항만·물류 시설 운영 중단 가능성"
+        ]
+      }
+    },
+
+    "aq_water_stress": {
+      "label": "수자원 스트레스(Aqueduct)",
+      "unit": "0-5 (WRI)",
+      "tcfd_type": "chronic",
+      "inverse": false,
+      "levels": {
+        "LOW":       {"min": 0,   "max": 1.0, "label": "낮음"},
+        "MEDIUM":    {"min": 1.0, "max": 2.0, "label": "중간"},
+        "HIGH":      {"min": 2.0, "max": 4.0, "label": "높음"},
+        "VERY_HIGH": {"min": 4.0, "max": null,"label": "매우 높음 (극심)"}
+      },
+      "reference": {
+        "source": "WRI Aqueduct 4.0 (2023) — Baseline Water Stress Indicator",
+        "institution": "WRI (World Resources Institute)",
+        "url": "https://www.wri.org/data/aqueduct-global-maps-40"
+      },
+      "business_impacts": {
+        "HIGH": [
+          "수자원 스트레스 2이상: 공업·냉각용수 취수 경쟁 심화",
+          "수처리 비용 상승 및 사용 허가 규제 강화 가능성"
+        ],
+        "VERY_HIGH": [
+          "극심한 수자원 스트레스: 냉각수 공급 중단 → 생산 설비 가동 제한",
+          "물 집약적 공정의 영업 지속성 위협",
+          "물 관련 공시 의무화 (ISSB S2 §16 전환 리스크 연계)"
+        ]
+      }
+    },
+
+    "aq_river_flood": {
+      "label": "하천홍수 위험(Aqueduct)",
+      "unit": "0-5 (WRI)",
+      "tcfd_type": "acute",
+      "inverse": false,
+      "levels": {
+        "LOW":       {"min": 0,   "max": 1.0, "label": "낮음"},
+        "MEDIUM":    {"min": 1.0, "max": 2.0, "label": "중간"},
+        "HIGH":      {"min": 2.0, "max": 3.0, "label": "높음"},
+        "VERY_HIGH": {"min": 3.0, "max": null,"label": "매우 높음"}
+      },
+      "reference": {
+        "source": "WRI Aqueduct 4.0 (2023) — River Flood Hazard",
+        "institution": "WRI",
+        "url": "https://www.wri.org/data/aqueduct-global-maps-40"
+      },
+      "business_impacts": {
+        "HIGH": [
+          "하천 범람 위험 고조: 저지대 시설 침수 보험료 급등",
+          "물류 경로 차단 빈도 증가 → 공급망 안정성 저하"
+        ],
+        "VERY_HIGH": [
+          "하천 범람 직접 피해 위험: 설비·재고 손상 가능",
+          "이전 또는 방호 설비 투자 필요"
+        ]
+      }
+    },
+
+    "aq_drought": {
+      "label": "가뭄 위험(Aqueduct)",
+      "unit": "0-5 (WRI)",
+      "tcfd_type": "chronic",
+      "inverse": false,
+      "levels": {
+        "LOW":       {"min": 0,   "max": 1.0, "label": "낮음"},
+        "MEDIUM":    {"min": 1.0, "max": 2.0, "label": "중간"},
+        "HIGH":      {"min": 2.0, "max": 3.0, "label": "높음"},
+        "VERY_HIGH": {"min": 3.0, "max": null,"label": "매우 높음"}
+      },
+      "reference": {
+        "source": "WRI Aqueduct 4.0 (2023) — Drought Risk",
+        "institution": "WRI",
+        "url": "https://www.wri.org/data/aqueduct-global-maps-40"
+      },
+      "business_impacts": {
+        "HIGH": [
+          "가뭄 빈도 증가: 원자재 수급 불안 및 가격 변동성 상승",
+          "냉각수·공업용수 제한 공급 리스크"
+        ],
+        "VERY_HIGH": [
+          "극심한 가뭄: 생산 공정 물 공급 중단 가능",
+          "농업 연계 원자재 공급망 붕괴 위험"
+        ]
+      }
+    },
+
+    "tc_annual_freq": {
+      "label": "태풍 연간빈도(IBTrACS)",
+      "unit": "회/yr",
+      "tcfd_type": "acute",
+      "inverse": false,
+      "levels": {
+        "LOW":       {"min": 0,    "max": 0.1,  "label": "낮음"},
+        "MEDIUM":    {"min": 0.1,  "max": 0.5,  "label": "중간"},
+        "HIGH":      {"min": 0.5,  "max": 1.0,  "label": "높음"},
+        "VERY_HIGH": {"min": 1.0,  "max": null, "label": "매우 높음"}
+      },
+      "reference": {
+        "source": "NOAA IBTrACS v04 (1980-2023); WMO Tropical Cyclone Operational Plan",
+        "institution": "WMO / NOAA",
+        "url": "https://www.ncei.noaa.gov/products/international-best-track-archive"
+      },
+      "business_impacts": {
+        "HIGH": [
+          "연 0.5~1회: 태풍 직접 영향 연 1회 이상 가능 → BCP 필수",
+          "시설 강풍·침수 피해 및 조업 중단 리스크"
+        ],
+        "VERY_HIGH": [
+          "연 1회 이상: 태풍 피해 복구 비용 정기 발생 구조화",
+          "보험 가용성 저하 및 프리미엄 급등 가능성"
+        ]
+      }
+    },
+
+    "tc_max_wind_kt": {
+      "label": "최대풍속 극값(IBTrACS)",
+      "unit": "kt",
+      "tcfd_type": "acute",
+      "inverse": false,
+      "levels": {
+        "LOW":       {"min": 0,   "max": 64,  "label": "낮음 (TS 미만)"},
+        "MEDIUM":    {"min": 64,  "max": 96,  "label": "중간 (Cat1-2)"},
+        "HIGH":      {"min": 96,  "max": 137, "label": "높음 (Cat3-4)"},
+        "VERY_HIGH": {"min": 137, "max": null,"label": "매우 높음 (Cat5)"}
+      },
+      "reference": {
+        "source": "Saffir-Simpson Hurricane Wind Scale (WMO/NHC); IPCC AR6 WG1 Ch.11",
+        "institution": "WMO / NHC",
+        "url": "https://www.nhc.noaa.gov/aboutsshws.php"
+      },
+      "business_impacts": {
+        "HIGH": [
+          "Cat3 이상(96kt+): 지붕·구조물 중대 피해 가능 (IBC 설계 기준 초과)",
+          "설비 및 건물 강화 투자 필요"
+        ],
+        "VERY_HIGH": [
+          "Cat5(137kt+): 건물 전파 및 완전 파괴 위험",
+          "사업장 이전 또는 극한 강화 구조물 투자 검토 필요"
+        ]
+      }
+    },
+
+    "psha_pga_475": {
+      "label": "지진 PGA 475년 빈도(PSHA)",
+      "unit": "g",
+      "tcfd_type": "acute",
+      "inverse": false,
+      "levels": {
+        "LOW":       {"min": 0,    "max": 0.05, "label": "낮음"},
+        "MEDIUM":    {"min": 0.05, "max": 0.15, "label": "중간"},
+        "HIGH":      {"min": 0.15, "max": 0.3,  "label": "높음"},
+        "VERY_HIGH": {"min": 0.3,  "max": null, "label": "매우 높음"}
+      },
+      "reference": {
+        "source": "GEM Global Seismic Hazard Assessment Programme (2018); Eurocode 8 (EN 1998-1)",
+        "institution": "GEM / CEN",
+        "url": "https://www.globalquakemodel.org/gem-maps"
+      },
+      "business_impacts": {
+        "HIGH": [
+          "PGA 0.15g 이상: 내진 설계 기준 강화 적용 필요 (Eurocode 8 Zone 2)",
+          "시설 내진 보강 투자 및 구조 검토 의무화 가능"
+        ],
+        "VERY_HIGH": [
+          "PGA 0.3g 이상: 고위험 지진대 — 내진 설계 최고 등급 적용 필요",
+          "주요 설비 내진 앵커링 및 비상 대피 계획 필수"
+        ]
+      }
+    },
+
+    "sea_level_rise": {
+      "label": "해수면 상승 리스크",
+      "unit": "score (0-100)",
+      "tcfd_type": "chronic",
+      "inverse": false,
+      "levels": {
+        "LOW":       {"min": 0,   "max": 30,  "label": "낮음"},
+        "MEDIUM":    {"min": 30,  "max": 60,  "label": "중간"},
+        "HIGH":      {"min": 60,  "max": 80,  "label": "높음"},
+        "VERY_HIGH": {"min": 80,  "max": null,"label": "매우 높음"}
+      },
+      "reference": {
+        "source": "IPCC AR6 WG1 Chapter 9 — Ocean, Cryosphere and Sea Level (2021); OS-Climate PhyRisk",
+        "institution": "IPCC / OS-Climate",
+        "url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-9/"
+      },
+      "business_impacts": {
+        "HIGH": [
+          "해안 저지대 시설 침수 및 해일 위험 증가",
+          "항만·물류 인프라 설계 기준 재검토 필요"
+        ],
+        "VERY_HIGH": [
+          "해수면 장기 상승: 해안 시설 폐기 또는 방호 제방 투자 필요",
+          "해안 부동산 가치 하락 및 보험 가용성 감소"
+        ]
+      }
+    },
+
+    "flood_risk": {
+      "label": "홍수 위험(PhyRisk)",
+      "unit": "score (0-100)",
+      "tcfd_type": "acute",
+      "inverse": false,
+      "levels": {
+        "LOW":       {"min": 0,   "max": 30,  "label": "낮음"},
+        "MEDIUM":    {"min": 30,  "max": 60,  "label": "중간"},
+        "HIGH":      {"min": 60,  "max": 80,  "label": "높음"},
+        "VERY_HIGH": {"min": 80,  "max": null,"label": "매우 높음"}
+      },
+      "reference": {
+        "source": "OS-Climate Physical Risk & Resilience — Flood Risk Score; JRC Global Flood Risk (2017)",
+        "institution": "OS-Climate / JRC",
+        "url": "https://os-climate.org/physical-risk/"
+      },
+      "business_impacts": {
+        "HIGH": [
+          "홍수 위험 고조: 시설 방호 설비 투자 및 보험료 상승",
+          "물류 경로 차단 빈도 증가"
+        ],
+        "VERY_HIGH": [
+          "홍수 직접 피해 위험 상시화: BCP 발동 빈도 증가",
+          "설비 이전 또는 대규모 방호 투자 필요"
+        ]
+      }
+    },
+
+    "heat_stress": {
+      "label": "열 스트레스(PhyRisk)",
+      "unit": "score (0-100)",
+      "tcfd_type": "chronic",
+      "inverse": false,
+      "levels": {
+        "LOW":       {"min": 0,   "max": 30,  "label": "낮음"},
+        "MEDIUM":    {"min": 30,  "max": 60,  "label": "중간"},
+        "HIGH":      {"min": 60,  "max": 80,  "label": "높음"},
+        "VERY_HIGH": {"min": 80,  "max": null,"label": "매우 높음"}
+      },
+      "reference": {
+        "source": "OS-Climate Physical Risk & Resilience — Heat Stress Score (based on WBGT/HI)",
+        "institution": "OS-Climate",
+        "url": "https://os-climate.org/physical-risk/"
+      },
+      "business_impacts": {
+        "HIGH": [
+          "열 스트레스 고위험: 근로자 온열질환 예방 체계 강화 필요",
+          "냉방 인프라 추가 투자 및 작업시간 재편"
+        ],
+        "VERY_HIGH": [
+          "열 스트레스 극심: 야외·고온 환경 작업 전면 제한 가능",
+          "생산성 30% 이상 저하 및 산재 리스크 급증"
+        ]
+      }
+    },
+
+    "tasmin": {
+      "label": "최저기온(tasmin)",
+      "unit": "°C",
+      "tcfd_type": "chronic",
+      "inverse": false,
+      "levels": {
+        "LOW":       {"min": -999, "max": 18,  "label": "낮음"},
+        "MEDIUM":    {"min": 18,   "max": 22,  "label": "중간"},
+        "HIGH":      {"min": 22,   "max": 26,  "label": "높음"},
+        "VERY_HIGH": {"min": 26,   "max": null,"label": "매우 높음"}
+      },
+      "reference": {
+        "source": "IPCC AR6 WG1 Ch.12 — 열대야 연계 최저기온 임계값",
+        "institution": "IPCC",
+        "url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-12/"
+      },
+      "business_impacts": {
+        "HIGH": [
+          "야간 냉방 수요 연중 증가 → 에너지 비용 상승",
+          "온열질환 회복 시간 부족 — 야간 안전 관리 강화 필요"
+        ],
+        "VERY_HIGH": [
+          "연중 고온 유지로 열 순응 한계 도달 가능",
+          "냉방 설비 용량 증설 투자 필요"
+        ]
+      }
+    },
+
+    "etccdi_cwd": {
+      "label": "연속강수일(CWD)",
+      "unit": "days",
+      "tcfd_type": "chronic",
+      "inverse": false,
+      "levels": {
+        "LOW":       {"min": 0,   "max": 10,  "label": "낮음"},
+        "MEDIUM":    {"min": 10,  "max": 20,  "label": "중간"},
+        "HIGH":      {"min": 20,  "max": 30,  "label": "높음"},
+        "VERY_HIGH": {"min": 30,  "max": null,"label": "매우 높음"}
+      },
+      "reference": {
+        "source": "ETCCDI/WMO Expert Team — CWD Consecutive Wet Days threshold (≥1mm/day)",
+        "institution": "WMO / ETCCDI",
+        "url": "https://www.climdex.org/learn/indices/"
+      },
+      "business_impacts": {
+        "HIGH": [
+          "장기 강수 지속: 야외 시공·물류 중단 가능성 증가",
+          "지반 침수·슬라이딩 리스크 상승"
+        ],
+        "VERY_HIGH": [
+          "30일 이상 연속 강수: BCP 발동 및 물류 경로 대체 계획 필요",
+          "건물 습기·곰팡이 피해 및 설비 부식 가속"
+        ]
+      }
+    },
+
+    "wildfire_risk": {
+      "label": "산불 위험(PhyRisk)",
+      "unit": "score (0-100)",
+      "tcfd_type": "chronic",
+      "inverse": false,
+      "levels": {
+        "LOW":       {"min": 0,   "max": 30,  "label": "낮음"},
+        "MEDIUM":    {"min": 30,  "max": 55,  "label": "중간"},
+        "HIGH":      {"min": 55,  "max": 75,  "label": "높음"},
+        "VERY_HIGH": {"min": 75,  "max": null,"label": "매우 높음"}
+      },
+      "reference": {
+        "source": "OS-Climate Physical Risk — Wildfire Risk Score; IPCC AR6 WG2 Ch.10",
+        "institution": "OS-Climate / IPCC",
+        "url": "https://os-climate.org/physical-risk/"
+      },
+      "business_impacts": {
+        "HIGH": [
+          "산불 연기로 인한 대기질 악화 — 외부 작업 제한 및 보건 비용 증가",
+          "인근 산림 피해로 공급망·인프라 접근 장애"
+        ],
+        "VERY_HIGH": [
+          "직접 산불 피해 위험: 방화 대책 투자 및 피난 계획 필수",
+          "재산 피해 및 사업 중단 보험료 급등"
+        ]
+      }
+    },
+
+    "drought_risk": {
+      "label": "가뭄 위험(PhyRisk)",
+      "unit": "score (0-100)",
+      "tcfd_type": "chronic",
+      "inverse": false,
+      "levels": {
+        "LOW":       {"min": 0,   "max": 30,  "label": "낮음"},
+        "MEDIUM":    {"min": 30,  "max": 55,  "label": "중간"},
+        "HIGH":      {"min": 55,  "max": 75,  "label": "높음"},
+        "VERY_HIGH": {"min": 75,  "max": null,"label": "매우 높음"}
+      },
+      "reference": {
+        "source": "OS-Climate Physical Risk — Drought Risk Score; WRI Aqueduct 4.0 Drought Exposure",
+        "institution": "OS-Climate / WRI",
+        "url": "https://os-climate.org/physical-risk/"
+      },
+      "business_impacts": {
+        "HIGH": [
+          "냉각수·공정용수 취수 제한 위험 — 생산 용량 감소 가능",
+          "농업 공급망 차질 및 원자재 가격 상승"
+        ],
+        "VERY_HIGH": [
+          "극심 가뭄: 용수 공급 중단으로 사업장 운영 중단 가능성",
+          "대체 수원 확보 또는 절수 기술 투자 시급"
+        ]
+      }
+    },
+
+    "water_stress": {
+      "label": "물 스트레스(PhyRisk)",
+      "unit": "score (0-100)",
+      "tcfd_type": "chronic",
+      "inverse": false,
+      "levels": {
+        "LOW":       {"min": 0,   "max": 20,  "label": "낮음"},
+        "MEDIUM":    {"min": 20,  "max": 40,  "label": "중간 (Medium-High)"},
+        "HIGH":      {"min": 40,  "max": 60,  "label": "높음 (High)"},
+        "VERY_HIGH": {"min": 60,  "max": null,"label": "매우 높음 (Extremely High)"}
+      },
+      "reference": {
+        "source": "WRI Aqueduct 4.0 — Baseline Water Stress (0-100 normalized)",
+        "institution": "WRI",
+        "url": "https://www.wri.org/data/aqueduct-water-risk-atlas"
+      },
+      "business_impacts": {
+        "HIGH": [
+          "WRI Aqueduct 고위험 구간: 취수 경쟁 심화 및 용수 비용 상승",
+          "용수 집약형 공정 라인 재검토 및 재순환 기술 투자 필요"
+        ],
+        "VERY_HIGH": [
+          "극도 물 스트레스: 정부 취수 제한 조치 및 조업 중단 위험",
+          "수자원 안보 전략 수립 및 대체 수원 확보 필수"
+        ]
+      }
+    }
+
+  }
+}

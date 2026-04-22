@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Innergen Climate Scenario — 기후 물리적 리스크 분석 플랫폼</title>
-  <meta name="description" content="38개 기후 동인 · 4가지 배출 시나리오 · 9개 시점의 기후 물리적 리스크를 즉시 분석합니다.">
+  <meta name="description" content="49개 기후 동인 · 4가지 배출 시나리오 · 9개 시점의 기후 물리적 리스크를 즉시 분석합니다.">
   <link rel="stylesheet" href="style.css">
   <!-- Leaflet.js -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
@@ -26,7 +26,7 @@
       <span class="logo-product">Climate Scenario</span>
     </div>
     <div class="header-right">
-      <span class="header-tag">38 DRIVERS · 4 SSP · 9 PERIODS</span>
+      <span class="header-tag">49 DRIVERS · 4 SSP · 9 PERIODS</span>
       <span style="opacity: 0.5;">v2.0</span>
     </div>
   </div>
@@ -37,7 +37,7 @@
   <section class="hero">
     <div class="container">
       <h1>기후 물리적 리스크 <span>시나리오 분석</span></h1>
-      <p>주소 또는 위도/경도를 입력하면 38개 기후 동인의 4가지 배출 시나리오 × 9개 시점 리스크를 즉시 시각화합니다.</p>
+      <p>주소 또는 위도/경도를 입력하면 49개 기후 동인의 4가지 배출 시나리오 × 9개 시점 리스크를 즉시 시각화합니다.</p>
 
       <!-- Search Card -->
       <div class="search-card">
@@ -99,7 +99,7 @@
         <!-- RAG 히트맵 -->
         <div class="card card-full">
           <div class="card-title">
-            RAG 기후 위험 히트맵 — 38개 동인 × 9시점
+            RAG 기후 위험 히트맵 — 49개 동인 × 9시점
           </div>
           <div class="ssp-tabs" id="heatmap-ssp-tabs">
             <button class="ssp-tab active" data-ssp="ssp585">SSP5-8.5</button>
@@ -124,12 +124,73 @@
               border-radius: 4px; padding: 6px 10px;
               color: var(--text); font-size: 12px; width: 100%;
               font-family: inherit;">
-              <option value="tasmax">최고기온 (tasmax)</option>
-              <option value="tas">평균기온 (tas)</option>
-              <option value="pr">강수량 (pr)</option>
-              <option value="sfcWind">지표풍속 (sfcWind)</option>
-              <option value="heat_stress">열 스트레스</option>
-              <option value="flood_risk">홍수 위험</option>
+              <optgroup label="── CMIP6 기후변수">
+                <option value="tasmax">최고기온 (tasmax)</option>
+                <option value="tasmin">최저기온 (tasmin)</option>
+                <option value="tas">평균기온 (tas)</option>
+                <option value="pr">강수량 (pr)</option>
+                <option value="prsn">적설량 (prsn)</option>
+                <option value="sfcWind">지표풍속 (sfcWind)</option>
+                <option value="evspsbl">증발산량 (evspsbl)</option>
+              </optgroup>
+              <optgroup label="── ETCCDI 극값 지수 — 열">
+                <option value="etccdi_txx">월최고기온 (TXx)</option>
+                <option value="etccdi_tnn">월최저기온 (TNn)</option>
+                <option value="etccdi_su">여름일수 (SU)</option>
+                <option value="etccdi_tr">열대야 (TR)</option>
+                <option value="etccdi_fd">결빙일수 (FD)</option>
+                <option value="etccdi_wsdi">온난기간 (WSDI)</option>
+                <option value="etccdi_wbgt">습구흑구온도 (WBGT)</option>
+              </optgroup>
+              <optgroup label="── ETCCDI 극값 지수 — 강수">
+                <option value="etccdi_cdd">연속건조일수 (CDD)</option>
+                <option value="etccdi_cwd">연속습윤일수 (CWD)</option>
+                <option value="etccdi_rx1day">1일최대강수 (Rx1day)</option>
+                <option value="etccdi_rx5day">5일최대강수 (Rx5day)</option>
+                <option value="etccdi_r95p">극한강수 (R95p)</option>
+                <option value="etccdi_sdii">강수강도 (SDII)</option>
+              </optgroup>
+              <optgroup label="── PhyRisk — 열">
+                <option value="heat_stress">열 스트레스</option>
+                <option value="extreme_heat_35c">극한고온 35°C</option>
+                <option value="work_loss_high">노동손실(고강도)</option>
+                <option value="work_loss_medium">노동손실(중강도)</option>
+                <option value="heat_degree_days">냉방도일</option>
+              </optgroup>
+              <optgroup label="── PhyRisk — 수자원·가뭄">
+                <option value="water_stress">물 스트레스</option>
+                <option value="water_depletion">수자원 고갈</option>
+                <option value="drought_risk">가뭄 위험</option>
+              </optgroup>
+              <optgroup label="── PhyRisk — 홍수·태풍·기타">
+                <option value="flood_risk">홍수 위험</option>
+                <option value="river_flood">하천 홍수</option>
+                <option value="coastal_flood">해안 홍수</option>
+                <option value="pluvial_flood">도시 침수</option>
+                <option value="cyclone_risk">사이클론 위험</option>
+                <option value="storm_surge">폭풍 해일</option>
+                <option value="sea_level_rise">해수면 상승</option>
+                <option value="wildfire_risk">산불 위험</option>
+                <option value="earthquake_risk">지진 위험</option>
+                <option value="landslide_risk">산사태 위험</option>
+              </optgroup>
+              <optgroup label="── Aqueduct 수자원">
+                <option value="aq_water_stress">수자원 스트레스 (AQ)</option>
+                <option value="aq_river_flood">하천홍수 위험 (AQ)</option>
+                <option value="aq_coastal_flood">해안홍수 위험 (AQ)</option>
+                <option value="aq_drought">가뭄 위험 (AQ)</option>
+                <option value="aq_interann_var">연간변동성 (AQ)</option>
+                <option value="aq_water_stress_2050">수자원 스트레스 2050 (AQ)</option>
+              </optgroup>
+              <optgroup label="── IBTrACS 태풍">
+                <option value="tc_annual_freq">태풍 연간 빈도</option>
+                <option value="tc_max_wind_kt">태풍 최대 풍속</option>
+                <option value="tc_cat3_count">카테고리3+ 태풍</option>
+              </optgroup>
+              <optgroup label="── PSHA 지진재해">
+                <option value="psha_pga_475">PGA 475년 재현주기</option>
+                <option value="psha_pga_2475">PGA 2475년 재현주기</option>
+              </optgroup>
             </select>
           </div>
           <div class="chart-wrap">
@@ -145,16 +206,60 @@
 
         <!-- Top5 리스크 카드 -->
         <div class="card">
-          <div class="card-title">Top 5 고위험 항목 — SSP5-8.5 말기</div>
+          <div class="card-title">Top 5 고위험 항목 — SSP2-4.5 중기</div>
           <div class="top5-list" id="top5-list"></div>
         </div>
 
       </div><!-- /results-grid -->
 
+      <!-- ── 리스크 해석 패널 ──────────────────────────────── -->
+      <section id="risk-interpretation-panel" class="interp-panel" style="display:none">
+
+        <!-- 헤더 -->
+        <div class="interp-header">
+          <div class="interp-title-row">
+            <h3 class="interp-title">리스크 해석 — 국제기준 기반</h3>
+            <span id="interp-mat-badge" class="interp-mat-badge"></span>
+          </div>
+          <div class="interp-subtitle-row">
+            <span id="interp-scenario" class="interp-scenario"></span>
+            <span class="interp-frameworks">IPCC AR6 · WMO · TCFD · ISSB S2 · WRI Aqueduct</span>
+          </div>
+          <p id="interp-mat-note" class="interp-mat-note"></p>
+          <p id="interp-cdp-ref"  class="interp-cdp-ref"></p>
+        </div>
+
+        <!-- TCFD 분류 -->
+        <div class="interp-tcfd">
+          <div class="tcfd-block tcfd-acute-block">
+            <span class="tcfd-type-label">⚡ 급성 리스크 (Acute)</span>
+            <span id="interp-tcfd-acute" class="tcfd-items"></span>
+          </div>
+          <div class="tcfd-block tcfd-chronic-block">
+            <span class="tcfd-type-label">📈 만성 리스크 (Chronic)</span>
+            <span id="interp-tcfd-chronic" class="tcfd-items"></span>
+          </div>
+        </div>
+
+        <!-- 고위험 항목 카드 -->
+        <div class="interp-section-title">고위험 항목 (HIGH 이상)</div>
+        <div id="interp-risks-list" class="interp-risks-list"></div>
+
+        <!-- AI 내러티브 -->
+        <div class="interp-section-title">공시용 AI 내러티브 (ISSB S2 / CDP)</div>
+        <div id="interp-narrative" class="interp-narrative"></div>
+
+        <!-- 공시 주의 -->
+        <div class="interp-disclosure">
+          <p>본 해석은 참고 목적의 AI 생성 초안입니다. 실제 ISSB S2 / CDP 공시 시 ESG 전문가 검토가 필요합니다.</p>
+        </div>
+
+      </section>
+
       <!-- Excel 다운로드 -->
       <div class="excel-section">
         <button class="btn-excel" id="btn-excel">
-          Excel 다운로드 (4SSP × 모든 시점)
+          Excel 다운로드 (4SSP × 모든 시점 + 리스크 해석)
         </button>
       </div>
 
@@ -184,6 +289,7 @@
 <script src="heatmap.js"></script>
 <script src="chart_render.js"></script>
 <script src="map_render.js"></script>
+<script src="risk_panel.js"></script>
 <script src="excel_export.js"></script>
 <script src="app.js"></script>
 

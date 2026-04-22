@@ -34,10 +34,10 @@ const PERIOD_LABELS = {
 /** 엑셀 출력용 (더 상세한 기간 표기) */
 const PERIOD_LABEL_MAP = {
   baseline: "현재(2015-24)",
-  near:     "근미래(2025-34)",
+  near:     "단기(2025-34)",
   mid:      "중기(2045-54)",
   far:      "장기(2075-84)",
-  end:      "말기(2090-99)",
+  end:      "장기+(2090-99)",
 };
 
 /** Chart.js X축 중간값 레이블 */
@@ -68,6 +68,15 @@ const ETCCDI_KEYS = [
   "etccdi_cdd", "etccdi_cwd", "etccdi_rx1day", "etccdi_rx5day",
   "etccdi_r95p", "etccdi_sdii",
 ];
+
+const AQUEDUCT_KEYS = [
+  "aq_water_stress", "aq_river_flood", "aq_coastal_flood",
+  "aq_drought", "aq_interann_var", "aq_water_stress_2050",
+];
+
+const IBTRACS_KEYS = ["tc_annual_freq", "tc_max_wind_kt", "tc_cat3_count"];
+
+const PSHA_KEYS = ["psha_pga_475", "psha_pga_2475"];
 
 // ── 동인 메타 (heatmap RAG 포함) ─────────────────────────────────────────────
 const DRIVER_META = {
@@ -116,6 +125,20 @@ const DRIVER_META = {
   etccdi_rx5day: { label: "5일최대강수(Rx5day)",  unit: "mm",        rag: (v) => v > 200 ? "red" : v > 100 ? "amber" : "green" },
   etccdi_r95p:   { label: "극한강수(R95p)",       unit: "mm/yr",     rag: (v) => v > 500 ? "red" : v > 250 ? "amber" : "green" },
   etccdi_sdii:   { label: "강수강도(SDII)",       unit: "mm/wetday", rag: (v) => v > 20 ? "red" : v > 12 ? "amber" : "green" },
+  // ── Aqueduct 4.0 수자원 위험 (6) — WRI 0~5 스케일 ──────────────────────────
+  aq_water_stress:      { label: "수자원 스트레스(Aq)",      unit: "0-5", rag: (v) => v > 3.5 ? "red" : v > 2.0 ? "amber" : "green" },
+  aq_river_flood:       { label: "하천홍수 위험(Aq)",        unit: "0-5", rag: (v) => v > 3.0 ? "red" : v > 1.5 ? "amber" : "green" },
+  aq_coastal_flood:     { label: "해안침수 위험(Aq)",        unit: "0-5", rag: (v) => v > 2.0 ? "red" : v > 1.0 ? "amber" : "green" },
+  aq_drought:           { label: "가뭄 위험(Aq)",            unit: "0-5", rag: (v) => v > 3.0 ? "red" : v > 1.5 ? "amber" : "green" },
+  aq_interann_var:      { label: "연간변동성(Aq)",           unit: "0-5", rag: (v) => v > 3.0 ? "red" : v > 1.5 ? "amber" : "green" },
+  aq_water_stress_2050: { label: "수자원 스트레스 2050(Aq)", unit: "0-5", rag: (v) => v > 3.5 ? "red" : v > 2.0 ? "amber" : "green" },
+  // ── IBTrACS 태풍 통계 (3) — 역사적 1980-2023 ────────────────────────────────
+  tc_annual_freq: { label: "태풍 연간빈도(IBT)",  unit: "회/yr", rag: (v) => v > 5 ? "red" : v > 2 ? "amber" : "green" },
+  tc_max_wind_kt: { label: "최대풍속 극값(IBT)",  unit: "kt",    rag: (v) => v > 100 ? "red" : v > 64 ? "amber" : "green" },
+  tc_cat3_count:  { label: "Cat3+ 태풍수(IBT)",   unit: "회",    rag: (v) => v > 5 ? "red" : v > 1 ? "amber" : "green" },
+  // ── GEM PSHA 지진 (2) — 정적 문헌값 ────────────────────────────────────────
+  psha_pga_475:   { label: "PGA 475년 빈도(PSHA)",  unit: "g", rag: (v) => v > 0.3 ? "red" : v > 0.15 ? "amber" : "green" },
+  psha_pga_2475:  { label: "PGA 2475년 빈도(PSHA)", unit: "g", rag: (v) => v > 0.6 ? "red" : v > 0.3 ? "amber" : "green" },
 };
 
 const DRIVER_KEYS = Object.keys(DRIVER_META);

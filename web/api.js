@@ -38,7 +38,38 @@ async function waitForServer(onReady, onProgress) {
 }
 
 /**
- * 기후 리스크 데이터 조회
+ * 주소/지명 → 좌표 변환 (서버 Nominatim 프록시)
+ * @param {string} query  — 예: "Tokyo", "서울 강남구"
+ * @returns {Promise<{results: Array<{lat, lon, display_name, country_code}>}>}
+ */
+async function geocode(query) {
+  const url = `${API_BASE}/geocode?q=${encodeURIComponent(query)}`;
+  const resp = await fetch(url, { signal: AbortSignal.timeout(10000) });
+  if (!resp.ok) {
+    const err = await resp.json().catch(() => ({}));
+    throw new Error(err.detail || `Geocoding 오류 (${resp.status})`);
+  }
+  return resp.json();
+}
+
+/**
+ * 기후 리스크 요약 조회 (경량 — 핵심 지표만)
+ * @param {number} lat
+ * @param {number} lon
+ * @returns {Promise<{location, climate, hazards}>}
+ */
+async function querySummary(lat, lon) {
+  const url = `${API_BASE}/query/summary?lat=${lat}&lon=${lon}`;
+  const resp = await fetch(url, { signal: AbortSignal.timeout(35000) });
+  if (!resp.ok) {
+    const err = await resp.json().catch(() => ({}));
+    throw new Error(err.detail || `API 오류 (${resp.status})`);
+  }
+  return resp.json();
+}
+
+/**
+ * 기후 리스크 데이터 전체 조회
  * @param {number} lat
  * @param {number} lon
  * @returns {Promise<Object>} {meta, drivers}
@@ -51,6 +82,57 @@ async function queryRisk(lat, lon) {
     throw new Error(err.detail || `API 오류 (${resp.status})`);
   }
   return resp.json();
+}
+
+/**
+ * 앙상블 통계 포함 기후 리스크 조회 (T1: p10/p90/std/n_models 포함)
+ * @param {number} lat
+ * @param {number} lon
+ * @returns {Promise<Object>} {meta, drivers, ensemble_stats}
+ */
+async function queryRiskEnsemble(lat, lon) {
+  const url = `${API_BASE}/query/ensemble?lat=${lat}&lon=${lon}`;
+  const resp = await fetch(url, { signal: AbortSignal.timeout(35000) });
+  if (!resp.ok) {
+    const err = await resp.json().catch(() => ({}));
+    throw new Error(err.detail || `API 오류 (${resp.status})`);
+  }
+  return resp.json();
+}
+
+/**
+ * 특정 CMIP6 모델 단일값 조회
+ * @param {number} lat
+ * @param {number} lon
+ * @param {string} model  — 예: "miroc6", "mpi_esm1_2_lr"
+ * @returns {Promise<Object>} {meta, model, region, drivers, available_models}
+ */
+async function queryRiskModel(lat, lon, model) {
+  const url = `${API_BASE}/query/model?lat=${lat}&lon=${lon}&model=${encodeURIComponent(model)}`;
+  const resp = await fetch(url, { signal: AbortSignal.timeout(60000) }); // NC 읽기 최대 60초
+  if (!resp.ok) {
+    const err = await resp.json().catch(() => ({}));
+    throw new Error(err.detail || `API 오류 (${resp.status})`);
+  }
+  return resp.json();
+}
+
+/**
+ * 사용 가능한 CMIP6 모델 목록 조회
+ * @param {number|null} lat  — null이면 전체 목록
+ * @param {number|null} lon
+ * @returns {Promise<{models: string[], count: number}>}
+ */
+async function fetchModels(lat = null, lon = null) {
+  let url = `${API_BASE}/models`;
+  if (lat !== null && lon !== null) url += `?lat=${lat}&lon=${lon}`;
+  try {
+    const resp = await fetch(url, { signal: AbortSignal.timeout(10000) });
+    if (!resp.ok) return { models: [], count: 0 };
+    return resp.json();
+  } catch {
+    return { models: [], count: 0 };
+  }
 }
 
 /**

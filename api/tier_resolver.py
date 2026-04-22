@@ -17,6 +17,13 @@ from data_loader import site_data
 from cmip6_grid import cmip6_grid
 from physrisk_client import fetch_physrisk
 from psha_client import fetch_earthquake_risk
+from etccdi_estimator import estimate_etccdi, ETCCDI_CONFIDENCE
+from cmip6_nc_query import query_model_nc, list_models_for_coord
+from climada_global import query_climada
+from static_estimator import query_static
+from physrisk_client import estimate_physrisk_cmip6
+from psha_client import pga_to_risk_score
+from interpret_engine import interpret as _interpret_drivers
 
 logger = logging.getLogger(__name__)
 
@@ -25,18 +32,18 @@ T1_RADIUS_KM = 5.0
 
 SSP_KEYS = ["ssp126", "ssp245", "ssp370", "ssp585"]
 SSP_LABELS = {
-    "ssp126": "SSP1-2.6 (저탄소)",
-    "ssp245": "SSP2-4.5 (중간)",
-    "ssp370": "SSP3-7.0 (고탄소)",
-    "ssp585": "SSP5-8.5 (극단)",
+    "ssp126": "SSP1-2.6 (강한 감축)",
+    "ssp245": "SSP2-4.5 (중간 경로)",
+    "ssp370": "SSP3-7.0 (고배출)",
+    "ssp585": "SSP5-8.5 (화석연료 집약)",
 }
 PERIOD_KEYS = ["baseline", "near", "mid", "far", "end"]
 PERIOD_LABELS = {
     "baseline": "현재 (2015-2024)",
-    "near":     "근미래 (2025-2034)",
+    "near":     "단기 (2025-2034)",
     "mid":      "중기 (2045-2054)",
     "far":      "장기 (2075-2084)",
-    "end":      "말기 (2090-2099)",
+    "end":      "장기+ (2090-2099)",
 }
 
 CMIP6_VARS = ["tasmax", "tasmin", "tas", "pr", "prsn", "sfcWind", "evspsbl"]
@@ -127,18 +134,27 @@ def _expand_flat_physrisk(flat: dict) -> dict:
     return result
 
 
-def _build_drivers_from_cmip6(cmip6_data: dict, physrisk_data: dict, source_label: str) -> dict:
+def _build_drivers_from_cmip6(
+    cmip6_data: dict,
+    physrisk_data: dict,
+    source_label: str,
+    static_data: Optional[dict] = None,
+    lat: Optional[float] = None,
+) -> dict:
     """
-    CMIP6 + physrisk 데이터를 합쳐 drivers 딕셔너리 생성.
+    CMIP6 + physrisk + static 데이터를 합쳐 drivers 딕셔너리 생성.
 
     Args:
         cmip6_data:    {ssp: {period: {var: value}}}
-        physrisk_data: {driver_key: {ssp: {period: score}}}  ← SSP·시점별 구조
+        physrisk_data: {driver_key: {ssp: {period: score}}}
         source_label:  CMIP6 데이터 출처 레이블
+        static_data:   {variable: value}  — Aqueduct/IBTrACS/PSHA 정적 값
+        lat:           위도 (ETCCDI 회귀 추정용, T2/T3에서만 사용)
 
     Returns:
         {ssp: {period: {var: {value, source}}}}
     """
+    static_data = static_data or {}
     result = {}
     for ssp in SSP_KEYS:
         result[ssp] = {}
@@ -147,56 +163,140 @@ def _build_drivers_from_cmip6(cmip6_data: dict, physrisk_data: dict, source_labe
 
             # ── CMIP6 + ETCCDI 변수 ────────────────────────────────────────
             cmip6_period = (cmip6_data.get(ssp) or {}).get(period) or {}
+
+            # T2/T3: ETCCDI 없으면 CMIP6 예측변수로 회귀 추정
+            etccdi_estimated: dict = {}
+            if lat is not None:
+                missing_etccdi = any(
+                    cmip6_period.get(v) is None for v in ETCCDI_VARS
+                )
+                if missing_etccdi:
+                    tm = cmip6_period.get("tasmax")
+                    tn = cmip6_period.get("tasmin")
+                    ta = cmip6_period.get("tas")
+                    pr = cmip6_period.get("pr")
+                    etccdi_estimated = estimate_etccdi(tm, tn, ta, pr, lat)
+
             for var in ALL_CLIMATE_VARS:
                 val = cmip6_period.get(var)
-                src = "ETCCDI" if var.startswith("etccdi_") else "CMIP6"
-                result[ssp][period][var] = {
-                    "value": val,
-                    "source": src,
-                }
+                if var.startswith("etccdi_"):
+                    if val is None and var in etccdi_estimated:
+                        val = etccdi_estimated[var]
+                        src = "ETCCDI_est"
+                    else:
+                        src = "ETCCDI"
+                else:
+                    src = "CMIP6"
+                entry: dict = {"value": val, "source": src}
+                # 추정값은 신뢰도 등급 첨부 (사용자 불확실성 인지용)
+                if src == "ETCCDI_est" and var in ETCCDI_CONFIDENCE:
+                    entry["confidence"] = ETCCDI_CONFIDENCE[var]
+                result[ssp][period][var] = entry
 
             # ── PhyRisk 변수 (SSP·시점별 개별 값) ──────────────────────────
+            # CMIP6 기반 추정값 (null 보완용) — 해당 SSP/period 값 사용
+            _est_fallback: Optional[dict] = None
+
             for hazard, meta in DRIVER_META.items():
                 if meta.get("source_type") in ("physrisk", "psha"):
-                    # physrisk_data: {driver_key: {ssp: {period: score}}}
                     nested = physrisk_data.get(hazard)
                     if isinstance(nested, dict):
                         val = nested.get(ssp, {}).get(period)
                     else:
                         val = None
+
+                    # null이면 CMIP6 기반 추정으로 보완
+                    src = "PhyRisk"
+                    if val is None and lat is not None:
+                        if _est_fallback is None:
+                            _est_fallback = estimate_physrisk_cmip6(
+                                lat, 0.0,  # lon은 이미 CMIP6 pr에 반영
+                                tasmax=cmip6_period.get("tasmax"),
+                                tasmin=cmip6_period.get("tasmin"),
+                                tas=cmip6_period.get("tas"),
+                                pr=cmip6_period.get("pr"),
+                            )
+                        val = _est_fallback.get(hazard)
+                        if val is not None:
+                            src = "PhyRisk_est"
+
+                    # earthquake_risk: static psha_pga_475 기반 변환
+                    if hazard == "earthquake_risk" and val is None:
+                        pga = static_data.get("psha_pga_475")
+                        if pga is not None:
+                            val = pga_to_risk_score(pga)
+                            src = "PSHA_derived"
+
                     result[ssp][period][hazard] = {
                         "value": val,
-                        "source": "PhyRisk",
+                        "source": src,
                     }
+
+            # ── 정적 변수 (Aqueduct / IBTrACS / PSHA) ─────────────────────
+            for var, val in static_data.items():
+                src_map = {
+                    "aq_": "Aqueduct4",
+                    "tc_": "IBTrACS",
+                    "psha_": "PSHA",
+                }
+                source = next((s for pfx, s in src_map.items() if var.startswith(pfx)), "static")
+                result[ssp][period][var] = {
+                    "value": val,
+                    "source": source,
+                }
 
     return result
 
 
-async def resolve(lat: float, lon: float) -> dict:
+def _inject_climada(drivers: dict, lat: float, lon: float) -> None:
     """
-    핵심 함수: Tier 결정 → 데이터 조합 → 결과 반환.
-
-    Returns:
-        {meta, data, drivers}
+    CLIMADA HDF5에서 TC/홍수/산불/지진 EAL 조회 후 drivers에 삽입.
+    지원 국가 외는 None 유지.
     """
-    tier, matched_site, dist_km = determine_tier(lat, lon)
-    country = _infer_country(lat, lon)
+    try:
+        climada = query_climada(lat, lon)
+    except Exception as e:
+        logger.warning(f"CLIMADA query failed ({lat},{lon}): {e}")
+        climada = {}
 
-    meta = {
+    for ssp in SSP_KEYS:
+        for period in PERIOD_KEYS:
+            for var, key in [("TC_EAL", "TC_EAL"), ("Flood_EAL", "Flood_EAL"),
+                              ("Wildfire_EAL", "Wildfire_EAL"), ("EQ_EAL", "EQ_EAL")]:
+                existing = drivers[ssp][period].get(var)
+                if existing is None or (isinstance(existing, dict) and existing.get("value") is None):
+                    drivers[ssp][period][var] = {
+                        "value": climada.get(key),
+                        "source": "CLIMADA_HDF5" if climada.get(key) is not None else "no_coverage",
+                    }
+
+
+_RES_MAP = {"T1": "precomputed", "T2": "1deg",  "T3": "2deg"}
+_SRC_MAP = {"T1": "ensemble_17models", "T2": "cmip6_1deg_grid", "T3": "cmip6_2deg_grid"}
+
+
+def _build_meta(lat: float, lon: float, country: str, tier: str) -> dict:
+    return {
         "lat": lat,
         "lon": lon,
         "country": country,
-        "tier": tier,
-        "tier_label": _tier_label(tier, matched_site, dist_km),
-        "matched_t1_site": matched_site,
-        "distance_to_nearest_t1_km": dist_km,
+        "resolution": _RES_MAP[tier],
+        "data_source": _SRC_MAP[tier],
     }
+
+
+async def resolve(lat: float, lon: float) -> dict:
+    """임의 좌표 → 기후 리스크 데이터 반환."""
+    tier, matched_site, dist_km = determine_tier(lat, lon)
+    country = _infer_country(lat, lon)
+    meta = _build_meta(lat, lon, country, tier)
 
     # ── T1: 사전계산 데이터 직접 반환 ───────────────────────────────────────
     if tier == "T1":
         cmip6_data      = site_data.get_site_cmip6(matched_site)
         etccdi_data     = site_data.get_site_etccdi(matched_site)
         physrisk_nested = site_data.get_site_physrisk(matched_site)
+        static_data     = site_data.get_site_static(matched_site)
 
         # ETCCDI 데이터를 cmip6_data에 병합 (같은 {ssp: {period: {var: val}}} 구조)
         for ssp, periods in etccdi_data.items():
@@ -204,14 +304,22 @@ async def resolve(lat: float, lon: float) -> dict:
             for period, vars_dict in periods.items():
                 cmip6_data[ssp].setdefault(period, {}).update(vars_dict)
 
-        drivers = _build_drivers_from_cmip6(cmip6_data, physrisk_nested, "CMIP6_T1")
-        return {"meta": meta, "drivers": drivers}
+        drivers = _build_drivers_from_cmip6(cmip6_data, physrisk_nested, "CMIP6_T1", static_data, lat=lat)
+        _inject_climada(drivers, lat, lon)
+        result = {"meta": meta, "drivers": drivers}
+        result["interpretation"] = _interpret_drivers(drivers)
+        return result
 
     # ── T2/T3: CMIP6 그리드 + 비동기 physrisk/PSHA ──────────────────────────
     cmip6_data = cmip6_grid.query(lat, lon)
 
-    # 비동기 병렬 호출
-    physrisk_task = asyncio.create_task(fetch_physrisk(lat, lon))
+    # ssp245/mid 기준 CMIP6 값으로 PhyRisk 품질 향상 (중간 경로 기준)
+    _ref = (cmip6_data.get("ssp245") or {}).get("mid") or {}
+    physrisk_task = asyncio.create_task(fetch_physrisk(
+        lat, lon,
+        tasmax=_ref.get("tasmax"), tasmin=_ref.get("tasmin"),
+        tas=_ref.get("tas"), pr=_ref.get("pr"),
+    ))
     psha_task = asyncio.create_task(fetch_earthquake_risk(lat, lon))
 
     physrisk_result, psha_result = await asyncio.gather(physrisk_task, psha_task, return_exceptions=True)
@@ -227,27 +335,202 @@ async def resolve(lat: float, lon: float) -> dict:
     combined_flat = {**physrisk_result, **psha_result}
     combined_physrisk = _expand_flat_physrisk(combined_flat)
 
-    source_label = "CMIP6_T2" if tier == "T2" else "CMIP6_T3"
-    drivers = _build_drivers_from_cmip6(cmip6_data, combined_physrisk, source_label)
+    # T2/T3: 전구 정적 추정값 (IBTrACS 격자 + Aqueduct 보간 + PSHA 지진위험대)
+    static_data = query_static(lat, lon)
 
-    # CLIMADA HDF5 조회 불가 명시
-    for ssp in SSP_KEYS:
-        for period in PERIOD_KEYS:
-            for climada_var in ["TC_EAL", "Flood_EAL", "EQ_EAL", "Wildfire_EAL"]:
-                drivers[ssp][period][climada_var] = {
-                    "value": None,
-                    "source": "nearest_t1_estimate",
-                    "note": "CLIMADA HDF5 직접조회 불가 (서버 제약)",
-                }
+    drivers = _build_drivers_from_cmip6(cmip6_data, combined_physrisk, "CMIP6", static_data, lat=lat)
+    _inject_climada(drivers, lat, lon)
 
-    return {"meta": meta, "drivers": drivers}
+    result = {"meta": meta, "drivers": drivers}
+    result["interpretation"] = _interpret_drivers(drivers)
+    return result
 
 
-def _tier_label(tier: str, matched_site: Optional[str], dist_km: float) -> str:
+def build_summary(meta: dict, drivers: dict) -> dict:
+    """
+    drivers 전체 구조 → 사용자 친화적 요약 응답 변환.
+
+    baseline은 SSP 독립 (역사적 관측 기반).
+    hazards는 SSP126·SSP245·SSP585 × mid(2050)·end(2090) 6개 조합으로 반환.
+
+    Returns:
+        {location, climate, hazards}
+    """
+    def _v(ssp, period, var):
+        return (drivers.get(ssp, {}).get(period, {}).get(var, {}) or {}).get("value")
+
+    # baseline은 SSP 무관 — ssp245 baseline과 동일
+    def _base(var):
+        for ssp in ("ssp245", "ssp126", "ssp585"):
+            v = _v(ssp, "baseline", var)
+            if v is not None:
+                return v
+        return None
+
+    base_t = _base("tas")
+
+    def _proj(ssp, period):
+        t = _v(ssp, period, "tas")
+        return {
+            "temp_mean":     t,
+            "temp_change":   round(t - base_t, 2) if (t is not None and base_t is not None) else None,
+            "temp_max":      _v(ssp, period, "tasmax"),
+            "summer_days":   _v(ssp, period, "etccdi_su"),
+            "rx1day_mm":     _v(ssp, period, "etccdi_rx1day"),
+            "precip_mm_day": _v(ssp, period, "pr"),
+        }
+
+    def _hazards(ssp, period):
+        return {
+            "heat_stress":   _v(ssp, period, "heat_stress"),
+            "flood":         _v(ssp, period, "flood_risk"),
+            "drought":       _v(ssp, period, "drought_risk"),
+            "wildfire":      _v(ssp, period, "wildfire_risk"),
+            "cyclone":       _v(ssp, period, "cyclone_risk"),
+            "water_stress":  _v(ssp, period, "water_stress"),
+            "sea_level_rise":_v(ssp, period, "sea_level_rise"),
+            "earthquake":    _v(ssp, period, "earthquake_risk"),
+        }
+
+    return {
+        "location": meta,
+        "climate": {
+            "baseline": {
+                "temp_mean":     base_t,
+                "temp_max":      _base("tasmax"),
+                "precip_mm_day": _base("pr"),
+                "summer_days":   _base("etccdi_su"),
+                "frost_days":    _base("etccdi_fd"),
+                "rx1day_mm":     _base("etccdi_rx1day"),
+                "wbgt_mean":     _base("etccdi_wbgt"),
+            },
+            "ssp126_2050": _proj("ssp126", "mid"),
+            "ssp126_2090": _proj("ssp126", "end"),
+            "ssp245_2050": _proj("ssp245", "mid"),
+            "ssp245_2090": _proj("ssp245", "end"),
+            "ssp585_2050": _proj("ssp585", "mid"),
+            "ssp585_2090": _proj("ssp585", "end"),
+        },
+        "hazards": {
+            "ssp126": {
+                "2050": _hazards("ssp126", "mid"),
+                "2090": _hazards("ssp126", "end"),
+            },
+            "ssp245": {
+                "2050": _hazards("ssp245", "mid"),
+                "2090": _hazards("ssp245", "end"),
+            },
+            "ssp585": {
+                "2050": _hazards("ssp585", "mid"),
+                "2090": _hazards("ssp585", "end"),
+            },
+        },
+    }
+
+
+async def resolve_with_ensemble(lat: float, lon: float) -> dict:
+    """
+    resolve() + 앙상블 통계 (p10/p90/std/n_models/best_model) 반환.
+    precomputed 좌표: 통계 포함 / 그 외: ensemble_stats=null.
+    """
+    base = await resolve(lat, lon)
+    if base["meta"]["resolution"] != "precomputed":
+        base["ensemble_stats"] = None
+        return base
+
+    tier, matched_site, _ = determine_tier(lat, lon)
+    full = site_data.get_site_cmip6_full(matched_site)
+    base["ensemble_stats"] = full
+    return base
+
+
+async def resolve_model(lat: float, lon: float, model: str) -> dict:
+    """
+    특정 CMIP6 모델의 단일 값 조회 (T1/T2/T3 전체 지원).
+
+    T1: 사전계산 CSV (빠름, ~즉시)
+    T2/T3: NC 파일 직접 읽기 (느림, ~3-10초, 좌표 필수)
+
+    Args:
+        lat, lon: 좌표 (T2/T3에서 NC 파일 조회 기준점)
+        model:    모델 ID (예: "miroc6", "mpi_esm1_2_lr")
+
+    Returns:
+        {meta, model, region, drivers, available_models}
+    """
+    tier, matched_site, dist_km = determine_tier(lat, lon)
+    country = _infer_country(lat, lon)
+    meta = _build_meta(lat, lon, country, tier)
+
+    # ── precomputed: 사전계산 CSV 조회 (빠름) ────────────────────────────────
     if tier == "T1":
-        site_display = OCI_SITES.get(matched_site, {}).get("display", matched_site)
-        return f"정밀 ({site_display}, {dist_km:.1f}km)"
-    elif tier == "T2":
-        return f"지역 (동아시아 CMIP6 1° 그리드 + 근사 API, {dist_km:.0f}km from nearest site)"
-    else:
-        return f"글로벌 (CMIP6 2° 전구 그리드 + 근사 API, {dist_km:.0f}km from nearest site)"
+        available = site_data.list_models(matched_site)
+        model_cmip6 = site_data.get_site_cmip6_by_model(matched_site, model)
+        if not model_cmip6:
+            return {
+                "meta": meta, "model": model, "region": "T1_precomputed",
+                "drivers": None, "available_models": available,
+                "error": f"모델 '{model}' 데이터 없음. available_models 확인.",
+            }
+        etccdi_data     = site_data.get_site_etccdi(matched_site)
+        physrisk_nested = site_data.get_site_physrisk(matched_site)
+        static_data     = site_data.get_site_static(matched_site)
+        for ssp, periods in etccdi_data.items():
+            model_cmip6.setdefault(ssp, {})
+            for period, vd in periods.items():
+                model_cmip6[ssp].setdefault(period, {}).update(vd)
+        drivers = _build_drivers_from_cmip6(
+            model_cmip6, physrisk_nested, f"CMIP6_model:{model}", static_data, lat=lat,
+        )
+        _inject_climada(drivers, lat, lon)
+        return {
+            "meta": meta, "model": model, "region": "T1_precomputed",
+            "drivers": drivers, "available_models": available,
+        }
+
+    # ── T2/T3: NC 파일 직접 읽기 (좌표 기반) ────────────────────────────────
+    available = list_models_for_coord(lat, lon)
+
+    nc_result = query_model_nc(lat, lon, model=model)
+    if not nc_result:
+        return {
+            "meta": meta, "model": model, "region": None,
+            "drivers": None, "available_models": available,
+            "error": f"좌표 ({lat}, {lon})에 해당하는 NC 커버리지 없음 또는 모델 '{model}' 미지원.",
+        }
+
+    region = nc_result.pop("region", "unknown")
+
+    # NC 결과 → cmip6_data 형식 변환 ({ssp: {period: {var: val}}})
+    cmip6_from_nc: dict = {}
+    for ssp in SSP_KEYS:
+        if ssp not in nc_result:
+            continue
+        cmip6_from_nc[ssp] = {}
+        for period in PERIOD_KEYS:
+            cmip6_from_nc[ssp][period] = nc_result[ssp].get(period, {})
+
+    # PhyRisk/Static은 물리 추정값 사용 (T2/T3 동일)
+    _ref = (cmip6_from_nc.get("ssp245") or {}).get("mid") or {}
+    physrisk_flat = await asyncio.gather(
+        fetch_physrisk(lat, lon, tasmax=_ref.get("tasmax"),
+                       tasmin=_ref.get("tasmin"), tas=_ref.get("tas"), pr=_ref.get("pr")),
+        return_exceptions=True,
+    )
+    phys = physrisk_flat[0] if not isinstance(physrisk_flat[0], Exception) else {}
+    combined_physrisk = _expand_flat_physrisk(phys)
+    static_data = query_static(lat, lon)
+
+    source_label = f"CMIP6_model:{model}_T2" if tier == "T2" else f"CMIP6_model:{model}_T3"
+    drivers = _build_drivers_from_cmip6(cmip6_from_nc, combined_physrisk, source_label, static_data, lat=lat)
+    _inject_climada(drivers, lat, lon)
+
+    return {
+        "meta": meta, "model": model, "region": region,
+        "drivers": drivers, "available_models": available,
+    }
+
+
+def list_available_models() -> list[str]:
+    """전체 사용 가능한 CMIP6 모델 목록."""
+    return site_data.list_models()

@@ -131,9 +131,10 @@ function renderResults(result) {
   // Tier 배너
   renderTierBanner(meta);
 
-  // RAG 히트맵
-  renderHeatmap(drivers, "ssp585");
+  // RAG 히트맵 (기본: SSP2-4.5)
+  renderHeatmap(drivers, "ssp245");
   bindHeatmapTabs(drivers);
+  bindHeatmapRowClick(drivers);
 
   // 시계열 차트
   renderTimeseriesChart(drivers, "tasmax");
@@ -144,6 +145,9 @@ function renderResults(result) {
 
   // Top 5
   renderTop5(drivers);
+
+  // 리스크 해석 패널
+  renderInterpretationPanel(result);
 
   setLoading(false);
   showStatus("", false);
