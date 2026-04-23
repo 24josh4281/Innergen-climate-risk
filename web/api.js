@@ -1,8 +1,8 @@
 /**
- * api.js — Render.com FastAPI 호출 (Netlify 프록시 경유)
+ * api.js — Render.com FastAPI 직접 호출 (GitHub Pages)
  */
 
-const API_BASE = "/api";
+const API_BASE = "https://climate-risk-api.onrender.com/api";
 let _serverReady = false;
 
 /**
