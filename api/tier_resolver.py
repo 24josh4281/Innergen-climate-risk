@@ -34,7 +34,7 @@ except ImportError:
 logger = logging.getLogger(__name__)
 
 # T1 판별 거리 임계값 (km)
-T1_RADIUS_KM = 5.0
+T1_RADIUS_KM = -1.0
 
 SSP_KEYS = ["ssp126", "ssp245", "ssp370", "ssp585"]
 SSP_LABELS = {

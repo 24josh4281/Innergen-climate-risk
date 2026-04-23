@@ -47,7 +47,9 @@ result = asyncio.run(resolve(lat, lon))
 drivers = result["drivers"]
 meta    = result["meta"]
 
-logger.info(f"Tier: {meta.get('tier', 'T1')} | 해상도: {meta.get('resolution')}")
+res = meta.get('resolution', '?')
+tier_label = {"precomputed": "T1", "1deg": "T2", "2deg": "T3"}.get(res, res)
+logger.info(f"Tier: {tier_label} | 해상도: {res}")
 
 # ── openpyxl 임포트 ────────────────────────────────────────────────────────────
 try:
