@@ -16,6 +16,7 @@ const DRIVER_GROUPS = [
   { label: "PSHA 지진재해", keys: ["psha_pga_475","psha_pga_2475"] },
   { label: "CCKP — 에너지·극한열 (World Bank 0.25°)", keys: ["cckp_hi35","cckp_hd40","cckp_tr26","cckp_cdd65","cckp_hdd65"] },
   { label: "CCKP — ETCCDI 교차검증 (온도 계열)", keys: ["cckp_csdi","cckp_wsdi","cckp_cdd_consec"] },
+  { label: "CCKP — 신규 확장 (가뭄·습도·강수·한랭)", keys: ["cckp_spei12","cckp_gsl","cckp_hurs","cckp_id","cckp_rxmonth"] },
 ];
 
 /**

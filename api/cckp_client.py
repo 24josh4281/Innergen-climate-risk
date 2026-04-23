@@ -104,6 +104,40 @@ CCKP_VARS: dict[str, dict] = {
         "min_val":   0,
         "desc":      "Consecutive Dry Days (CCKP) — 최장 연속 강수<1mm 기간 (연간 최대)",
     },
+    # ── 신규 확장 변수 (CCKP CMIP6 0.25°) ────────────────────────────────────
+    "cckp_spei12": {
+        "cckp_name": "spei12",
+        "label":     "가뭄지수 (SPEI-12)",
+        "unit":      "index",
+        "desc":      "12개월 표준화강수증발산지수 — 음수일수록 가뭄, <-1.5 = 심각한 가뭄",
+    },
+    "cckp_gsl": {
+        "cckp_name": "gsl",
+        "label":     "생장기간 (GSL)",
+        "unit":      "days/yr",
+        "min_val":   0,
+        "desc":      "Growing Season Length — 작물 재배 가능 기간, 기온 상승으로 증가",
+    },
+    "cckp_hurs": {
+        "cckp_name": "hurs",
+        "label":     "상대습도 (HURS)",
+        "unit":      "%",
+        "desc":      "Near-surface relative humidity — 열스트레스·부식·곰팡이 리스크 지표",
+    },
+    "cckp_id": {
+        "cckp_name": "id",
+        "label":     "결빙일 (ID, Tmax<0°C)",
+        "unit":      "days/yr",
+        "min_val":   0,
+        "desc":      "Ice Days — 최고기온이 0°C 미만인 날, 동파·한랭 설비 손상 위험",
+    },
+    "cckp_rxmonth": {
+        "cckp_name": "rxmonth",
+        "label":     "월최대강수 (Rx-month)",
+        "unit":      "mm/month",
+        "min_val":   0,
+        "desc":      "Monthly Maximum Precipitation — 연중 가장 강수가 많은 달의 총량",
+    },
 }
 
 # ── 기간 매핑: 우리 period_key → CCKP 20년 기간 ────────────────────────────────

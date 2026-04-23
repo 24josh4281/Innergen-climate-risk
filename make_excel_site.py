@@ -230,6 +230,13 @@ GROUPS = [
         ("cckp_wsdi",       "온난 지속기간 (WSDI-CP)", "days/yr"),
         ("cckp_cdd_consec", "연속건조일수 (CDD-CP)",   "days"),
     ]),
+    ("CCKP 신규 확장 — 가뭄·습도·강수·한랭 (World Bank 0.25°)", [
+        ("cckp_spei12",  "가뭄지수 (SPEI-12)",       "index"),
+        ("cckp_gsl",     "생장기간 (GSL)",            "days/yr"),
+        ("cckp_hurs",    "상대습도 (HURS)",           "%"),
+        ("cckp_id",      "결빙일 (Tmax<0°C)",        "days/yr"),
+        ("cckp_rxmonth", "월최대강수 (Rx-month)",     "mm/month"),
+    ]),
 ]
 
 SSP_LABELS = {
@@ -277,6 +284,11 @@ RAG_RULES = {
     "cckp_csdi":      lambda v: "red" if v > 10 else "amber" if v > 4 else "green",
     "cckp_wsdi":      lambda v: "red" if v > 30 else "amber" if v > 10 else "green",
     "cckp_cdd_consec":lambda v: "red" if v > 60 else "amber" if v > 30 else "green",
+    "cckp_spei12":    lambda v: "red" if v < -1.5 else "amber" if v < -0.5 else "green",
+    "cckp_gsl":       lambda v: "red" if v > 350 else "amber" if v > 320 else "green",
+    "cckp_hurs":      lambda v: "red" if v > 80 else "amber" if v > 72 else "green",
+    "cckp_id":        lambda v: "red" if v > 30 else "amber" if v > 10 else "green",
+    "cckp_rxmonth":   lambda v: "red" if v > 400 else "amber" if v > 250 else "green",
 }
 
 def get_rag(dk, val):
@@ -413,7 +425,7 @@ info_rows = [
     ("Aqueduct", "WRI Aqueduct 4.0 — 수자원 위험 6종 (0~5 스케일)"),
     ("IBTrACS", "NOAA IBTrACS v04 — 역사적 태풍 통계 (1980-2023)"),
     ("PSHA", "GEM Global Earthquake Model — PGA (475yr, 2475yr)"),
-    ("CCKP", "World Bank CCKP CMIP6 0.25° — 에너지·극한열 5종"),
+    ("CCKP", "World Bank CCKP CMIP6 0.25° — 에너지·극한열 5종 + ETCCDI 3종 + 신규확장 5종"),
     ("", ""),
     ("기준", "값"),
     ("시나리오", "SSP1-2.6 / SSP2-4.5 / SSP3-7.0 / SSP5-8.5"),

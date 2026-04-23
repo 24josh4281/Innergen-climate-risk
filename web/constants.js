@@ -79,7 +79,8 @@ const IBTRACS_KEYS = ["tc_annual_freq", "tc_max_wind_kt", "tc_cat3_count"];
 const PSHA_KEYS = ["psha_pga_475", "psha_pga_2475"];
 
 const CCKP_KEYS = ["cckp_hi35", "cckp_hd40", "cckp_tr26", "cckp_cdd65", "cckp_hdd65",
-                   "cckp_csdi", "cckp_wsdi", "cckp_cdd_consec"];
+                   "cckp_csdi", "cckp_wsdi", "cckp_cdd_consec",
+                   "cckp_spei12", "cckp_gsl", "cckp_hurs", "cckp_id", "cckp_rxmonth"];
 
 // ── 동인 메타 (heatmap RAG 포함) ─────────────────────────────────────────────
 const DRIVER_META = {
@@ -152,6 +153,12 @@ const DRIVER_META = {
   cckp_csdi:        { label: "한파지속기간(CSDI)",    unit: "days/yr", rag: (v) => v > 10 ? "red" : v > 4 ? "amber" : "green" },
   cckp_wsdi:        { label: "온난지속기간(WSDI-CP)", unit: "days/yr", rag: (v) => v > 30 ? "red" : v > 10 ? "amber" : "green" },
   cckp_cdd_consec:  { label: "연속건조일수(CDD-CP)",  unit: "days",    rag: (v) => v > 60 ? "red" : v > 30 ? "amber" : "green" },
+  // ── CCKP 신규 확장 변수 ─────────────────────────────────────────────────────
+  cckp_spei12:  { label: "가뭄지수(SPEI-12)",       unit: "index",    rag: (v) => v < -1.5 ? "red" : v < -0.5 ? "amber" : "green" },
+  cckp_gsl:     { label: "생장기간(GSL)",            unit: "days/yr",  rag: (v) => v > 350 ? "red" : v > 320 ? "amber" : "green" },
+  cckp_hurs:    { label: "상대습도(HURS)",           unit: "%",        rag: (v) => v > 80 ? "red" : v > 72 ? "amber" : "green" },
+  cckp_id:      { label: "결빙일(ID, Tmax<0°C)",    unit: "days/yr",  rag: (v) => v > 30 ? "red" : v > 10 ? "amber" : "green" },
+  cckp_rxmonth: { label: "월최대강수(Rx-month)",     unit: "mm/month", rag: (v) => v > 400 ? "red" : v > 250 ? "amber" : "green" },
 };
 
 const DRIVER_KEYS = Object.keys(DRIVER_META);

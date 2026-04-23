@@ -976,6 +976,116 @@
         "HIGH": ["CDD 40+일: 장기 가뭄 — 냉각수 가용성 저하, 공정용수 제한 리스크"],
         "VERY_HIGH": ["CDD 80+일: 극심한 건조 지속, 용수 공급 제한·생산 중단 위험"]
       }
+    },
+
+    "cckp_spei12": {
+      "label": "가뭄지수 (SPEI-12)",
+      "unit": "index",
+      "tcfd_type": "chronic",
+      "inverse": true,
+      "levels": {
+        "LOW":       {"min": -0.5, "max": 99,   "label": "낮음 (정상~습윤)"},
+        "MEDIUM":    {"min": -1.0, "max": -0.5, "label": "중간 (약한 가뭄)"},
+        "HIGH":      {"min": -1.5, "max": -1.0, "label": "높음 (중간 가뭄)"},
+        "VERY_HIGH": {"min": -99,  "max": -1.5, "label": "매우 높음 (심각한 가뭄)"}
+      },
+      "reference": {
+        "source": "World Bank CCKP CMIP6 0.25° — SPEI-12 (12-month Standardized Precipitation-Evapotranspiration Index)",
+        "institution": "World Bank CCKP",
+        "url": "https://climateknowledgeportal.worldbank.org"
+      },
+      "business_impacts": {
+        "HIGH": ["SPEI <-1.0: 중간 가뭄 — 공정용수 수급 차질, 냉각탑 효율 저하 리스크"],
+        "VERY_HIGH": ["SPEI <-1.5: 심각한 가뭄 — 용수 배급제 가능성, 생산 제한 및 물 집약 공정 중단 위험"]
+      }
+    },
+
+    "cckp_gsl": {
+      "label": "생장기간 (GSL)",
+      "unit": "days/yr",
+      "tcfd_type": "chronic",
+      "inverse": false,
+      "levels": {
+        "LOW":       {"min": 0,   "max": 280, "label": "낮음"},
+        "MEDIUM":    {"min": 280, "max": 320, "label": "중간"},
+        "HIGH":      {"min": 320, "max": 350, "label": "높음 (온난화 가속)"},
+        "VERY_HIGH": {"min": 350, "max": null,"label": "매우 높음 (극단적 온난)"}
+      },
+      "reference": {
+        "source": "World Bank CCKP CMIP6 0.25° — Growing Season Length",
+        "institution": "World Bank CCKP",
+        "url": "https://climateknowledgeportal.worldbank.org"
+      },
+      "business_impacts": {
+        "HIGH": ["GSL 320+일: 겨울 없는 기후 접근 — 해충·병해 연중 활동, 생태 교란 가속"],
+        "VERY_HIGH": ["GSL 350+일: 사실상 무동절기 — 냉대·온대 지역 기후대 전환, 작물·인프라 설계 재고 필요"]
+      }
+    },
+
+    "cckp_hurs": {
+      "label": "상대습도 (HURS)",
+      "unit": "%",
+      "tcfd_type": "chronic",
+      "inverse": false,
+      "levels": {
+        "LOW":       {"min": 0,  "max": 60, "label": "낮음 (건조)"},
+        "MEDIUM":    {"min": 60, "max": 72, "label": "중간"},
+        "HIGH":      {"min": 72, "max": 80, "label": "높음 (고습)"},
+        "VERY_HIGH": {"min": 80, "max": null,"label": "매우 높음 (극습)"}
+      },
+      "reference": {
+        "source": "World Bank CCKP CMIP6 0.25° — Near-surface Relative Humidity",
+        "institution": "World Bank CCKP",
+        "url": "https://climateknowledgeportal.worldbank.org"
+      },
+      "business_impacts": {
+        "HIGH": ["습도 72%+: 열스트레스 가중, 금속 부식·곰팡이 발생 가속, 전자설비 열화 리스크"],
+        "VERY_HIGH": ["습도 80%+: 고온고습 복합 노출 — 작업자 열중증 위험 급증, 설비 절연 저하"]
+      }
+    },
+
+    "cckp_id": {
+      "label": "결빙일 (ID, Tmax<0°C)",
+      "unit": "days/yr",
+      "tcfd_type": "acute",
+      "inverse": true,
+      "levels": {
+        "LOW":       {"min": 0,  "max": 10, "label": "낮음"},
+        "MEDIUM":    {"min": 10, "max": 30, "label": "중간"},
+        "HIGH":      {"min": 30, "max": 60, "label": "높음 (한랭 위험)"},
+        "VERY_HIGH": {"min": 60, "max": null,"label": "매우 높음"}
+      },
+      "reference": {
+        "source": "World Bank CCKP CMIP6 0.25° — Ice Days (Tmax < 0°C)",
+        "institution": "World Bank CCKP",
+        "url": "https://climateknowledgeportal.worldbank.org"
+      },
+      "business_impacts": {
+        "HIGH": ["결빙일 30+: 외부 배관·설비 동파 위험, 물류·외부 작업 중단 리스크"],
+        "VERY_HIGH": ["결빙일 60+: 혹한 지역 — 설비 동파 방지 시스템 필수, 에너지 피크 수요 급증"]
+      }
+    },
+
+    "cckp_rxmonth": {
+      "label": "월최대강수 (Rx-month)",
+      "unit": "mm/month",
+      "tcfd_type": "acute",
+      "inverse": false,
+      "levels": {
+        "LOW":       {"min": 0,   "max": 200, "label": "낮음"},
+        "MEDIUM":    {"min": 200, "max": 300, "label": "중간"},
+        "HIGH":      {"min": 300, "max": 450, "label": "높음 (집중호우 위험)"},
+        "VERY_HIGH": {"min": 450, "max": null,"label": "매우 높음"}
+      },
+      "reference": {
+        "source": "World Bank CCKP CMIP6 0.25° — Monthly Maximum Precipitation",
+        "institution": "World Bank CCKP",
+        "url": "https://climateknowledgeportal.worldbank.org"
+      },
+      "business_impacts": {
+        "HIGH": ["월최대강수 300mm+: 집중호우 월 침수·배수 설비 용량 초과 리스크"],
+        "VERY_HIGH": ["월최대강수 450mm+: 극단적 집중호우 — 생산 시설 침수 및 물류 마비 위험"]
+      }
     }
 
   }
