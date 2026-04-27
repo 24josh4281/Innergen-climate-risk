@@ -175,7 +175,7 @@ def _url_anomaly(cckp_var: str, ssp: str, period: str) -> str:
 # 다운로드 & 포인트 추출
 # ─────────────────────────────────────────────────────────────────────────────
 
-async def _download(url: str, dest: Path, timeout: int = 90) -> bool:
+async def _download(url: str, dest: Path, timeout: int = 15) -> bool:
     try:
         async with httpx.AsyncClient(timeout=httpx.Timeout(timeout)) as client:
             async with client.stream("GET", url) as resp:

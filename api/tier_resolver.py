@@ -24,6 +24,9 @@ from static_estimator import query_static
 from physrisk_client import estimate_physrisk_cmip6
 from psha_client import pga_to_risk_score
 from interpret_engine import interpret as _interpret_drivers
+
+logger = logging.getLogger(__name__)
+
 try:
     from cckp_client import query_cckp as _query_cckp
     _CCKP_AVAILABLE = True
@@ -31,7 +34,26 @@ except ImportError:
     _CCKP_AVAILABLE = False
     logger.warning("cckp_client 로드 실패 — CCKP 변수 비활성화")
 
-logger = logging.getLogger(__name__)
+try:
+    from kma_client import query_kma as _query_kma, is_available as _kma_available
+    _KMA_AVAILABLE = True
+except ImportError:
+    _KMA_AVAILABLE = False
+    _query_kma = None
+    _kma_available = lambda: False
+
+try:
+    from kma_cordex_client import (
+        query_cordex as _query_cordex,
+        is_available as _cordex_available,
+        is_cordex_coord as _is_cordex_coord,
+    )
+    _CORDEX_AVAILABLE = True
+except ImportError:
+    _CORDEX_AVAILABLE = False
+    _query_cordex = None
+    _cordex_available = lambda: False
+    _is_cordex_coord = lambda lat, lon: False
 
 # T1 판별 거리 임계값 (km)
 T1_RADIUS_KM = -1.0
@@ -277,6 +299,60 @@ def _inject_climada(drivers: dict, lat: float, lon: float) -> None:
                     }
 
 
+async def _inject_kma(drivers: dict, lat: float, lon: float) -> None:
+    """
+    KMA 1km 기후변화 시나리오 값을 drivers에 병합 (한반도 좌표 전용).
+    데이터 미준비 시 조용히 스킵.
+    """
+    if not _KMA_AVAILABLE or not _kma_available():
+        return
+    try:
+        kma = _query_kma(lat, lon)
+    except Exception as e:
+        logger.warning("KMA query failed (%s,%s): %s", lat, lon, e)
+        return
+
+    for var_key, ssp_dict in kma.items():
+        if var_key == '_kma_meta':  # 메타 키 스킵
+            continue
+        for ssp in SSP_KEYS:
+            for period in PERIOD_KEYS:
+                val = (ssp_dict.get(ssp) or {}).get(period)
+                # KMA 값이 있으면 기존 CMIP6 값을 덮어씀 (더 높은 해상도)
+                if val is not None:
+                    drivers[ssp][period][var_key] = {
+                        "value":  val,
+                        "source": "KMA_RDA",   # 농촌진흥청 ENS 앙상블
+                    }
+
+
+async def _inject_cordex(drivers: dict, lat: float, lon: float) -> None:
+    """
+    기상청 CORDEX 1km 시나리오 값을 drivers에 병합 (한반도 좌표 전용).
+    KMA_RDA보다 나중에 주입되므로 같은 변수가 있으면 덮어씀 (더 권위 있는 소스).
+    데이터 미준비 시 조용히 스킵.
+    """
+    if not _CORDEX_AVAILABLE or not _cordex_available():
+        return
+    try:
+        cordex = _query_cordex(lat, lon)
+    except Exception as e:
+        logger.warning("KMA CORDEX query failed (%s,%s): %s", lat, lon, e)
+        return
+
+    for var_key, ssp_dict in cordex.items():
+        if var_key.startswith('_'):
+            continue
+        for ssp in SSP_KEYS:
+            for period in PERIOD_KEYS:
+                val = (ssp_dict.get(ssp) or {}).get(period)
+                if val is not None:
+                    drivers[ssp][period][var_key] = {
+                        "value":  val,
+                        "source": "KMA_CORDEX",  # 기상청 동역학 상세화
+                    }
+
+
 async def _inject_cckp(drivers: dict, lat: float, lon: float) -> None:
     """
     CCKP 0.25° 신규 변수 5개를 drivers에 병합.
@@ -305,13 +381,21 @@ _SRC_MAP = {"T1": "ensemble_17models", "T2": "cmip6_1deg_grid", "T3": "cmip6_2de
 
 
 def _build_meta(lat: float, lon: float, country: str, tier: str) -> dict:
-    return {
+    meta = {
         "lat": lat,
         "lon": lon,
         "country": country,
         "resolution": _RES_MAP[tier],
         "data_source": _SRC_MAP[tier],
     }
+    # KMA_RDA: 한반도 167개 행정구역
+    from kma_client import is_korean_coord
+    if is_korean_coord(lat, lon) and _KMA_AVAILABLE and _kma_available():
+        meta["kma_rda"] = True
+    # CORDEX: 전역 CSV 있으면 전 세계, 없으면 EAS-22만
+    if _is_cordex_coord(lat, lon) and _CORDEX_AVAILABLE and _cordex_available():
+        meta["kma_cordex"] = True
+    return meta
 
 
 async def resolve(lat: float, lon: float) -> dict:
@@ -335,7 +419,12 @@ async def resolve(lat: float, lon: float) -> dict:
 
         drivers = _build_drivers_from_cmip6(cmip6_data, physrisk_nested, "CMIP6_T1", static_data, lat=lat)
         _inject_climada(drivers, lat, lon)
-        await _inject_cckp(drivers, lat, lon)
+        try:
+            await asyncio.wait_for(_inject_cckp(drivers, lat, lon), timeout=10.0)
+        except asyncio.TimeoutError:
+            logger.warning("CCKP injection timed out — skipping for (%s,%s)", lat, lon)
+        await _inject_kma(drivers, lat, lon)
+        await _inject_cordex(drivers, lat, lon)
         result = {"meta": meta, "drivers": drivers}
         result["interpretation"] = _interpret_drivers(drivers)
         return result
@@ -370,7 +459,12 @@ async def resolve(lat: float, lon: float) -> dict:
 
     drivers = _build_drivers_from_cmip6(cmip6_data, combined_physrisk, "CMIP6", static_data, lat=lat)
     _inject_climada(drivers, lat, lon)
-    await _inject_cckp(drivers, lat, lon)
+    try:
+        await asyncio.wait_for(_inject_cckp(drivers, lat, lon), timeout=10.0)
+    except asyncio.TimeoutError:
+        logger.warning("CCKP injection timed out — skipping for (%s,%s)", lat, lon)
+    await _inject_kma(drivers, lat, lon)
+    await _inject_cordex(drivers, lat, lon)
 
     result = {"meta": meta, "drivers": drivers}
     result["interpretation"] = _interpret_drivers(drivers)
