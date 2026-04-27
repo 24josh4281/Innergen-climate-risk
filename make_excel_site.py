@@ -49,6 +49,10 @@ meta    = result["meta"]
 
 res = meta.get('resolution', '?')
 tier_label = {"precomputed": "T1", "1deg": "T2", "2deg": "T3"}.get(res, res)
+if meta.get("kma_rda"):
+    tier_label += "+KMA_RDA"
+if meta.get("kma_cordex"):
+    tier_label += "+KMA_CORDEX"
 logger.info(f"Tier: {tier_label} | 해상도: {res}")
 
 # ── openpyxl 임포트 ────────────────────────────────────────────────────────────
@@ -203,6 +207,12 @@ GROUPS = [
         ("earthquake_risk","지진 위험",      "score"),
         ("landslide_risk", "산사태 위험",    "score"),
     ]),
+    ("CLIMADA HDF5 — 정량 EAL (연간기대손실, 역사적 정적값)", [
+        ("TC_EAL",       "태풍 EAL",    "score 0-100"),
+        ("Flood_EAL",    "홍수 EAL",    "score 0-100"),
+        ("Wildfire_EAL", "산불 EAL",    "score 0-100"),
+        ("EQ_EAL",       "지진 EAL",    "score 0-100"),
+    ]),
     ("Aqueduct 수자원 (정적)", [
         ("aq_water_stress",      "수자원 스트레스",      "0-5"),
         ("aq_river_flood",       "하천홍수 위험",        "0-5"),
@@ -239,6 +249,23 @@ GROUPS = [
         ("cckp_id",      "결빙일 (Tmax<0°C)",        "days/yr"),
         ("cckp_rxmonth", "월최대강수 (Rx-month)",     "mm/month"),
     ]),
+    ("KMA 농촌진흥청 ENS — 167개 행정구역 통계적 상세화 (SSP 4종)", [
+        ("kma_tasmax",  "최고기온 (KMA_RDA)",   "°C"),
+        ("kma_tasmin",  "최저기온 (KMA_RDA)",   "°C"),
+        ("kma_tas",     "평균기온 (KMA_RDA)",   "°C"),
+        ("kma_pr",      "강수량 (KMA_RDA)",     "mm/day"),
+        ("kma_hurs",    "상대습도 (KMA_RDA)",   "%"),
+        ("kma_sfcWind", "풍속 (KMA_RDA)",       "m/s"),
+    ]),
+    ("KMA CORDEX — MOHC-HadGEM2-ES/GERICS-REMO2015 동역학 상세화 (~22km)", [
+        ("cordex_tasmax",  "최고기온 (CORDEX)",  "°C"),
+        ("cordex_tasmin",  "최저기온 (CORDEX)",  "°C"),
+        ("cordex_tas",     "평균기온 (CORDEX)",  "°C"),
+        ("cordex_pr",      "강수량 (CORDEX)",    "mm/day"),
+        ("cordex_sfcWind", "풍속 (CORDEX)",      "m/s"),
+        ("cordex_hurs",    "상대습도 (CORDEX)",  "%"),
+        ("cordex_rsds",    "일사량 (CORDEX)",    "MJ/m²/day"),
+    ]),
 ]
 
 SSP_LABELS = {
@@ -254,7 +281,7 @@ PERIOD_LABEL_SHORT = {
     "far":      "장기(2080s)",
     "end":      "말기(2090s)",
 }
-SSP_ORDER = ["ssp585", "ssp370", "ssp245", "ssp126"]
+SSP_ORDER = ["ssp126", "ssp245", "ssp370", "ssp585"]
 
 # ── RAG 임계값 (간단 버전) ────────────────────────────────────────────────────
 RAG_RULES = {
@@ -265,6 +292,10 @@ RAG_RULES = {
     "prsn":           lambda v: "green",
     "sfcWind":        lambda v: "red" if v > 15 else "amber" if v > 10 else "green",
     "evspsbl":        lambda v: "amber" if v > 5 else "green",
+    "TC_EAL":         lambda v: "red" if v > 50 else "amber" if v > 20 else "green",
+    "Flood_EAL":      lambda v: "red" if v > 50 else "amber" if v > 20 else "green",
+    "Wildfire_EAL":   lambda v: "red" if v > 50 else "amber" if v > 20 else "green",
+    "EQ_EAL":         lambda v: "red" if v > 50 else "amber" if v > 20 else "green",
     "etccdi_txx":     lambda v: "red" if v > 38 else "amber" if v > 33 else "green",
     "etccdi_tnn":     lambda v: "amber" if v < -10 else "green",
     "etccdi_su":      lambda v: "red" if v > 100 else "amber" if v > 60 else "green",
@@ -382,7 +413,96 @@ for ssp in SSP_ORDER:
     freeze(ws, "B4")
 
 
-# ── 시트 5: 원시데이터 (Long format) ─────────────────────────────────────────
+# ── 시트 5: 전체 통합비교 (변수 × SSP × 시점 한눈에) ───────────────────────────
+ws = wb.create_sheet("전체_통합비교")
+ws.sheet_view.showGridLines = False
+
+# 열 구성: 카테고리(A) | 변수명(B) | 단위(C) | SSP126×5기간 | SSP245×5기간 | SSP370×5기간 | SSP585×5기간
+LABEL_COLS  = 3          # A,B,C
+PERIOD_CNT  = len(PERIOD_COLS)   # 5
+TOTAL_COLS  = LABEL_COLS + len(SSP_ORDER) * PERIOD_CNT  # 3 + 20 = 23
+
+# 제목행
+r = 1
+c = ws.cell(row=r, column=1,
+            value=f"기후 물리적 리스크 전체 통합 — {name}  |  {lat}°N, {lon}°E  |  SSP 4종 × 5시점")
+c.font      = hfont(bold=True, color=ACCENT, size=11)
+c.fill      = hfill(DARK_BG)
+c.alignment = Alignment(horizontal="left", vertical="center")
+ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=TOTAL_COLS)
+ws.row_dimensions[r].height = 22
+
+# SSP 그룹 헤더 (병합)
+r = 2
+for ci_label in range(1, LABEL_COLS + 1):
+    c = ws.cell(row=r, column=ci_label, value="")
+    c.fill   = hfill(HEADER_BG)
+    c.border = hborder()
+for si, ssp in enumerate(SSP_ORDER):
+    col_start = LABEL_COLS + 1 + si * PERIOD_CNT
+    col_end   = col_start + PERIOD_CNT - 1
+    c = ws.cell(row=r, column=col_start, value=SSP_LABELS[ssp])
+    c.font      = hfont(bold=True, color="FFFFFF", size=10)
+    ssp_colors  = {"ssp126": "1B5E20", "ssp245": "1565C0", "ssp370": "E65100", "ssp585": "B71C1C"}
+    c.fill      = PatternFill("solid", fgColor=ssp_colors[ssp])
+    c.border    = hborder()
+    c.alignment = Alignment(horizontal="center", vertical="center")
+    ws.merge_cells(start_row=r, start_column=col_start, end_row=r, end_column=col_end)
+    for ci in range(col_start + 1, col_end + 1):
+        ws.cell(row=r, column=ci).fill   = PatternFill("solid", fgColor=ssp_colors[ssp])
+        ws.cell(row=r, column=ci).border = hborder()
+ws.row_dimensions[r].height = 18
+
+# 기간 서브헤더
+r = 3
+cell_style(ws, r, 1, "카테고리", bold=True, bg=HEADER_BG, fg=ACCENT, align="center")
+cell_style(ws, r, 2, "변수명",   bold=True, bg=HEADER_BG, fg=ACCENT, align="center")
+cell_style(ws, r, 3, "단위",     bold=True, bg=HEADER_BG, fg=ACCENT, align="center")
+period_short = [PERIOD_LABEL_SHORT[p] for p in PERIOD_COLS]
+for si in range(len(SSP_ORDER)):
+    for pi, plabel in enumerate(period_short):
+        col = LABEL_COLS + 1 + si * PERIOD_CNT + pi
+        c = ws.cell(row=r, column=col, value=plabel)
+        c.font      = hfont(bold=True, color=ACCENT, size=8)
+        c.fill      = hfill(HEADER_BG)
+        c.border    = hborder()
+        c.alignment = Alignment(horizontal="center", vertical="center")
+ws.row_dimensions[r].height = 16
+
+# 데이터 행
+r = 4
+for grp_label, vars_list in GROUPS:
+    group_header(ws, r, f"▶  {grp_label}", TOTAL_COLS)
+    r += 1
+    for dk, var_label, unit in vars_list:
+        row_bg = CARD_BG if r % 2 == 0 else "0E1C30"
+        cell_style(ws, r, 1, grp_label.split(" ")[0], bg=row_bg, fg=DIM_FG)
+        cell_style(ws, r, 2, var_label, bold=True, bg=row_bg)
+        cell_style(ws, r, 3, unit, bg=row_bg, fg=DIM_FG, align="center")
+        for si, ssp in enumerate(SSP_ORDER):
+            ssp_data = drivers.get(ssp, {})
+            for pi, p in enumerate(PERIOD_COLS):
+                col = LABEL_COLS + 1 + si * PERIOD_CNT + pi
+                v   = get_val((ssp_data.get(p) or {}).get(dk))
+                rag = get_rag(dk, v)
+                if rag:
+                    rag_style(ws, r, col, fmt(v), rag)
+                else:
+                    cell_style(ws, r, col, fmt(v), bg=row_bg, align="center")
+        ws.row_dimensions[r].height = 15
+        r += 1
+
+# 열 너비
+ws.column_dimensions["A"].width = 10
+ws.column_dimensions["B"].width = 24
+ws.column_dimensions["C"].width = 11
+for ci in range(LABEL_COLS + 1, TOTAL_COLS + 1):
+    ws.column_dimensions[get_column_letter(ci)].width = 9
+
+freeze(ws, "C4")
+
+
+# ── 시트 6: 원시데이터 (Long format) ─────────────────────────────────────────
 ws = wb.create_sheet("전체_원시데이터")
 ws.sheet_view.showGridLines = False
 ws.row_dimensions[1].height = 18
@@ -419,7 +539,7 @@ info_rows = [
     ("위도 (Lat)", lat),
     ("경도 (Lon)", lon),
     ("사업장명", name),
-    ("데이터 Tier", meta.get("resolution", "-")),
+    ("데이터 Tier", tier_label),
     ("", ""),
     ("데이터 소스", "설명"),
     ("CMIP6", "17개 모델 앙상블 — SSP126/245/370/585 × 5시점"),
@@ -428,6 +548,8 @@ info_rows = [
     ("IBTrACS", "NOAA IBTrACS v04 — 역사적 태풍 통계 (1980-2023)"),
     ("PSHA", "GEM Global Earthquake Model — PGA (475yr, 2475yr)"),
     ("CCKP", "World Bank CCKP CMIP6 0.25° — 에너지·극한열 5종 + ETCCDI 3종 + 신규확장 5종"),
+    ("KMA_RDA", "농촌진흥청 ENS 앙상블 — 한반도 167개 행정구역, SSP 4종 × 6변수 (통계적 상세화)"),
+    ("KMA_CORDEX", "기상청 CORDEX 1km — 한반도 1km 격자, SSP 4종 × 27극한지수 (동역학적 상세화, 데이터 준비 시 활성화)"),
     ("", ""),
     ("기준", "값"),
     ("시나리오", "SSP1-2.6 / SSP2-4.5 / SSP3-7.0 / SSP5-8.5"),
@@ -447,6 +569,156 @@ for label, val in info_rows:
 
 ws.column_dimensions["A"].width = 22
 ws.column_dimensions["B"].width = 55
+
+
+# ── 시트 7: 데이터 출처 안내 ──────────────────────────────────────────────────
+ws = wb.create_sheet("데이터_출처_안내")
+ws.sheet_view.showGridLines = False
+
+SOURCE_META = [
+    # (그룹명, 변수수, 제공기관, 출처·데이터셋, 해상도·커버리지,
+    #  주요 용도, 주요 활용 분야, 비고)
+    (
+        "CMIP6\n기후변수",
+        7,
+        "PCMDI / WCRP\n(17개 글로벌 기후모델 컨소시엄)",
+        "ESGF (Earth System Grid Federation)\n- MIROC6, MPI-ESM1-2-LR, IPSL-CM6A-LR 등 17종\n- SSP1-2.6 / SSP2-4.5 / SSP3-7.0 / SSP5-8.5",
+        "전세계\n1°~2° 격자\n(약 100~200km)",
+        "미래 기후 변화 기준값 제공\n온도·강수·바람·증발 시나리오의\n핵심 입력 데이터",
+        "IPCC AR6 기반 기후 공시 (TCFD·ISSB S2)\nESG 투자자 기후 스트레스 테스트\n탄소 감축 경로 수립\n금융권 기후 리스크 내부 모델",
+        "본 시스템의 베이스라인\n원시 CMIP6 값은 후속\n데이터로 고해상도 보완됨",
+    ),
+    (
+        "ETCCDI\n극값 지수",
+        13,
+        "WMO / WCRP\nCCl & CLIVAR 공동 정의",
+        "CMIP6 일별 데이터에서 산출\n- 온도 7종: TXx, TNn, SU, TR, FD, WSDI, WBGT\n- 강수 6종: CDD, CWD, Rx1day, Rx5day, R95p, SDII",
+        "전세계\n(CMIP6 격자 동일)",
+        "극한기후 사건 빈도·강도 정량화\n폭염·한파·극한강수 발생 패턴 분석\nWBGT로 열 노동 안전 평가",
+        "보험·재보험 손실 모델링\n건물·인프라 설계 기준 (내열·내풍)\n공급망 사업 중단 리스크 평가\nILO 열 노동 안전 기준 적용",
+        "ETCCDI 미존재 시\nCMIP6 변수로 회귀 추정\n(confidence 등급 제공)",
+    ),
+    (
+        "PhyRisk\n(OS-Climate)",
+        18,
+        "OS-Climate\n(Linux Foundation 산하\n오픈소스 컨소시엄)",
+        "OS-Climate PhyRisk v2\n- 18개 위험 유형 (0~1 스케일)\n- CMIP6 기반 물리 모델 구동",
+        "전세계\n약 1/8° 격자\n(~14km)",
+        "자산 수준 물리적 위험 점수 산출\n열·노동·홍수·사이클론·가뭄·\n지진·산불·산사태 18종 통합",
+        "TCFD·ISSB S2 자산별 공시\nEU Taxonomy 기후 적응 적격성 평가\nK-녹색분류체계 (K-Taxonomy)\nPRI (책임투자원칙) 보고",
+        "PhyRisk 데이터 부재 시\nCMIP6 변수로 추정값 자동 보완",
+    ),
+    (
+        "Aqueduct\n수자원",
+        6,
+        "WRI\n(세계자원연구소)",
+        "WRI Aqueduct 4.0\n- 수자원 스트레스, 홍수, 가뭄 6종\n- 현재 + 2030/2050 전망 포함\n- 0~5 스케일 (5=최고위험)",
+        "전세계\n하천 유역 단위\n(~10km)",
+        "제조·에너지 시설 수자원 위험 평가\n원수 취수 안정성 및 비용 리스크\n2050 수자원 스트레스 전망",
+        "CDP 수자원 공시\n다국적기업 공급망 수자원 실사\n농업·음료·반도체 등 수자원 집약 산업\nIFC 환경·사회 기준(EHS Guidelines)",
+        "정적 데이터\n(SSP·시점 무관,\n전 셀에 동일값)",
+    ),
+    (
+        "IBTrACS\n태풍",
+        3,
+        "NOAA\n(미국 해양대기청)\nNational Centers for\nEnvironmental Information",
+        "IBTrACS v04 (International Best Track\nArchive for Climate Stewardship)\n- 1980~2023년 역사적 태풍 전 수록\n- 빈도, 최대풍속, Cat3+ 태풍 집계",
+        "전세계\n태풍 경로 격자\n통계",
+        "역사적 태풍·사이클론 피해\n패턴 및 강도 기준선 제공\n사업장 주변 태풍 노출도 산정",
+        "보험·재보험 PML(최대예상손실) 산정\n연안·항만 인프라 위험 분류\n공급망 사업장 위험 스크리닝\nECA (수출신용기관) 담보 평가",
+        "역사 통계 기반 정적 데이터\n미래 태풍 강도 변화는\nPhyRisk cyclone_risk로 보완",
+    ),
+    (
+        "PSHA\n지진재해",
+        2,
+        "GEM\n(Global Earthquake\nModel Foundation)\n/ USGS",
+        "GEM OpenQuake Global Seismic Hazard\n- PGA 475년 재현주기 (10% 초과확률/50yr)\n- PGA 2475년 재현주기 (2% 초과확률/50yr)\n- 단위: g (중력가속도)",
+        "전세계\n약 0.1° 격자",
+        "지진 위험도 기준값 제공\n내진 설계 기준 적합성 판단\n지진 손실 추정(PGA → EAL 변환)",
+        "IBC·KBC 내진 설계 등급 분류\n건물·플랜트 보험 인수 심사\n지진다발지역 사업 타당성 검토\nSendai Framework 재해위험 지표",
+        "정적 데이터\nPGA → 리스크 점수 변환\n(pga_to_risk_score() 함수)",
+    ),
+    (
+        "CCKP\n에너지·극한열\n(World Bank)",
+        13,
+        "World Bank\n기후변화 지식 포털\n(CCKP)",
+        "CCKP CMIP6 앙상블 0.25° 격자\n- 에너지 5종: HI>35, Tmax>40, TR>26, CDD, HDD\n- ETCCDI 교차검증 3종: CSDI, WSDI, CDD\n- 신규확장 5종: SPEI-12, GSL, HURS, ID, Rx-month",
+        "전세계\n0.25° 격자\n(~28km)",
+        "에너지 수요 변화(냉난방도일) 전망\n극한열·결빙일 부가 지수 산출\nCMIP6 ETCCDI와 상호 교차검증\n농업 생장기간·가뭄지수 제공",
+        "에너지 인프라 계획 (전력망 용량 설계)\n건물 냉난방 에너지 수요 예측\n개발도상국 기후 적응 계획 (World Bank 사업)\n농업·식량안보 리스크 평가",
+        "REST API로 실시간 쿼리\n추가 다운로드 없이\n임의 좌표 즉시 조회 가능",
+    ),
+    (
+        "KMA_RDA\n(기상청\n행정구역)",
+        6,
+        "농촌진흥청 기상재해대응\n(weather.rda.go.kr)\n/ 기상청 NIMS",
+        "ENS 앙상블 통계적 상세화\n- 한반도 167개 시·군·구 행정구역\n- SSP1-2.6 / SSP2-4.5 / SSP3-7.0 / SSP5-8.5\n- 변수: tasmax, tasmin, pr, sfcWind, hurs, rsds",
+        "한반도\n167개 행정구역\n(약 20~30km)",
+        "한국 국내 사업장 고해상도\n기후변화 시나리오 제공\n전국 행정구역별 기후 변화 비교",
+        "국내 사업장 기후 물리적 리스크 공시\n한국형 녹색분류체계(K-Taxonomy)\nK-ESG 가이드라인 기후 공시\n지자체·공공기관 기후 적응계획 수립",
+        "한반도 좌표 전용\n글로벌 사업장은 N/A\nCORDEX가 동일 변수 보완",
+    ),
+    (
+        "CORDEX\n전역 RCM",
+        7,
+        "WCRP CORDEX\n(국제 공동 지역기후\n상세화 실험)\n주요: MOHC / GERICS",
+        "ESGF CORDEX 전역 6개 도메인\n- EAS-22 동아시아 (~22km)\n- SEA-22 동남아 (~22km)\n- NAM-22 북미 (~22km)\n- EUR-11 유럽 (~11km)\n- SAM-44 남미 (~44km)\n- AFR-44 아프리카 (~44km)\n구동 GCM: MOHC-HadGEM2-ES / MPI-M-MPI-ESM-LR",
+        "전세계 6개 도메인\n11~44km 해상도\n(CMIP6 대비 5~10배 고해상도)",
+        "지역 규모 기후 변화 영향 정밀 평가\nCMIP6 전구 모델 대비\n지형·해양 효과 반영 고해상도 제공\n태풍·몬순·국지 강수 정밀화",
+        "지역 인프라·시설 기후 취약성 평가\n도시 열섬·국지 홍수 위험 분석\nADB·World Bank 지역개발사업 기후 심사\n한국 K-ESG 글로벌 사업장 공시",
+        "CMIP6와 동일 SSP 시나리오\n한반도는 KMA_RDA가 더\n높은 해상도로 우선 적용",
+    ),
+]
+
+COL_WIDTHS = [16, 7, 22, 38, 18, 30, 35, 22]
+COL_LABELS = ["그룹", "변수수", "제공 기관", "데이터 출처·데이터셋", "해상도·커버리지",
+              "주요 용도", "주요 활용 분야", "비고"]
+
+# 제목
+r = 1
+c = ws.cell(row=r, column=1, value="기후 물리적 리스크 — 데이터 출처 및 활용 안내")
+c.font      = hfont(bold=True, color=ACCENT, size=12)
+c.fill      = hfill(DARK_BG)
+c.alignment = Alignment(horizontal="left", vertical="center")
+ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=len(COL_LABELS))
+ws.row_dimensions[r].height = 24
+
+# 컬럼 헤더
+r = 2
+header_row(ws, r, COL_LABELS)
+ws.row_dimensions[r].height = 18
+
+# 데이터 행
+r = 3
+for i, row_data in enumerate(SOURCE_META):
+    bg = CARD_BG if i % 2 == 0 else "0E1C30"
+    for ci, val in enumerate(row_data, 1):
+        c = ws.cell(row=r, column=ci, value=val)
+        c.font      = hfont(bold=(ci == 1), color=ACCENT if ci == 1 else TEXT_FG, size=9)
+        c.fill      = hfill(bg)
+        c.border    = hborder()
+        c.alignment = Alignment(horizontal="center" if ci == 2 else "left",
+                                vertical="top", wrap_text=True)
+    ws.row_dimensions[r].height = 90
+    r += 1
+
+# 열 너비
+for i, w in enumerate(COL_WIDTHS, 1):
+    ws.column_dimensions[get_column_letter(i)].width = w
+
+# 주석 행
+r += 1
+note = ("※ score(0~1): 0=무위험, 1=최고위험  |  0~5 스케일: WRI Aqueduct 기준  |  "
+        "정적 데이터: Aqueduct/IBTrACS/PSHA는 SSP·시점 무관 동일값  |  "
+        "KMA·CORDEX: 한반도 좌표 = 고해상도값, 해외 좌표 = KMA N/A / CORDEX 해당 도메인값")
+c = ws.cell(row=r, column=1, value=note)
+c.font      = hfont(bold=False, color=DIM_FG, size=8)
+c.fill      = hfill(DARK_BG)
+c.alignment = Alignment(horizontal="left", vertical="center", wrap_text=True)
+ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=len(COL_LABELS))
+ws.row_dimensions[r].height = 30
+
+freeze(ws, "A3")
 
 
 # ── 저장 ──────────────────────────────────────────────────────────────────────
