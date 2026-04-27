@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   bindTabSwitcher();
   bindSearchButtons();
   bindExcelButton();
+  bindExampleButton();
   await loadSiteChips();
   checkServerOnFirstUse();
 });
@@ -120,7 +121,7 @@ async function runQuery(lat, lon, label = "") {
 
 // ── 결과 렌더링 ──────────────────────────────────────────────────────────────
 
-function renderResults(result) {
+function renderResults(result, siteLabel) {
   const { meta, drivers } = result;
 
   // 결과 섹션 표시
@@ -153,11 +154,61 @@ function renderResults(result) {
   showStatus("", false);
 }
 
+// ── 예시 데모 버튼 ───────────────────────────────────────────────────────────
+
+function bindExampleButton() {
+  const btn = document.getElementById("btn-example-pohang");
+  if (!btn) return;
+  btn.addEventListener("click", async () => {
+    btn.disabled = true;
+    btn.textContent = "로딩 중...";
+    try {
+      const resp = await fetch("data/pohang_example.json");
+      if (!resp.ok) throw new Error("예시 파일 로드 실패");
+      const result = await resp.json();
+      const site = result._site || {};
+      // meta 보정 — 예시 표시용
+      result.meta = {
+        ...result.meta,
+        lat:  site.lat  || 36.0095,
+        lon:  site.lon  || 129.3435,
+        tier: "EXAMPLE",
+        resolution: "precomputed",
+        data_source: "사전계산 (OCI 포항 사업장 예시)",
+        kma_rda:    true,
+        kma_cordex: true,
+      };
+      _lastResult = result;
+      renderResults(result, site.display || "OCI 포항 사업장");
+      showStatus(`✅ 예시 리포트: ${site.display || "OCI 포항 사업장"} (36.0095°N, 129.3435°E)`, false);
+    } catch (e) {
+      showStatus(`❌ 예시 로드 실패: ${e.message}`, false);
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = '<span class="example-flag">🇰🇷</span> OCI 포항 사업장 — 즉시 보기';
+    }
+  });
+}
+
 function renderTierBanner(meta) {
   const banner = document.getElementById("tier-banner");
   if (!banner) return;
 
-  banner.className = `tier-banner ${meta.tier}`;
+  const isExample = meta.tier === "EXAMPLE";
+  banner.className = `tier-banner ${isExample ? "T2" : meta.tier}`;
+  if (isExample) {
+    banner.innerHTML = `
+      <span class="tier-badge" style="background:#7B1FA2;color:#fff;">예시</span>
+      <div class="tier-info">
+        <h3>OCI 포항 사업장 — 사전 계산된 예시 리포트</h3>
+        <p>36.0095°N, 129.3435°E &nbsp;|&nbsp; KOR &nbsp;|&nbsp;
+           <span style="color:var(--accent)">CMIP6 + PhyRisk + KMA_RDA + CORDEX + CLIMADA HDF5</span>
+           &nbsp;|&nbsp; <span style="opacity:.6">실시간 API 없이 즉시 표시된 결과입니다</span>
+        </p>
+      </div>
+    `;
+    return;
+  }
   banner.innerHTML = `
     <span class="tier-badge ${meta.tier}">${meta.tier}</span>
     <div class="tier-info">

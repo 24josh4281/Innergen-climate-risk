@@ -1,0 +1,6620 @@
+{
+  "meta": {
+    "lat": 36.0095,
+    "lon": 129.3435,
+    "country": "KOR",
+    "resolution": "1deg",
+    "data_source": "cmip6_1deg_grid",
+    "kma_rda": true,
+    "kma_cordex": true
+  },
+  "drivers": {
+    "ssp126": {
+      "baseline": {
+        "tasmax": {
+          "value": 16.65,
+          "source": "CMIP6"
+        },
+        "tasmin": {
+          "value": 11.62,
+          "source": "CMIP6"
+        },
+        "tas": {
+          "value": 14.14,
+          "source": "CMIP6"
+        },
+        "pr": {
+          "value": 3.816,
+          "source": "CMIP6"
+        },
+        "prsn": {
+          "value": 0.032,
+          "source": "CMIP6"
+        },
+        "sfcWind": {
+          "value": 4.1262,
+          "source": "CMIP6"
+        },
+        "evspsbl": {
+          "value": 2.986,
+          "source": "CMIP6"
+        },
+        "etccdi_txx": {
+          "value": 28.348,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_tnn": {
+          "value": 10.432,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_su": {
+          "value": 89.1,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_tr": {
+          "value": 128.553,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_fd": {
+          "value": 2.741,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_wsdi": {
+          "value": 6.8,
+          "source": "ETCCDI_est",
+          "confidence": "low"
+        },
+        "etccdi_wbgt": {
+          "value": 13.887,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_cdd": {
+          "value": 40.48,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_cwd": {
+          "value": 2.0,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx1day": {
+          "value": 43.407,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx5day": {
+          "value": 23.557,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_r95p": {
+          "value": 390.0,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_sdii": {
+          "value": 17.843,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "flood_risk": {
+          "value": 28.0,
+          "source": "PhyRisk"
+        },
+        "drought_risk": {
+          "value": 36.3,
+          "source": "PhyRisk"
+        },
+        "heat_stress": {
+          "value": 11.5,
+          "source": "PhyRisk"
+        },
+        "extreme_heat_35c": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "work_loss_high": {
+          "value": 9.8,
+          "source": "PhyRisk"
+        },
+        "work_loss_medium": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "heat_degree_days": {
+          "value": 10.3,
+          "source": "PhyRisk"
+        },
+        "water_stress": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "water_depletion": {
+          "value": 7.0,
+          "source": "PhyRisk"
+        },
+        "cyclone_risk": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "wildfire_risk": {
+          "value": 21.8,
+          "source": "PhyRisk"
+        },
+        "sea_level_rise": {
+          "value": 45,
+          "source": "PhyRisk"
+        },
+        "storm_surge": {
+          "value": 8.0,
+          "source": "PhyRisk"
+        },
+        "earthquake_risk": {
+          "value": 35.0,
+          "source": "PhyRisk"
+        },
+        "landslide_risk": {
+          "value": 14.0,
+          "source": "PhyRisk"
+        },
+        "coastal_flood": {
+          "value": 40.5,
+          "source": "PhyRisk"
+        },
+        "pluvial_flood": {
+          "value": 19.6,
+          "source": "PhyRisk"
+        },
+        "river_flood": {
+          "value": 23.8,
+          "source": "PhyRisk"
+        },
+        "tc_annual_freq": {
+          "value": 0.302,
+          "source": "IBTrACS"
+        },
+        "tc_max_wind_kt": {
+          "value": 62.2,
+          "source": "IBTrACS"
+        },
+        "tc_cat3_count": {
+          "value": 0.0,
+          "source": "IBTrACS"
+        },
+        "aq_water_stress": {
+          "value": 0.68,
+          "source": "Aqueduct4"
+        },
+        "aq_river_flood": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_coastal_flood": {
+          "value": 0.0,
+          "source": "Aqueduct4"
+        },
+        "aq_drought": {
+          "value": 0.18,
+          "source": "Aqueduct4"
+        },
+        "aq_interann_var": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_water_stress_2050": {
+          "value": 0.82,
+          "source": "Aqueduct4"
+        },
+        "aq_scale": {
+          "value": 5,
+          "source": "Aqueduct4"
+        },
+        "psha_pga_475": {
+          "value": 0.11,
+          "source": "PSHA"
+        },
+        "psha_pga_2475": {
+          "value": 0.22,
+          "source": "PSHA"
+        },
+        "TC_EAL": {
+          "value": 57.65,
+          "source": "CLIMADA_HDF5"
+        },
+        "Flood_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "Wildfire_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "EQ_EAL": {
+          "value": 2.02,
+          "source": "CLIMADA_HDF5"
+        },
+        "cckp_hi35": {
+          "value": 0.9,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hd40": {
+          "value": 0.0,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_tr26": {
+          "value": 4.4,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd65": {
+          "value": 1350.127,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hdd65": {
+          "value": 4221.199,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_csdi": {
+          "value": 2.05,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_wsdi": {
+          "value": 4.0,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd_consec": {
+          "value": 21.95,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_spei12": {
+          "value": -0.059,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_gsl": {
+          "value": 283.05,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hurs": {
+          "value": 66.673,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_id": {
+          "value": 4.7,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_rxmonth": {
+          "value": 267.869,
+          "source": "CCKP_0.25deg"
+        },
+        "kma_tasmax": {
+          "value": 18.7449,
+          "source": "KMA_RDA"
+        },
+        "kma_tasmin": {
+          "value": 7.3721,
+          "source": "KMA_RDA"
+        },
+        "kma_pr": {
+          "value": 3.7235,
+          "source": "KMA_RDA"
+        },
+        "kma_sfcWind": {
+          "value": 2.3433,
+          "source": "KMA_RDA"
+        },
+        "kma_hurs": {
+          "value": 50.9897,
+          "source": "KMA_RDA"
+        },
+        "kma_rsds": {
+          "value": 14.906,
+          "source": "KMA_RDA"
+        },
+        "cordex_pr": {
+          "value": 3.7937,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_tas": {
+          "value": 13.9827,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_tasmax": {
+          "value": 17.5636,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_tasmin": {
+          "value": 11.0662,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_rsds": {
+          "value": 14.7983,
+          "source": "KMA_CORDEX"
+        }
+      },
+      "near": {
+        "tasmax": {
+          "value": 17.12,
+          "source": "CMIP6"
+        },
+        "tasmin": {
+          "value": 12.05,
+          "source": "CMIP6"
+        },
+        "tas": {
+          "value": 14.57,
+          "source": "CMIP6"
+        },
+        "pr": {
+          "value": 3.83,
+          "source": "CMIP6"
+        },
+        "prsn": {
+          "value": 0.023,
+          "source": "CMIP6"
+        },
+        "sfcWind": {
+          "value": 4.0202,
+          "source": "CMIP6"
+        },
+        "evspsbl": {
+          "value": 3.055,
+          "source": "CMIP6"
+        },
+        "etccdi_txx": {
+          "value": 28.86,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_tnn": {
+          "value": 10.812,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_su": {
+          "value": 93.6,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_tr": {
+          "value": 135.856,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_fd": {
+          "value": 1.378,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_wsdi": {
+          "value": 7.3,
+          "source": "ETCCDI_est",
+          "confidence": "low"
+        },
+        "etccdi_wbgt": {
+          "value": 14.289,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_cdd": {
+          "value": 40.528,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_cwd": {
+          "value": 2.0,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx1day": {
+          "value": 44.166,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx5day": {
+          "value": 25.105,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_r95p": {
+          "value": 391.4,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_sdii": {
+          "value": 18.047,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "flood_risk": {
+          "value": 28.0,
+          "source": "PhyRisk"
+        },
+        "drought_risk": {
+          "value": 36.3,
+          "source": "PhyRisk"
+        },
+        "heat_stress": {
+          "value": 11.5,
+          "source": "PhyRisk"
+        },
+        "extreme_heat_35c": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "work_loss_high": {
+          "value": 9.8,
+          "source": "PhyRisk"
+        },
+        "work_loss_medium": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "heat_degree_days": {
+          "value": 10.3,
+          "source": "PhyRisk"
+        },
+        "water_stress": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "water_depletion": {
+          "value": 7.0,
+          "source": "PhyRisk"
+        },
+        "cyclone_risk": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "wildfire_risk": {
+          "value": 21.8,
+          "source": "PhyRisk"
+        },
+        "sea_level_rise": {
+          "value": 45,
+          "source": "PhyRisk"
+        },
+        "storm_surge": {
+          "value": 8.0,
+          "source": "PhyRisk"
+        },
+        "earthquake_risk": {
+          "value": 35.0,
+          "source": "PhyRisk"
+        },
+        "landslide_risk": {
+          "value": 14.0,
+          "source": "PhyRisk"
+        },
+        "coastal_flood": {
+          "value": 40.5,
+          "source": "PhyRisk"
+        },
+        "pluvial_flood": {
+          "value": 19.6,
+          "source": "PhyRisk"
+        },
+        "river_flood": {
+          "value": 23.8,
+          "source": "PhyRisk"
+        },
+        "tc_annual_freq": {
+          "value": 0.302,
+          "source": "IBTrACS"
+        },
+        "tc_max_wind_kt": {
+          "value": 62.2,
+          "source": "IBTrACS"
+        },
+        "tc_cat3_count": {
+          "value": 0.0,
+          "source": "IBTrACS"
+        },
+        "aq_water_stress": {
+          "value": 0.68,
+          "source": "Aqueduct4"
+        },
+        "aq_river_flood": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_coastal_flood": {
+          "value": 0.0,
+          "source": "Aqueduct4"
+        },
+        "aq_drought": {
+          "value": 0.18,
+          "source": "Aqueduct4"
+        },
+        "aq_interann_var": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_water_stress_2050": {
+          "value": 0.82,
+          "source": "Aqueduct4"
+        },
+        "aq_scale": {
+          "value": 5,
+          "source": "Aqueduct4"
+        },
+        "psha_pga_475": {
+          "value": 0.11,
+          "source": "PSHA"
+        },
+        "psha_pga_2475": {
+          "value": 0.22,
+          "source": "PSHA"
+        },
+        "TC_EAL": {
+          "value": 57.65,
+          "source": "CLIMADA_HDF5"
+        },
+        "Flood_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "Wildfire_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "EQ_EAL": {
+          "value": 2.02,
+          "source": "CLIMADA_HDF5"
+        },
+        "cckp_hi35": {
+          "value": 4.4,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hd40": {
+          "value": 0.0,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_tr26": {
+          "value": 10.75,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd65": {
+          "value": 1625.984,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hdd65": {
+          "value": 3853.43,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_csdi": {
+          "value": 0.9,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_wsdi": {
+          "value": 24.8,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd_consec": {
+          "value": 21.7,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_spei12": {
+          "value": -0.103,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_gsl": {
+          "value": 299.05,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hurs": {
+          "value": 66.495,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_id": {
+          "value": 3.0,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_rxmonth": {
+          "value": 277.55,
+          "source": "CCKP_0.25deg"
+        },
+        "kma_tasmax": {
+          "value": 20.6126,
+          "source": "KMA_RDA"
+        },
+        "kma_tasmin": {
+          "value": 8.7861,
+          "source": "KMA_RDA"
+        },
+        "kma_pr": {
+          "value": 4.1146,
+          "source": "KMA_RDA"
+        },
+        "kma_sfcWind": {
+          "value": 2.3011,
+          "source": "KMA_RDA"
+        },
+        "kma_hurs": {
+          "value": 50.1858,
+          "source": "KMA_RDA"
+        },
+        "kma_rsds": {
+          "value": 15.3292,
+          "source": "KMA_RDA"
+        },
+        "cordex_pr": {
+          "value": 3.7891,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_tas": {
+          "value": 15.1965,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_tasmax": {
+          "value": 18.7588,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_tasmin": {
+          "value": 12.3086,
+          "source": "KMA_CORDEX"
+        }
+      },
+      "mid": {
+        "tasmax": {
+          "value": 17.45,
+          "source": "CMIP6"
+        },
+        "tasmin": {
+          "value": 12.37,
+          "source": "CMIP6"
+        },
+        "tas": {
+          "value": 14.88,
+          "source": "CMIP6"
+        },
+        "pr": {
+          "value": 3.793,
+          "source": "CMIP6"
+        },
+        "prsn": {
+          "value": 0.022,
+          "source": "CMIP6"
+        },
+        "sfcWind": {
+          "value": 4.1225,
+          "source": "CMIP6"
+        },
+        "evspsbl": {
+          "value": 3.223,
+          "source": "CMIP6"
+        },
+        "etccdi_txx": {
+          "value": 29.193,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_tnn": {
+          "value": 11.105,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_su": {
+          "value": 96.9,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_tr": {
+          "value": 141.036,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_fd": {
+          "value": 0.259,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_wsdi": {
+          "value": 7.7,
+          "source": "ETCCDI_est",
+          "confidence": "low"
+        },
+        "etccdi_wbgt": {
+          "value": 14.571,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_cdd": {
+          "value": 40.561,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_cwd": {
+          "value": 2.0,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx1day": {
+          "value": 44.701,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx5day": {
+          "value": 26.223,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_r95p": {
+          "value": 387.6,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_sdii": {
+          "value": 18.193,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "flood_risk": {
+          "value": 28.0,
+          "source": "PhyRisk"
+        },
+        "drought_risk": {
+          "value": 36.3,
+          "source": "PhyRisk"
+        },
+        "heat_stress": {
+          "value": 11.5,
+          "source": "PhyRisk"
+        },
+        "extreme_heat_35c": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "work_loss_high": {
+          "value": 9.8,
+          "source": "PhyRisk"
+        },
+        "work_loss_medium": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "heat_degree_days": {
+          "value": 10.3,
+          "source": "PhyRisk"
+        },
+        "water_stress": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "water_depletion": {
+          "value": 7.0,
+          "source": "PhyRisk"
+        },
+        "cyclone_risk": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "wildfire_risk": {
+          "value": 21.8,
+          "source": "PhyRisk"
+        },
+        "sea_level_rise": {
+          "value": 45,
+          "source": "PhyRisk"
+        },
+        "storm_surge": {
+          "value": 8.0,
+          "source": "PhyRisk"
+        },
+        "earthquake_risk": {
+          "value": 35.0,
+          "source": "PhyRisk"
+        },
+        "landslide_risk": {
+          "value": 14.0,
+          "source": "PhyRisk"
+        },
+        "coastal_flood": {
+          "value": 40.5,
+          "source": "PhyRisk"
+        },
+        "pluvial_flood": {
+          "value": 19.6,
+          "source": "PhyRisk"
+        },
+        "river_flood": {
+          "value": 23.8,
+          "source": "PhyRisk"
+        },
+        "tc_annual_freq": {
+          "value": 0.302,
+          "source": "IBTrACS"
+        },
+        "tc_max_wind_kt": {
+          "value": 62.2,
+          "source": "IBTrACS"
+        },
+        "tc_cat3_count": {
+          "value": 0.0,
+          "source": "IBTrACS"
+        },
+        "aq_water_stress": {
+          "value": 0.68,
+          "source": "Aqueduct4"
+        },
+        "aq_river_flood": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_coastal_flood": {
+          "value": 0.0,
+          "source": "Aqueduct4"
+        },
+        "aq_drought": {
+          "value": 0.18,
+          "source": "Aqueduct4"
+        },
+        "aq_interann_var": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_water_stress_2050": {
+          "value": 0.82,
+          "source": "Aqueduct4"
+        },
+        "aq_scale": {
+          "value": 5,
+          "source": "Aqueduct4"
+        },
+        "psha_pga_475": {
+          "value": 0.11,
+          "source": "PSHA"
+        },
+        "psha_pga_2475": {
+          "value": 0.22,
+          "source": "PSHA"
+        },
+        "TC_EAL": {
+          "value": 57.65,
+          "source": "CLIMADA_HDF5"
+        },
+        "Flood_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "Wildfire_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "EQ_EAL": {
+          "value": 2.02,
+          "source": "CLIMADA_HDF5"
+        },
+        "cckp_hi35": {
+          "value": 9.05,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hd40": {
+          "value": 0.0,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_tr26": {
+          "value": 16.4,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd65": {
+          "value": 1725.77,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hdd65": {
+          "value": 3725.814,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_csdi": {
+          "value": 0.75,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_wsdi": {
+          "value": 36.45,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd_consec": {
+          "value": 21.35,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_spei12": {
+          "value": 0.034,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_gsl": {
+          "value": 308.8,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hurs": {
+          "value": 66.268,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_id": {
+          "value": 1.95,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_rxmonth": {
+          "value": 280.398,
+          "source": "CCKP_0.25deg"
+        },
+        "kma_tasmax": {
+          "value": 21.3977,
+          "source": "KMA_RDA"
+        },
+        "kma_tasmin": {
+          "value": 9.4177,
+          "source": "KMA_RDA"
+        },
+        "kma_pr": {
+          "value": 4.0874,
+          "source": "KMA_RDA"
+        },
+        "kma_sfcWind": {
+          "value": 2.2968,
+          "source": "KMA_RDA"
+        },
+        "kma_hurs": {
+          "value": 49.7623,
+          "source": "KMA_RDA"
+        },
+        "kma_rsds": {
+          "value": 15.682,
+          "source": "KMA_RDA"
+        },
+        "cordex_pr": {
+          "value": 4.0598,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_tas": {
+          "value": 15.5661,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_tasmax": {
+          "value": 19.1895,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_tasmin": {
+          "value": 12.5975,
+          "source": "KMA_CORDEX"
+        }
+      },
+      "far": {
+        "tasmax": {
+          "value": 17.78,
+          "source": "CMIP6"
+        },
+        "tasmin": {
+          "value": 12.63,
+          "source": "CMIP6"
+        },
+        "tas": {
+          "value": 15.17,
+          "source": "CMIP6"
+        },
+        "pr": {
+          "value": 3.759,
+          "source": "CMIP6"
+        },
+        "prsn": {
+          "value": 0.018,
+          "source": "CMIP6"
+        },
+        "sfcWind": {
+          "value": 4.041,
+          "source": "CMIP6"
+        },
+        "evspsbl": {
+          "value": 3.211,
+          "source": "CMIP6"
+        },
+        "etccdi_txx": {
+          "value": 29.667,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_tnn": {
+          "value": 11.307,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_su": {
+          "value": 100.2,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_tr": {
+          "value": 146.359,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_fd": {
+          "value": 0.0,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_wsdi": {
+          "value": 8.1,
+          "source": "ETCCDI_est",
+          "confidence": "low"
+        },
+        "etccdi_wbgt": {
+          "value": 14.865,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_cdd": {
+          "value": 40.652,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_cwd": {
+          "value": 2.0,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx1day": {
+          "value": 45.21,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx5day": {
+          "value": 27.096,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_r95p": {
+          "value": 384.2,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_sdii": {
+          "value": 18.339,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "flood_risk": {
+          "value": 28.0,
+          "source": "PhyRisk"
+        },
+        "drought_risk": {
+          "value": 36.3,
+          "source": "PhyRisk"
+        },
+        "heat_stress": {
+          "value": 11.5,
+          "source": "PhyRisk"
+        },
+        "extreme_heat_35c": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "work_loss_high": {
+          "value": 9.8,
+          "source": "PhyRisk"
+        },
+        "work_loss_medium": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "heat_degree_days": {
+          "value": 10.3,
+          "source": "PhyRisk"
+        },
+        "water_stress": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "water_depletion": {
+          "value": 7.0,
+          "source": "PhyRisk"
+        },
+        "cyclone_risk": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "wildfire_risk": {
+          "value": 21.8,
+          "source": "PhyRisk"
+        },
+        "sea_level_rise": {
+          "value": 45,
+          "source": "PhyRisk"
+        },
+        "storm_surge": {
+          "value": 8.0,
+          "source": "PhyRisk"
+        },
+        "earthquake_risk": {
+          "value": 35.0,
+          "source": "PhyRisk"
+        },
+        "landslide_risk": {
+          "value": 14.0,
+          "source": "PhyRisk"
+        },
+        "coastal_flood": {
+          "value": 40.5,
+          "source": "PhyRisk"
+        },
+        "pluvial_flood": {
+          "value": 19.6,
+          "source": "PhyRisk"
+        },
+        "river_flood": {
+          "value": 23.8,
+          "source": "PhyRisk"
+        },
+        "tc_annual_freq": {
+          "value": 0.302,
+          "source": "IBTrACS"
+        },
+        "tc_max_wind_kt": {
+          "value": 62.2,
+          "source": "IBTrACS"
+        },
+        "tc_cat3_count": {
+          "value": 0.0,
+          "source": "IBTrACS"
+        },
+        "aq_water_stress": {
+          "value": 0.68,
+          "source": "Aqueduct4"
+        },
+        "aq_river_flood": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_coastal_flood": {
+          "value": 0.0,
+          "source": "Aqueduct4"
+        },
+        "aq_drought": {
+          "value": 0.18,
+          "source": "Aqueduct4"
+        },
+        "aq_interann_var": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_water_stress_2050": {
+          "value": 0.82,
+          "source": "Aqueduct4"
+        },
+        "aq_scale": {
+          "value": 5,
+          "source": "Aqueduct4"
+        },
+        "psha_pga_475": {
+          "value": 0.11,
+          "source": "PSHA"
+        },
+        "psha_pga_2475": {
+          "value": 0.22,
+          "source": "PSHA"
+        },
+        "TC_EAL": {
+          "value": 57.65,
+          "source": "CLIMADA_HDF5"
+        },
+        "Flood_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "Wildfire_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "EQ_EAL": {
+          "value": 2.02,
+          "source": "CLIMADA_HDF5"
+        },
+        "cckp_hi35": {
+          "value": 13.65,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hd40": {
+          "value": 0.0,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_tr26": {
+          "value": 19.1,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd65": {
+          "value": 1829.128,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hdd65": {
+          "value": 3586.235,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_csdi": {
+          "value": 0.25,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_wsdi": {
+          "value": 44.9,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd_consec": {
+          "value": 21.15,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_spei12": {
+          "value": 0.039,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_gsl": {
+          "value": 311.1,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hurs": {
+          "value": 66.293,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_id": {
+          "value": 1.8,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_rxmonth": {
+          "value": 285.981,
+          "source": "CCKP_0.25deg"
+        },
+        "kma_tasmax": {
+          "value": 21.6965,
+          "source": "KMA_RDA"
+        },
+        "kma_tasmin": {
+          "value": 9.6373,
+          "source": "KMA_RDA"
+        },
+        "kma_pr": {
+          "value": 4.2186,
+          "source": "KMA_RDA"
+        },
+        "kma_sfcWind": {
+          "value": 2.2986,
+          "source": "KMA_RDA"
+        },
+        "kma_hurs": {
+          "value": 49.7054,
+          "source": "KMA_RDA"
+        },
+        "kma_rsds": {
+          "value": 15.8264,
+          "source": "KMA_RDA"
+        },
+        "cordex_pr": {
+          "value": 3.6384,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_tas": {
+          "value": 15.3027,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_tasmax": {
+          "value": 18.9921,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_tasmin": {
+          "value": 12.2763,
+          "source": "KMA_CORDEX"
+        }
+      },
+      "end": {
+        "tasmax": {
+          "value": 17.67,
+          "source": "CMIP6"
+        },
+        "tasmin": {
+          "value": 12.56,
+          "source": "CMIP6"
+        },
+        "tas": {
+          "value": 15.09,
+          "source": "CMIP6"
+        },
+        "pr": {
+          "value": 3.915,
+          "source": "CMIP6"
+        },
+        "prsn": {
+          "value": 0.016,
+          "source": "CMIP6"
+        },
+        "sfcWind": {
+          "value": 4.1193,
+          "source": "CMIP6"
+        },
+        "evspsbl": {
+          "value": 3.284,
+          "source": "CMIP6"
+        },
+        "etccdi_txx": {
+          "value": 29.526,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_tnn": {
+          "value": 11.255,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_su": {
+          "value": 99.1,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_tr": {
+          "value": 144.909,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_fd": {
+          "value": 0.0,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_wsdi": {
+          "value": 8.0,
+          "source": "ETCCDI_est",
+          "confidence": "low"
+        },
+        "etccdi_wbgt": {
+          "value": 14.784,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_cdd": {
+          "value": 40.586,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_cwd": {
+          "value": 2.0,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx1day": {
+          "value": 45.134,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx5day": {
+          "value": 26.954,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_r95p": {
+          "value": 400.1,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_sdii": {
+          "value": 18.307,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "flood_risk": {
+          "value": 28.0,
+          "source": "PhyRisk"
+        },
+        "drought_risk": {
+          "value": 36.3,
+          "source": "PhyRisk"
+        },
+        "heat_stress": {
+          "value": 11.5,
+          "source": "PhyRisk"
+        },
+        "extreme_heat_35c": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "work_loss_high": {
+          "value": 9.8,
+          "source": "PhyRisk"
+        },
+        "work_loss_medium": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "heat_degree_days": {
+          "value": 10.3,
+          "source": "PhyRisk"
+        },
+        "water_stress": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "water_depletion": {
+          "value": 7.0,
+          "source": "PhyRisk"
+        },
+        "cyclone_risk": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "wildfire_risk": {
+          "value": 21.8,
+          "source": "PhyRisk"
+        },
+        "sea_level_rise": {
+          "value": 45,
+          "source": "PhyRisk"
+        },
+        "storm_surge": {
+          "value": 8.0,
+          "source": "PhyRisk"
+        },
+        "earthquake_risk": {
+          "value": 35.0,
+          "source": "PhyRisk"
+        },
+        "landslide_risk": {
+          "value": 14.0,
+          "source": "PhyRisk"
+        },
+        "coastal_flood": {
+          "value": 40.5,
+          "source": "PhyRisk"
+        },
+        "pluvial_flood": {
+          "value": 19.6,
+          "source": "PhyRisk"
+        },
+        "river_flood": {
+          "value": 23.8,
+          "source": "PhyRisk"
+        },
+        "tc_annual_freq": {
+          "value": 0.302,
+          "source": "IBTrACS"
+        },
+        "tc_max_wind_kt": {
+          "value": 62.2,
+          "source": "IBTrACS"
+        },
+        "tc_cat3_count": {
+          "value": 0.0,
+          "source": "IBTrACS"
+        },
+        "aq_water_stress": {
+          "value": 0.68,
+          "source": "Aqueduct4"
+        },
+        "aq_river_flood": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_coastal_flood": {
+          "value": 0.0,
+          "source": "Aqueduct4"
+        },
+        "aq_drought": {
+          "value": 0.18,
+          "source": "Aqueduct4"
+        },
+        "aq_interann_var": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_water_stress_2050": {
+          "value": 0.82,
+          "source": "Aqueduct4"
+        },
+        "aq_scale": {
+          "value": 5,
+          "source": "Aqueduct4"
+        },
+        "psha_pga_475": {
+          "value": 0.11,
+          "source": "PSHA"
+        },
+        "psha_pga_2475": {
+          "value": 0.22,
+          "source": "PSHA"
+        },
+        "TC_EAL": {
+          "value": 57.65,
+          "source": "CLIMADA_HDF5"
+        },
+        "Flood_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "Wildfire_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "EQ_EAL": {
+          "value": 2.02,
+          "source": "CLIMADA_HDF5"
+        },
+        "cckp_hi35": {
+          "value": 12.85,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hd40": {
+          "value": 0.0,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_tr26": {
+          "value": 18.5,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd65": {
+          "value": 1753.265,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hdd65": {
+          "value": 3608.768,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_csdi": {
+          "value": 0.4,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_wsdi": {
+          "value": 42.4,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd_consec": {
+          "value": 21.5,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_spei12": {
+          "value": 0.089,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_gsl": {
+          "value": 302.8,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hurs": {
+          "value": 66.232,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_id": {
+          "value": 1.95,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_rxmonth": {
+          "value": 283.483,
+          "source": "CCKP_0.25deg"
+        },
+        "kma_tasmax": {
+          "value": 21.68,
+          "source": "KMA_RDA"
+        },
+        "kma_tasmin": {
+          "value": 9.6025,
+          "source": "KMA_RDA"
+        },
+        "kma_pr": {
+          "value": 4.1915,
+          "source": "KMA_RDA"
+        },
+        "kma_sfcWind": {
+          "value": 2.3064,
+          "source": "KMA_RDA"
+        },
+        "kma_hurs": {
+          "value": 49.8173,
+          "source": "KMA_RDA"
+        },
+        "kma_rsds": {
+          "value": 15.8737,
+          "source": "KMA_RDA"
+        },
+        "cordex_pr": {
+          "value": 3.5651,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_tas": {
+          "value": 15.3889,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_tasmax": {
+          "value": 19.0624,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_tasmin": {
+          "value": 12.3989,
+          "source": "KMA_CORDEX"
+        }
+      }
+    },
+    "ssp245": {
+      "baseline": {
+        "tasmax": {
+          "value": 16.72,
+          "source": "CMIP6"
+        },
+        "tasmin": {
+          "value": 11.68,
+          "source": "CMIP6"
+        },
+        "tas": {
+          "value": 14.17,
+          "source": "CMIP6"
+        },
+        "pr": {
+          "value": 3.696,
+          "source": "CMIP6"
+        },
+        "prsn": {
+          "value": 0.021,
+          "source": "CMIP6"
+        },
+        "sfcWind": {
+          "value": 4.1677,
+          "source": "CMIP6"
+        },
+        "evspsbl": {
+          "value": 3.02,
+          "source": "CMIP6"
+        },
+        "etccdi_txx": {
+          "value": 28.241,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_tnn": {
+          "value": 10.509,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_su": {
+          "value": 89.8,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_tr": {
+          "value": 128.461,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_fd": {
+          "value": 2.306,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_wsdi": {
+          "value": 6.9,
+          "source": "ETCCDI_est",
+          "confidence": "low"
+        },
+        "etccdi_wbgt": {
+          "value": 13.889,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_cdd": {
+          "value": 40.465,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_cwd": {
+          "value": 2.0,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx1day": {
+          "value": 43.357,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx5day": {
+          "value": 23.775,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_r95p": {
+          "value": 377.7,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_sdii": {
+          "value": 17.827,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "flood_risk": {
+          "value": 28.0,
+          "source": "PhyRisk"
+        },
+        "drought_risk": {
+          "value": 36.3,
+          "source": "PhyRisk"
+        },
+        "heat_stress": {
+          "value": 11.5,
+          "source": "PhyRisk"
+        },
+        "extreme_heat_35c": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "work_loss_high": {
+          "value": 9.8,
+          "source": "PhyRisk"
+        },
+        "work_loss_medium": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "heat_degree_days": {
+          "value": 10.3,
+          "source": "PhyRisk"
+        },
+        "water_stress": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "water_depletion": {
+          "value": 7.0,
+          "source": "PhyRisk"
+        },
+        "cyclone_risk": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "wildfire_risk": {
+          "value": 21.8,
+          "source": "PhyRisk"
+        },
+        "sea_level_rise": {
+          "value": 45,
+          "source": "PhyRisk"
+        },
+        "storm_surge": {
+          "value": 8.0,
+          "source": "PhyRisk"
+        },
+        "earthquake_risk": {
+          "value": 35.0,
+          "source": "PhyRisk"
+        },
+        "landslide_risk": {
+          "value": 14.0,
+          "source": "PhyRisk"
+        },
+        "coastal_flood": {
+          "value": 40.5,
+          "source": "PhyRisk"
+        },
+        "pluvial_flood": {
+          "value": 19.6,
+          "source": "PhyRisk"
+        },
+        "river_flood": {
+          "value": 23.8,
+          "source": "PhyRisk"
+        },
+        "tc_annual_freq": {
+          "value": 0.302,
+          "source": "IBTrACS"
+        },
+        "tc_max_wind_kt": {
+          "value": 62.2,
+          "source": "IBTrACS"
+        },
+        "tc_cat3_count": {
+          "value": 0.0,
+          "source": "IBTrACS"
+        },
+        "aq_water_stress": {
+          "value": 0.68,
+          "source": "Aqueduct4"
+        },
+        "aq_river_flood": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_coastal_flood": {
+          "value": 0.0,
+          "source": "Aqueduct4"
+        },
+        "aq_drought": {
+          "value": 0.18,
+          "source": "Aqueduct4"
+        },
+        "aq_interann_var": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_water_stress_2050": {
+          "value": 0.82,
+          "source": "Aqueduct4"
+        },
+        "aq_scale": {
+          "value": 5,
+          "source": "Aqueduct4"
+        },
+        "psha_pga_475": {
+          "value": 0.11,
+          "source": "PSHA"
+        },
+        "psha_pga_2475": {
+          "value": 0.22,
+          "source": "PSHA"
+        },
+        "TC_EAL": {
+          "value": 57.65,
+          "source": "CLIMADA_HDF5"
+        },
+        "Flood_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "Wildfire_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "EQ_EAL": {
+          "value": 2.02,
+          "source": "CLIMADA_HDF5"
+        },
+        "cckp_hi35": {
+          "value": 0.9,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hd40": {
+          "value": 0.0,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_tr26": {
+          "value": 4.4,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd65": {
+          "value": 1350.127,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hdd65": {
+          "value": 4221.199,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_csdi": {
+          "value": 2.05,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_wsdi": {
+          "value": 4.0,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd_consec": {
+          "value": 21.95,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_spei12": {
+          "value": -0.059,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_gsl": {
+          "value": 283.05,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hurs": {
+          "value": 66.673,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_id": {
+          "value": 4.7,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_rxmonth": {
+          "value": 267.869,
+          "source": "CCKP_0.25deg"
+        },
+        "kma_tasmax": {
+          "value": 18.7449,
+          "source": "KMA_RDA"
+        },
+        "kma_tasmin": {
+          "value": 7.3721,
+          "source": "KMA_RDA"
+        },
+        "kma_pr": {
+          "value": 3.7235,
+          "source": "KMA_RDA"
+        },
+        "kma_sfcWind": {
+          "value": 2.3433,
+          "source": "KMA_RDA"
+        },
+        "kma_hurs": {
+          "value": 50.9897,
+          "source": "KMA_RDA"
+        },
+        "kma_rsds": {
+          "value": 14.906,
+          "source": "KMA_RDA"
+        },
+        "cordex_pr": {
+          "value": 3.7937,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_tas": {
+          "value": 13.9827,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_tasmax": {
+          "value": 17.5636,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_tasmin": {
+          "value": 11.0662,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_rsds": {
+          "value": 14.7983,
+          "source": "KMA_CORDEX"
+        }
+      },
+      "near": {
+        "tasmax": {
+          "value": 17.09,
+          "source": "CMIP6"
+        },
+        "tasmin": {
+          "value": 12.04,
+          "source": "CMIP6"
+        },
+        "tas": {
+          "value": 14.53,
+          "source": "CMIP6"
+        },
+        "pr": {
+          "value": 3.755,
+          "source": "CMIP6"
+        },
+        "prsn": {
+          "value": 0.018,
+          "source": "CMIP6"
+        },
+        "sfcWind": {
+          "value": 4.0458,
+          "source": "CMIP6"
+        },
+        "evspsbl": {
+          "value": 3.022,
+          "source": "CMIP6"
+        },
+        "etccdi_txx": {
+          "value": 28.678,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_tnn": {
+          "value": 10.83,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_su": {
+          "value": 93.3,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_tr": {
+          "value": 134.682,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_fd": {
+          "value": 1.123,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_wsdi": {
+          "value": 7.3,
+          "source": "ETCCDI_est",
+          "confidence": "low"
+        },
+        "etccdi_wbgt": {
+          "value": 14.226,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_cdd": {
+          "value": 40.495,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_cwd": {
+          "value": 2.0,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx1day": {
+          "value": 44.033,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx5day": {
+          "value": 25.076,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_r95p": {
+          "value": 383.8,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_sdii": {
+          "value": 18.008,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "flood_risk": {
+          "value": 28.0,
+          "source": "PhyRisk"
+        },
+        "drought_risk": {
+          "value": 36.3,
+          "source": "PhyRisk"
+        },
+        "heat_stress": {
+          "value": 11.5,
+          "source": "PhyRisk"
+        },
+        "extreme_heat_35c": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "work_loss_high": {
+          "value": 9.8,
+          "source": "PhyRisk"
+        },
+        "work_loss_medium": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "heat_degree_days": {
+          "value": 10.3,
+          "source": "PhyRisk"
+        },
+        "water_stress": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "water_depletion": {
+          "value": 7.0,
+          "source": "PhyRisk"
+        },
+        "cyclone_risk": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "wildfire_risk": {
+          "value": 21.8,
+          "source": "PhyRisk"
+        },
+        "sea_level_rise": {
+          "value": 45,
+          "source": "PhyRisk"
+        },
+        "storm_surge": {
+          "value": 8.0,
+          "source": "PhyRisk"
+        },
+        "earthquake_risk": {
+          "value": 35.0,
+          "source": "PhyRisk"
+        },
+        "landslide_risk": {
+          "value": 14.0,
+          "source": "PhyRisk"
+        },
+        "coastal_flood": {
+          "value": 40.5,
+          "source": "PhyRisk"
+        },
+        "pluvial_flood": {
+          "value": 19.6,
+          "source": "PhyRisk"
+        },
+        "river_flood": {
+          "value": 23.8,
+          "source": "PhyRisk"
+        },
+        "tc_annual_freq": {
+          "value": 0.302,
+          "source": "IBTrACS"
+        },
+        "tc_max_wind_kt": {
+          "value": 62.2,
+          "source": "IBTrACS"
+        },
+        "tc_cat3_count": {
+          "value": 0.0,
+          "source": "IBTrACS"
+        },
+        "aq_water_stress": {
+          "value": 0.68,
+          "source": "Aqueduct4"
+        },
+        "aq_river_flood": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_coastal_flood": {
+          "value": 0.0,
+          "source": "Aqueduct4"
+        },
+        "aq_drought": {
+          "value": 0.18,
+          "source": "Aqueduct4"
+        },
+        "aq_interann_var": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_water_stress_2050": {
+          "value": 0.82,
+          "source": "Aqueduct4"
+        },
+        "aq_scale": {
+          "value": 5,
+          "source": "Aqueduct4"
+        },
+        "psha_pga_475": {
+          "value": 0.11,
+          "source": "PSHA"
+        },
+        "psha_pga_2475": {
+          "value": 0.22,
+          "source": "PSHA"
+        },
+        "TC_EAL": {
+          "value": 57.65,
+          "source": "CLIMADA_HDF5"
+        },
+        "Flood_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "Wildfire_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "EQ_EAL": {
+          "value": 2.02,
+          "source": "CLIMADA_HDF5"
+        },
+        "cckp_hi35": {
+          "value": 4.15,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hd40": {
+          "value": 0.0,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_tr26": {
+          "value": 11.1,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd65": {
+          "value": 1602.055,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hdd65": {
+          "value": 3825.185,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_csdi": {
+          "value": 0.9,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_wsdi": {
+          "value": 21.3,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd_consec": {
+          "value": 22.5,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_spei12": {
+          "value": 0.0,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_gsl": {
+          "value": 300.5,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hurs": {
+          "value": 66.532,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_id": {
+          "value": 2.6,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_rxmonth": {
+          "value": 279.896,
+          "source": "CCKP_0.25deg"
+        },
+        "kma_tasmax": {
+          "value": 20.5499,
+          "source": "KMA_RDA"
+        },
+        "kma_tasmin": {
+          "value": 8.8757,
+          "source": "KMA_RDA"
+        },
+        "kma_pr": {
+          "value": 4.0984,
+          "source": "KMA_RDA"
+        },
+        "kma_sfcWind": {
+          "value": 2.3039,
+          "source": "KMA_RDA"
+        },
+        "kma_hurs": {
+          "value": 49.9952,
+          "source": "KMA_RDA"
+        },
+        "kma_rsds": {
+          "value": 15.1601,
+          "source": "KMA_RDA"
+        }
+      },
+      "mid": {
+        "tasmax": {
+          "value": 17.7,
+          "source": "CMIP6"
+        },
+        "tasmin": {
+          "value": 12.67,
+          "source": "CMIP6"
+        },
+        "tas": {
+          "value": 15.16,
+          "source": "CMIP6"
+        },
+        "pr": {
+          "value": 3.865,
+          "source": "CMIP6"
+        },
+        "prsn": {
+          "value": 0.018,
+          "source": "CMIP6"
+        },
+        "sfcWind": {
+          "value": 3.9924,
+          "source": "CMIP6"
+        },
+        "evspsbl": {
+          "value": 3.109,
+          "source": "CMIP6"
+        },
+        "etccdi_txx": {
+          "value": 29.463,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_tnn": {
+          "value": 11.393,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_su": {
+          "value": 99.4,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_tr": {
+          "value": 145.765,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_fd": {
+          "value": 0.0,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_wsdi": {
+          "value": 8.0,
+          "source": "ETCCDI_est",
+          "confidence": "low"
+        },
+        "etccdi_wbgt": {
+          "value": 14.819,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_cdd": {
+          "value": 40.549,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_cwd": {
+          "value": 2.0,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx1day": {
+          "value": 45.26,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx5day": {
+          "value": 27.308,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_r95p": {
+          "value": 395.0,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_sdii": {
+          "value": 18.339,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "flood_risk": {
+          "value": 28.0,
+          "source": "PhyRisk"
+        },
+        "drought_risk": {
+          "value": 36.3,
+          "source": "PhyRisk"
+        },
+        "heat_stress": {
+          "value": 11.5,
+          "source": "PhyRisk"
+        },
+        "extreme_heat_35c": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "work_loss_high": {
+          "value": 9.8,
+          "source": "PhyRisk"
+        },
+        "work_loss_medium": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "heat_degree_days": {
+          "value": 10.3,
+          "source": "PhyRisk"
+        },
+        "water_stress": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "water_depletion": {
+          "value": 7.0,
+          "source": "PhyRisk"
+        },
+        "cyclone_risk": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "wildfire_risk": {
+          "value": 21.8,
+          "source": "PhyRisk"
+        },
+        "sea_level_rise": {
+          "value": 45,
+          "source": "PhyRisk"
+        },
+        "storm_surge": {
+          "value": 8.0,
+          "source": "PhyRisk"
+        },
+        "earthquake_risk": {
+          "value": 35.0,
+          "source": "PhyRisk"
+        },
+        "landslide_risk": {
+          "value": 14.0,
+          "source": "PhyRisk"
+        },
+        "coastal_flood": {
+          "value": 40.5,
+          "source": "PhyRisk"
+        },
+        "pluvial_flood": {
+          "value": 19.6,
+          "source": "PhyRisk"
+        },
+        "river_flood": {
+          "value": 23.8,
+          "source": "PhyRisk"
+        },
+        "tc_annual_freq": {
+          "value": 0.302,
+          "source": "IBTrACS"
+        },
+        "tc_max_wind_kt": {
+          "value": 62.2,
+          "source": "IBTrACS"
+        },
+        "tc_cat3_count": {
+          "value": 0.0,
+          "source": "IBTrACS"
+        },
+        "aq_water_stress": {
+          "value": 0.68,
+          "source": "Aqueduct4"
+        },
+        "aq_river_flood": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_coastal_flood": {
+          "value": 0.0,
+          "source": "Aqueduct4"
+        },
+        "aq_drought": {
+          "value": 0.18,
+          "source": "Aqueduct4"
+        },
+        "aq_interann_var": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_water_stress_2050": {
+          "value": 0.82,
+          "source": "Aqueduct4"
+        },
+        "aq_scale": {
+          "value": 5,
+          "source": "Aqueduct4"
+        },
+        "psha_pga_475": {
+          "value": 0.11,
+          "source": "PSHA"
+        },
+        "psha_pga_2475": {
+          "value": 0.22,
+          "source": "PSHA"
+        },
+        "TC_EAL": {
+          "value": 57.65,
+          "source": "CLIMADA_HDF5"
+        },
+        "Flood_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "Wildfire_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "EQ_EAL": {
+          "value": 2.02,
+          "source": "CLIMADA_HDF5"
+        },
+        "cckp_hi35": {
+          "value": 10.9,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hd40": {
+          "value": 0.0,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_tr26": {
+          "value": 18.15,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd65": {
+          "value": 1752.411,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hdd65": {
+          "value": 3610.124,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_csdi": {
+          "value": 0.4,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_wsdi": {
+          "value": 36.5,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd_consec": {
+          "value": 22.5,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_spei12": {
+          "value": 0.03,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_gsl": {
+          "value": 308.5,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hurs": {
+          "value": 66.482,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_id": {
+          "value": 1.8,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_rxmonth": {
+          "value": 279.41,
+          "source": "CCKP_0.25deg"
+        },
+        "kma_tasmax": {
+          "value": 21.6844,
+          "source": "KMA_RDA"
+        },
+        "kma_tasmin": {
+          "value": 9.7683,
+          "source": "KMA_RDA"
+        },
+        "kma_pr": {
+          "value": 4.1815,
+          "source": "KMA_RDA"
+        },
+        "kma_sfcWind": {
+          "value": 2.3149,
+          "source": "KMA_RDA"
+        },
+        "kma_hurs": {
+          "value": 49.8072,
+          "source": "KMA_RDA"
+        },
+        "kma_rsds": {
+          "value": 15.4205,
+          "source": "KMA_RDA"
+        }
+      },
+      "far": {
+        "tasmax": {
+          "value": 18.54,
+          "source": "CMIP6"
+        },
+        "tasmin": {
+          "value": 13.49,
+          "source": "CMIP6"
+        },
+        "tas": {
+          "value": 15.98,
+          "source": "CMIP6"
+        },
+        "pr": {
+          "value": 3.955,
+          "source": "CMIP6"
+        },
+        "prsn": {
+          "value": 0.008,
+          "source": "CMIP6"
+        },
+        "sfcWind": {
+          "value": 3.9502,
+          "source": "CMIP6"
+        },
+        "evspsbl": {
+          "value": 3.204,
+          "source": "CMIP6"
+        },
+        "etccdi_txx": {
+          "value": 30.463,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_tnn": {
+          "value": 12.123,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_su": {
+          "value": 108.0,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_tr": {
+          "value": 159.966,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_fd": {
+          "value": 0.0,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_wsdi": {
+          "value": 9.1,
+          "source": "ETCCDI_est",
+          "confidence": "low"
+        },
+        "etccdi_wbgt": {
+          "value": 15.588,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_cdd": {
+          "value": 40.63,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_cwd": {
+          "value": 2.0,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx1day": {
+          "value": 46.789,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx5day": {
+          "value": 30.234,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_r95p": {
+          "value": 404.2,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_sdii": {
+          "value": 18.752,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "flood_risk": {
+          "value": 28.0,
+          "source": "PhyRisk"
+        },
+        "drought_risk": {
+          "value": 36.3,
+          "source": "PhyRisk"
+        },
+        "heat_stress": {
+          "value": 11.5,
+          "source": "PhyRisk"
+        },
+        "extreme_heat_35c": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "work_loss_high": {
+          "value": 9.8,
+          "source": "PhyRisk"
+        },
+        "work_loss_medium": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "heat_degree_days": {
+          "value": 10.3,
+          "source": "PhyRisk"
+        },
+        "water_stress": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "water_depletion": {
+          "value": 7.0,
+          "source": "PhyRisk"
+        },
+        "cyclone_risk": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "wildfire_risk": {
+          "value": 21.8,
+          "source": "PhyRisk"
+        },
+        "sea_level_rise": {
+          "value": 45,
+          "source": "PhyRisk"
+        },
+        "storm_surge": {
+          "value": 8.0,
+          "source": "PhyRisk"
+        },
+        "earthquake_risk": {
+          "value": 35.0,
+          "source": "PhyRisk"
+        },
+        "landslide_risk": {
+          "value": 14.0,
+          "source": "PhyRisk"
+        },
+        "coastal_flood": {
+          "value": 40.5,
+          "source": "PhyRisk"
+        },
+        "pluvial_flood": {
+          "value": 19.6,
+          "source": "PhyRisk"
+        },
+        "river_flood": {
+          "value": 23.8,
+          "source": "PhyRisk"
+        },
+        "tc_annual_freq": {
+          "value": 0.302,
+          "source": "IBTrACS"
+        },
+        "tc_max_wind_kt": {
+          "value": 62.2,
+          "source": "IBTrACS"
+        },
+        "tc_cat3_count": {
+          "value": 0.0,
+          "source": "IBTrACS"
+        },
+        "aq_water_stress": {
+          "value": 0.68,
+          "source": "Aqueduct4"
+        },
+        "aq_river_flood": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_coastal_flood": {
+          "value": 0.0,
+          "source": "Aqueduct4"
+        },
+        "aq_drought": {
+          "value": 0.18,
+          "source": "Aqueduct4"
+        },
+        "aq_interann_var": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_water_stress_2050": {
+          "value": 0.82,
+          "source": "Aqueduct4"
+        },
+        "aq_scale": {
+          "value": 5,
+          "source": "Aqueduct4"
+        },
+        "psha_pga_475": {
+          "value": 0.11,
+          "source": "PSHA"
+        },
+        "psha_pga_2475": {
+          "value": 0.22,
+          "source": "PSHA"
+        },
+        "TC_EAL": {
+          "value": 57.65,
+          "source": "CLIMADA_HDF5"
+        },
+        "Flood_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "Wildfire_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "EQ_EAL": {
+          "value": 2.02,
+          "source": "CLIMADA_HDF5"
+        },
+        "cckp_hi35": {
+          "value": 19.55,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hd40": {
+          "value": 0.0,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_tr26": {
+          "value": 26.0,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd65": {
+          "value": 1952.571,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hdd65": {
+          "value": 3376.032,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_csdi": {
+          "value": 0.25,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_wsdi": {
+          "value": 70.4,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd_consec": {
+          "value": 21.25,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_spei12": {
+          "value": -0.019,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_gsl": {
+          "value": 313.95,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hurs": {
+          "value": 66.531,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_id": {
+          "value": 0.75,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_rxmonth": {
+          "value": 275.969,
+          "source": "CCKP_0.25deg"
+        },
+        "kma_tasmax": {
+          "value": 22.5919,
+          "source": "KMA_RDA"
+        },
+        "kma_tasmin": {
+          "value": 10.4911,
+          "source": "KMA_RDA"
+        },
+        "kma_pr": {
+          "value": 4.184,
+          "source": "KMA_RDA"
+        },
+        "kma_sfcWind": {
+          "value": 2.3157,
+          "source": "KMA_RDA"
+        },
+        "kma_hurs": {
+          "value": 49.7078,
+          "source": "KMA_RDA"
+        },
+        "kma_rsds": {
+          "value": 15.6005,
+          "source": "KMA_RDA"
+        }
+      },
+      "end": {
+        "tasmax": {
+          "value": 18.74,
+          "source": "CMIP6"
+        },
+        "tasmin": {
+          "value": 13.66,
+          "source": "CMIP6"
+        },
+        "tas": {
+          "value": 16.15,
+          "source": "CMIP6"
+        },
+        "pr": {
+          "value": 3.803,
+          "source": "CMIP6"
+        },
+        "prsn": {
+          "value": 0.011,
+          "source": "CMIP6"
+        },
+        "sfcWind": {
+          "value": 4.0717,
+          "source": "CMIP6"
+        },
+        "evspsbl": {
+          "value": 3.232,
+          "source": "CMIP6"
+        },
+        "etccdi_txx": {
+          "value": 30.672,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_tnn": {
+          "value": 12.273,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_su": {
+          "value": 110.1,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_tr": {
+          "value": 162.838,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_fd": {
+          "value": 0.0,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_wsdi": {
+          "value": 9.3,
+          "source": "ETCCDI_est",
+          "confidence": "low"
+        },
+        "etccdi_wbgt": {
+          "value": 15.745,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_cdd": {
+          "value": 40.691,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_cwd": {
+          "value": 2.0,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx1day": {
+          "value": 47.026,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx5day": {
+          "value": 30.741,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_r95p": {
+          "value": 388.7,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_sdii": {
+          "value": 18.825,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "flood_risk": {
+          "value": 28.0,
+          "source": "PhyRisk"
+        },
+        "drought_risk": {
+          "value": 36.3,
+          "source": "PhyRisk"
+        },
+        "heat_stress": {
+          "value": 11.5,
+          "source": "PhyRisk"
+        },
+        "extreme_heat_35c": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "work_loss_high": {
+          "value": 9.8,
+          "source": "PhyRisk"
+        },
+        "work_loss_medium": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "heat_degree_days": {
+          "value": 10.3,
+          "source": "PhyRisk"
+        },
+        "water_stress": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "water_depletion": {
+          "value": 7.0,
+          "source": "PhyRisk"
+        },
+        "cyclone_risk": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "wildfire_risk": {
+          "value": 21.8,
+          "source": "PhyRisk"
+        },
+        "sea_level_rise": {
+          "value": 45,
+          "source": "PhyRisk"
+        },
+        "storm_surge": {
+          "value": 8.0,
+          "source": "PhyRisk"
+        },
+        "earthquake_risk": {
+          "value": 35.0,
+          "source": "PhyRisk"
+        },
+        "landslide_risk": {
+          "value": 14.0,
+          "source": "PhyRisk"
+        },
+        "coastal_flood": {
+          "value": 40.5,
+          "source": "PhyRisk"
+        },
+        "pluvial_flood": {
+          "value": 19.6,
+          "source": "PhyRisk"
+        },
+        "river_flood": {
+          "value": 23.8,
+          "source": "PhyRisk"
+        },
+        "tc_annual_freq": {
+          "value": 0.302,
+          "source": "IBTrACS"
+        },
+        "tc_max_wind_kt": {
+          "value": 62.2,
+          "source": "IBTrACS"
+        },
+        "tc_cat3_count": {
+          "value": 0.0,
+          "source": "IBTrACS"
+        },
+        "aq_water_stress": {
+          "value": 0.68,
+          "source": "Aqueduct4"
+        },
+        "aq_river_flood": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_coastal_flood": {
+          "value": 0.0,
+          "source": "Aqueduct4"
+        },
+        "aq_drought": {
+          "value": 0.18,
+          "source": "Aqueduct4"
+        },
+        "aq_interann_var": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_water_stress_2050": {
+          "value": 0.82,
+          "source": "Aqueduct4"
+        },
+        "aq_scale": {
+          "value": 5,
+          "source": "Aqueduct4"
+        },
+        "psha_pga_475": {
+          "value": 0.11,
+          "source": "PSHA"
+        },
+        "psha_pga_2475": {
+          "value": 0.22,
+          "source": "PSHA"
+        },
+        "TC_EAL": {
+          "value": 57.65,
+          "source": "CLIMADA_HDF5"
+        },
+        "Flood_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "Wildfire_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "EQ_EAL": {
+          "value": 2.02,
+          "source": "CLIMADA_HDF5"
+        },
+        "cckp_hi35": {
+          "value": 24.05,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hd40": {
+          "value": 0.0,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_tr26": {
+          "value": 32.45,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd65": {
+          "value": 2039.304,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hdd65": {
+          "value": 3227.929,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_csdi": {
+          "value": 0.1,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_wsdi": {
+          "value": 94.2,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd_consec": {
+          "value": 21.15,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_spei12": {
+          "value": -0.165,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_gsl": {
+          "value": 321.15,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hurs": {
+          "value": 66.314,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_id": {
+          "value": 0.6,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_rxmonth": {
+          "value": 277.177,
+          "source": "CCKP_0.25deg"
+        },
+        "kma_tasmax": {
+          "value": 23.3223,
+          "source": "KMA_RDA"
+        },
+        "kma_tasmin": {
+          "value": 11.0819,
+          "source": "KMA_RDA"
+        },
+        "kma_pr": {
+          "value": 4.3054,
+          "source": "KMA_RDA"
+        },
+        "kma_sfcWind": {
+          "value": 2.3092,
+          "source": "KMA_RDA"
+        },
+        "kma_hurs": {
+          "value": 49.6425,
+          "source": "KMA_RDA"
+        },
+        "kma_rsds": {
+          "value": 15.7405,
+          "source": "KMA_RDA"
+        }
+      }
+    },
+    "ssp370": {
+      "baseline": {
+        "tasmax": {
+          "value": 16.72,
+          "source": "CMIP6"
+        },
+        "tasmin": {
+          "value": 11.4,
+          "source": "CMIP6"
+        },
+        "tas": {
+          "value": 14.06,
+          "source": "CMIP6"
+        },
+        "pr": {
+          "value": 3.571,
+          "source": "CMIP6"
+        },
+        "prsn": {
+          "value": 0.04,
+          "source": "CMIP6"
+        },
+        "sfcWind": {
+          "value": 4.1011,
+          "source": "CMIP6"
+        },
+        "evspsbl": {
+          "value": 2.932,
+          "source": "CMIP6"
+        },
+        "etccdi_txx": {
+          "value": 28.808,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_tnn": {
+          "value": 10.098,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_su": {
+          "value": 89.8,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_tr": {
+          "value": 128.553,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_fd": {
+          "value": 5.211,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_wsdi": {
+          "value": 6.9,
+          "source": "ETCCDI_est",
+          "confidence": "low"
+        },
+        "etccdi_wbgt": {
+          "value": 13.919,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_cdd": {
+          "value": 40.746,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_cwd": {
+          "value": 2.0,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx1day": {
+          "value": 43.136,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx5day": {
+          "value": 22.57,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_r95p": {
+          "value": 365.0,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_sdii": {
+          "value": 17.806,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "flood_risk": {
+          "value": 28.0,
+          "source": "PhyRisk"
+        },
+        "drought_risk": {
+          "value": 36.3,
+          "source": "PhyRisk"
+        },
+        "heat_stress": {
+          "value": 11.5,
+          "source": "PhyRisk"
+        },
+        "extreme_heat_35c": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "work_loss_high": {
+          "value": 9.8,
+          "source": "PhyRisk"
+        },
+        "work_loss_medium": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "heat_degree_days": {
+          "value": 10.3,
+          "source": "PhyRisk"
+        },
+        "water_stress": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "water_depletion": {
+          "value": 7.0,
+          "source": "PhyRisk"
+        },
+        "cyclone_risk": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "wildfire_risk": {
+          "value": 21.8,
+          "source": "PhyRisk"
+        },
+        "sea_level_rise": {
+          "value": 45,
+          "source": "PhyRisk"
+        },
+        "storm_surge": {
+          "value": 8.0,
+          "source": "PhyRisk"
+        },
+        "earthquake_risk": {
+          "value": 35.0,
+          "source": "PhyRisk"
+        },
+        "landslide_risk": {
+          "value": 14.0,
+          "source": "PhyRisk"
+        },
+        "coastal_flood": {
+          "value": 40.5,
+          "source": "PhyRisk"
+        },
+        "pluvial_flood": {
+          "value": 19.6,
+          "source": "PhyRisk"
+        },
+        "river_flood": {
+          "value": 23.8,
+          "source": "PhyRisk"
+        },
+        "tc_annual_freq": {
+          "value": 0.302,
+          "source": "IBTrACS"
+        },
+        "tc_max_wind_kt": {
+          "value": 62.2,
+          "source": "IBTrACS"
+        },
+        "tc_cat3_count": {
+          "value": 0.0,
+          "source": "IBTrACS"
+        },
+        "aq_water_stress": {
+          "value": 0.68,
+          "source": "Aqueduct4"
+        },
+        "aq_river_flood": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_coastal_flood": {
+          "value": 0.0,
+          "source": "Aqueduct4"
+        },
+        "aq_drought": {
+          "value": 0.18,
+          "source": "Aqueduct4"
+        },
+        "aq_interann_var": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_water_stress_2050": {
+          "value": 0.82,
+          "source": "Aqueduct4"
+        },
+        "aq_scale": {
+          "value": 5,
+          "source": "Aqueduct4"
+        },
+        "psha_pga_475": {
+          "value": 0.11,
+          "source": "PSHA"
+        },
+        "psha_pga_2475": {
+          "value": 0.22,
+          "source": "PSHA"
+        },
+        "TC_EAL": {
+          "value": 57.65,
+          "source": "CLIMADA_HDF5"
+        },
+        "Flood_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "Wildfire_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "EQ_EAL": {
+          "value": 2.02,
+          "source": "CLIMADA_HDF5"
+        },
+        "cckp_hi35": {
+          "value": 0.9,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hd40": {
+          "value": 0.0,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_tr26": {
+          "value": 4.4,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd65": {
+          "value": 1350.127,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hdd65": {
+          "value": 4221.199,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_csdi": {
+          "value": 2.05,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_wsdi": {
+          "value": 4.0,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd_consec": {
+          "value": 21.95,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_spei12": {
+          "value": -0.059,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_gsl": {
+          "value": 283.05,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hurs": {
+          "value": 66.673,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_id": {
+          "value": 4.7,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_rxmonth": {
+          "value": 267.869,
+          "source": "CCKP_0.25deg"
+        },
+        "kma_tasmax": {
+          "value": 18.7449,
+          "source": "KMA_RDA"
+        },
+        "kma_tasmin": {
+          "value": 7.3721,
+          "source": "KMA_RDA"
+        },
+        "kma_pr": {
+          "value": 3.7235,
+          "source": "KMA_RDA"
+        },
+        "kma_sfcWind": {
+          "value": 2.3433,
+          "source": "KMA_RDA"
+        },
+        "kma_hurs": {
+          "value": 50.9897,
+          "source": "KMA_RDA"
+        },
+        "kma_rsds": {
+          "value": 14.906,
+          "source": "KMA_RDA"
+        },
+        "cordex_pr": {
+          "value": 3.7937,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_tas": {
+          "value": 13.9827,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_tasmax": {
+          "value": 17.5636,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_tasmin": {
+          "value": 11.0662,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_rsds": {
+          "value": 14.7983,
+          "source": "KMA_CORDEX"
+        }
+      },
+      "near": {
+        "tasmax": {
+          "value": 17.05,
+          "source": "CMIP6"
+        },
+        "tasmin": {
+          "value": 11.73,
+          "source": "CMIP6"
+        },
+        "tas": {
+          "value": 14.38,
+          "source": "CMIP6"
+        },
+        "pr": {
+          "value": 3.702,
+          "source": "CMIP6"
+        },
+        "prsn": {
+          "value": 0.022,
+          "source": "CMIP6"
+        },
+        "sfcWind": {
+          "value": 3.9799,
+          "source": "CMIP6"
+        },
+        "evspsbl": {
+          "value": 2.965,
+          "source": "CMIP6"
+        },
+        "etccdi_txx": {
+          "value": 29.144,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_tnn": {
+          "value": 10.4,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_su": {
+          "value": 92.9,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_tr": {
+          "value": 133.896,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_fd": {
+          "value": 3.997,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_wsdi": {
+          "value": 7.3,
+          "source": "ETCCDI_est",
+          "confidence": "low"
+        },
+        "etccdi_wbgt": {
+          "value": 14.211,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_cdd": {
+          "value": 40.735,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_cwd": {
+          "value": 2.0,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx1day": {
+          "value": 43.75,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx5day": {
+          "value": 23.841,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_r95p": {
+          "value": 378.3,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_sdii": {
+          "value": 17.962,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "flood_risk": {
+          "value": 28.0,
+          "source": "PhyRisk"
+        },
+        "drought_risk": {
+          "value": 36.3,
+          "source": "PhyRisk"
+        },
+        "heat_stress": {
+          "value": 11.5,
+          "source": "PhyRisk"
+        },
+        "extreme_heat_35c": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "work_loss_high": {
+          "value": 9.8,
+          "source": "PhyRisk"
+        },
+        "work_loss_medium": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "heat_degree_days": {
+          "value": 10.3,
+          "source": "PhyRisk"
+        },
+        "water_stress": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "water_depletion": {
+          "value": 7.0,
+          "source": "PhyRisk"
+        },
+        "cyclone_risk": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "wildfire_risk": {
+          "value": 21.8,
+          "source": "PhyRisk"
+        },
+        "sea_level_rise": {
+          "value": 45,
+          "source": "PhyRisk"
+        },
+        "storm_surge": {
+          "value": 8.0,
+          "source": "PhyRisk"
+        },
+        "earthquake_risk": {
+          "value": 35.0,
+          "source": "PhyRisk"
+        },
+        "landslide_risk": {
+          "value": 14.0,
+          "source": "PhyRisk"
+        },
+        "coastal_flood": {
+          "value": 40.5,
+          "source": "PhyRisk"
+        },
+        "pluvial_flood": {
+          "value": 19.6,
+          "source": "PhyRisk"
+        },
+        "river_flood": {
+          "value": 23.8,
+          "source": "PhyRisk"
+        },
+        "tc_annual_freq": {
+          "value": 0.302,
+          "source": "IBTrACS"
+        },
+        "tc_max_wind_kt": {
+          "value": 62.2,
+          "source": "IBTrACS"
+        },
+        "tc_cat3_count": {
+          "value": 0.0,
+          "source": "IBTrACS"
+        },
+        "aq_water_stress": {
+          "value": 0.68,
+          "source": "Aqueduct4"
+        },
+        "aq_river_flood": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_coastal_flood": {
+          "value": 0.0,
+          "source": "Aqueduct4"
+        },
+        "aq_drought": {
+          "value": 0.18,
+          "source": "Aqueduct4"
+        },
+        "aq_interann_var": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_water_stress_2050": {
+          "value": 0.82,
+          "source": "Aqueduct4"
+        },
+        "aq_scale": {
+          "value": 5,
+          "source": "Aqueduct4"
+        },
+        "psha_pga_475": {
+          "value": 0.11,
+          "source": "PSHA"
+        },
+        "psha_pga_2475": {
+          "value": 0.22,
+          "source": "PSHA"
+        },
+        "TC_EAL": {
+          "value": 57.65,
+          "source": "CLIMADA_HDF5"
+        },
+        "Flood_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "Wildfire_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "EQ_EAL": {
+          "value": 2.02,
+          "source": "CLIMADA_HDF5"
+        },
+        "cckp_hi35": {
+          "value": 4.45,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hd40": {
+          "value": 0.0,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_tr26": {
+          "value": 9.25,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd65": {
+          "value": 1548.442,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hdd65": {
+          "value": 3903.885,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_csdi": {
+          "value": 1.1,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_wsdi": {
+          "value": 15.0,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd_consec": {
+          "value": 21.35,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_spei12": {
+          "value": 0.02,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_gsl": {
+          "value": 294.35,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hurs": {
+          "value": 66.849,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_id": {
+          "value": 2.9,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_rxmonth": {
+          "value": 277.935,
+          "source": "CCKP_0.25deg"
+        },
+        "kma_tasmax": {
+          "value": 20.4221,
+          "source": "KMA_RDA"
+        },
+        "kma_tasmin": {
+          "value": 8.7713,
+          "source": "KMA_RDA"
+        },
+        "kma_pr": {
+          "value": 4.0063,
+          "source": "KMA_RDA"
+        },
+        "kma_sfcWind": {
+          "value": 2.319,
+          "source": "KMA_RDA"
+        },
+        "kma_hurs": {
+          "value": 50.3517,
+          "source": "KMA_RDA"
+        },
+        "kma_rsds": {
+          "value": 14.8035,
+          "source": "KMA_RDA"
+        }
+      },
+      "mid": {
+        "tasmax": {
+          "value": 17.78,
+          "source": "CMIP6"
+        },
+        "tasmin": {
+          "value": 12.49,
+          "source": "CMIP6"
+        },
+        "tas": {
+          "value": 15.14,
+          "source": "CMIP6"
+        },
+        "pr": {
+          "value": 3.83,
+          "source": "CMIP6"
+        },
+        "prsn": {
+          "value": 0.019,
+          "source": "CMIP6"
+        },
+        "sfcWind": {
+          "value": 3.978,
+          "source": "CMIP6"
+        },
+        "evspsbl": {
+          "value": 2.978,
+          "source": "CMIP6"
+        },
+        "etccdi_txx": {
+          "value": 30.095,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_tnn": {
+          "value": 11.08,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_su": {
+          "value": 100.2,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_tr": {
+          "value": 147.299,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_fd": {
+          "value": 1.439,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_wsdi": {
+          "value": 8.1,
+          "source": "ETCCDI_est",
+          "confidence": "low"
+        },
+        "etccdi_wbgt": {
+          "value": 14.926,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_cdd": {
+          "value": 40.802,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_cwd": {
+          "value": 2.0,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx1day": {
+          "value": 45.236,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx5day": {
+          "value": 26.523,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_r95p": {
+          "value": 391.4,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_sdii": {
+          "value": 18.364,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "flood_risk": {
+          "value": 28.0,
+          "source": "PhyRisk"
+        },
+        "drought_risk": {
+          "value": 36.3,
+          "source": "PhyRisk"
+        },
+        "heat_stress": {
+          "value": 11.5,
+          "source": "PhyRisk"
+        },
+        "extreme_heat_35c": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "work_loss_high": {
+          "value": 9.8,
+          "source": "PhyRisk"
+        },
+        "work_loss_medium": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "heat_degree_days": {
+          "value": 10.3,
+          "source": "PhyRisk"
+        },
+        "water_stress": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "water_depletion": {
+          "value": 7.0,
+          "source": "PhyRisk"
+        },
+        "cyclone_risk": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "wildfire_risk": {
+          "value": 21.8,
+          "source": "PhyRisk"
+        },
+        "sea_level_rise": {
+          "value": 45,
+          "source": "PhyRisk"
+        },
+        "storm_surge": {
+          "value": 8.0,
+          "source": "PhyRisk"
+        },
+        "earthquake_risk": {
+          "value": 35.0,
+          "source": "PhyRisk"
+        },
+        "landslide_risk": {
+          "value": 14.0,
+          "source": "PhyRisk"
+        },
+        "coastal_flood": {
+          "value": 40.5,
+          "source": "PhyRisk"
+        },
+        "pluvial_flood": {
+          "value": 19.6,
+          "source": "PhyRisk"
+        },
+        "river_flood": {
+          "value": 23.8,
+          "source": "PhyRisk"
+        },
+        "tc_annual_freq": {
+          "value": 0.302,
+          "source": "IBTrACS"
+        },
+        "tc_max_wind_kt": {
+          "value": 62.2,
+          "source": "IBTrACS"
+        },
+        "tc_cat3_count": {
+          "value": 0.0,
+          "source": "IBTrACS"
+        },
+        "aq_water_stress": {
+          "value": 0.68,
+          "source": "Aqueduct4"
+        },
+        "aq_river_flood": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_coastal_flood": {
+          "value": 0.0,
+          "source": "Aqueduct4"
+        },
+        "aq_drought": {
+          "value": 0.18,
+          "source": "Aqueduct4"
+        },
+        "aq_interann_var": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_water_stress_2050": {
+          "value": 0.82,
+          "source": "Aqueduct4"
+        },
+        "aq_scale": {
+          "value": 5,
+          "source": "Aqueduct4"
+        },
+        "psha_pga_475": {
+          "value": 0.11,
+          "source": "PSHA"
+        },
+        "psha_pga_2475": {
+          "value": 0.22,
+          "source": "PSHA"
+        },
+        "TC_EAL": {
+          "value": 57.65,
+          "source": "CLIMADA_HDF5"
+        },
+        "Flood_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "Wildfire_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "EQ_EAL": {
+          "value": 2.02,
+          "source": "CLIMADA_HDF5"
+        },
+        "cckp_hi35": {
+          "value": 12.1,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hd40": {
+          "value": 0.0,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_tr26": {
+          "value": 18.55,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd65": {
+          "value": 1767.091,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hdd65": {
+          "value": 3546.169,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_csdi": {
+          "value": 0.2,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_wsdi": {
+          "value": 33.5,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd_consec": {
+          "value": 22.2,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_spei12": {
+          "value": 0.012,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_gsl": {
+          "value": 308.3,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hurs": {
+          "value": 66.822,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_id": {
+          "value": 1.4,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_rxmonth": {
+          "value": 269.825,
+          "source": "CCKP_0.25deg"
+        },
+        "kma_tasmax": {
+          "value": 21.807,
+          "source": "KMA_RDA"
+        },
+        "kma_tasmin": {
+          "value": 9.9315,
+          "source": "KMA_RDA"
+        },
+        "kma_pr": {
+          "value": 4.1489,
+          "source": "KMA_RDA"
+        },
+        "kma_sfcWind": {
+          "value": 2.314,
+          "source": "KMA_RDA"
+        },
+        "kma_hurs": {
+          "value": 50.241,
+          "source": "KMA_RDA"
+        },
+        "kma_rsds": {
+          "value": 14.8137,
+          "source": "KMA_RDA"
+        }
+      },
+      "far": {
+        "tasmax": {
+          "value": 19.17,
+          "source": "CMIP6"
+        },
+        "tasmin": {
+          "value": 13.93,
+          "source": "CMIP6"
+        },
+        "tas": {
+          "value": 16.56,
+          "source": "CMIP6"
+        },
+        "pr": {
+          "value": 3.873,
+          "source": "CMIP6"
+        },
+        "prsn": {
+          "value": 0.009,
+          "source": "CMIP6"
+        },
+        "sfcWind": {
+          "value": 4.0212,
+          "source": "CMIP6"
+        },
+        "evspsbl": {
+          "value": 3.16,
+          "source": "CMIP6"
+        },
+        "etccdi_txx": {
+          "value": 31.786,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_tnn": {
+          "value": 12.387,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_su": {
+          "value": 114.7,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_tr": {
+          "value": 171.977,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_fd": {
+          "value": 0.0,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_wsdi": {
+          "value": 9.8,
+          "source": "ETCCDI_est",
+          "confidence": "low"
+        },
+        "etccdi_wbgt": {
+          "value": 16.243,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_cdd": {
+          "value": 40.948,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_cwd": {
+          "value": 2.0,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx1day": {
+          "value": 47.907,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx5day": {
+          "value": 31.517,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_r95p": {
+          "value": 395.8,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_sdii": {
+          "value": 19.093,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "flood_risk": {
+          "value": 28.0,
+          "source": "PhyRisk"
+        },
+        "drought_risk": {
+          "value": 36.3,
+          "source": "PhyRisk"
+        },
+        "heat_stress": {
+          "value": 11.5,
+          "source": "PhyRisk"
+        },
+        "extreme_heat_35c": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "work_loss_high": {
+          "value": 9.8,
+          "source": "PhyRisk"
+        },
+        "work_loss_medium": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "heat_degree_days": {
+          "value": 10.3,
+          "source": "PhyRisk"
+        },
+        "water_stress": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "water_depletion": {
+          "value": 7.0,
+          "source": "PhyRisk"
+        },
+        "cyclone_risk": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "wildfire_risk": {
+          "value": 21.8,
+          "source": "PhyRisk"
+        },
+        "sea_level_rise": {
+          "value": 45,
+          "source": "PhyRisk"
+        },
+        "storm_surge": {
+          "value": 8.0,
+          "source": "PhyRisk"
+        },
+        "earthquake_risk": {
+          "value": 35.0,
+          "source": "PhyRisk"
+        },
+        "landslide_risk": {
+          "value": 14.0,
+          "source": "PhyRisk"
+        },
+        "coastal_flood": {
+          "value": 40.5,
+          "source": "PhyRisk"
+        },
+        "pluvial_flood": {
+          "value": 19.6,
+          "source": "PhyRisk"
+        },
+        "river_flood": {
+          "value": 23.8,
+          "source": "PhyRisk"
+        },
+        "tc_annual_freq": {
+          "value": 0.302,
+          "source": "IBTrACS"
+        },
+        "tc_max_wind_kt": {
+          "value": 62.2,
+          "source": "IBTrACS"
+        },
+        "tc_cat3_count": {
+          "value": 0.0,
+          "source": "IBTrACS"
+        },
+        "aq_water_stress": {
+          "value": 0.68,
+          "source": "Aqueduct4"
+        },
+        "aq_river_flood": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_coastal_flood": {
+          "value": 0.0,
+          "source": "Aqueduct4"
+        },
+        "aq_drought": {
+          "value": 0.18,
+          "source": "Aqueduct4"
+        },
+        "aq_interann_var": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_water_stress_2050": {
+          "value": 0.82,
+          "source": "Aqueduct4"
+        },
+        "aq_scale": {
+          "value": 5,
+          "source": "Aqueduct4"
+        },
+        "psha_pga_475": {
+          "value": 0.11,
+          "source": "PSHA"
+        },
+        "psha_pga_2475": {
+          "value": 0.22,
+          "source": "PSHA"
+        },
+        "TC_EAL": {
+          "value": 57.65,
+          "source": "CLIMADA_HDF5"
+        },
+        "Flood_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "Wildfire_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "EQ_EAL": {
+          "value": 2.02,
+          "source": "CLIMADA_HDF5"
+        },
+        "cckp_hi35": {
+          "value": 23.5,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hd40": {
+          "value": 0.0,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_tr26": {
+          "value": 33.45,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd65": {
+          "value": 2026.428,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hdd65": {
+          "value": 3213.443,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_csdi": {
+          "value": 0.1,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_wsdi": {
+          "value": 69.45,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd_consec": {
+          "value": 22.05,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_spei12": {
+          "value": -0.149,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_gsl": {
+          "value": 321.8,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hurs": {
+          "value": 67.013,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_id": {
+          "value": 0.7,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_rxmonth": {
+          "value": 276.661,
+          "source": "CCKP_0.25deg"
+        },
+        "kma_tasmax": {
+          "value": 23.4323,
+          "source": "KMA_RDA"
+        },
+        "kma_tasmin": {
+          "value": 11.2839,
+          "source": "KMA_RDA"
+        },
+        "kma_pr": {
+          "value": 4.1372,
+          "source": "KMA_RDA"
+        },
+        "kma_sfcWind": {
+          "value": 2.3035,
+          "source": "KMA_RDA"
+        },
+        "kma_hurs": {
+          "value": 49.9348,
+          "source": "KMA_RDA"
+        },
+        "kma_rsds": {
+          "value": 15.0007,
+          "source": "KMA_RDA"
+        }
+      },
+      "end": {
+        "tasmax": {
+          "value": 19.87,
+          "source": "CMIP6"
+        },
+        "tasmin": {
+          "value": 14.71,
+          "source": "CMIP6"
+        },
+        "tas": {
+          "value": 17.29,
+          "source": "CMIP6"
+        },
+        "pr": {
+          "value": 4.025,
+          "source": "CMIP6"
+        },
+        "prsn": {
+          "value": 0.006,
+          "source": "CMIP6"
+        },
+        "sfcWind": {
+          "value": 3.9556,
+          "source": "CMIP6"
+        },
+        "evspsbl": {
+          "value": 3.26,
+          "source": "CMIP6"
+        },
+        "etccdi_txx": {
+          "value": 32.475,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_tnn": {
+          "value": 13.13,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_su": {
+          "value": 122.3,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_tr": {
+          "value": 184.096,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_fd": {
+          "value": 0.0,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_wsdi": {
+          "value": 10.6,
+          "source": "ETCCDI_est",
+          "confidence": "low"
+        },
+        "etccdi_wbgt": {
+          "value": 16.889,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_cdd": {
+          "value": 40.924,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_cwd": {
+          "value": 2.0,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx1day": {
+          "value": 49.301,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx5day": {
+          "value": 34.371,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_r95p": {
+          "value": 411.4,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_sdii": {
+          "value": 19.456,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "flood_risk": {
+          "value": 28.0,
+          "source": "PhyRisk"
+        },
+        "drought_risk": {
+          "value": 36.3,
+          "source": "PhyRisk"
+        },
+        "heat_stress": {
+          "value": 11.5,
+          "source": "PhyRisk"
+        },
+        "extreme_heat_35c": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "work_loss_high": {
+          "value": 9.8,
+          "source": "PhyRisk"
+        },
+        "work_loss_medium": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "heat_degree_days": {
+          "value": 10.3,
+          "source": "PhyRisk"
+        },
+        "water_stress": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "water_depletion": {
+          "value": 7.0,
+          "source": "PhyRisk"
+        },
+        "cyclone_risk": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "wildfire_risk": {
+          "value": 21.8,
+          "source": "PhyRisk"
+        },
+        "sea_level_rise": {
+          "value": 45,
+          "source": "PhyRisk"
+        },
+        "storm_surge": {
+          "value": 8.0,
+          "source": "PhyRisk"
+        },
+        "earthquake_risk": {
+          "value": 35.0,
+          "source": "PhyRisk"
+        },
+        "landslide_risk": {
+          "value": 14.0,
+          "source": "PhyRisk"
+        },
+        "coastal_flood": {
+          "value": 40.5,
+          "source": "PhyRisk"
+        },
+        "pluvial_flood": {
+          "value": 19.6,
+          "source": "PhyRisk"
+        },
+        "river_flood": {
+          "value": 23.8,
+          "source": "PhyRisk"
+        },
+        "tc_annual_freq": {
+          "value": 0.302,
+          "source": "IBTrACS"
+        },
+        "tc_max_wind_kt": {
+          "value": 62.2,
+          "source": "IBTrACS"
+        },
+        "tc_cat3_count": {
+          "value": 0.0,
+          "source": "IBTrACS"
+        },
+        "aq_water_stress": {
+          "value": 0.68,
+          "source": "Aqueduct4"
+        },
+        "aq_river_flood": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_coastal_flood": {
+          "value": 0.0,
+          "source": "Aqueduct4"
+        },
+        "aq_drought": {
+          "value": 0.18,
+          "source": "Aqueduct4"
+        },
+        "aq_interann_var": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_water_stress_2050": {
+          "value": 0.82,
+          "source": "Aqueduct4"
+        },
+        "aq_scale": {
+          "value": 5,
+          "source": "Aqueduct4"
+        },
+        "psha_pga_475": {
+          "value": 0.11,
+          "source": "PSHA"
+        },
+        "psha_pga_2475": {
+          "value": 0.22,
+          "source": "PSHA"
+        },
+        "TC_EAL": {
+          "value": 57.65,
+          "source": "CLIMADA_HDF5"
+        },
+        "Flood_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "Wildfire_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "EQ_EAL": {
+          "value": 2.02,
+          "source": "CLIMADA_HDF5"
+        },
+        "cckp_hi35": {
+          "value": 39.65,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hd40": {
+          "value": 0.0,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_tr26": {
+          "value": 48.25,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd65": {
+          "value": 2326.997,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hdd65": {
+          "value": 2919.311,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_csdi": {
+          "value": 0,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_wsdi": {
+          "value": 124.4,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd_consec": {
+          "value": 22.0,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_spei12": {
+          "value": 0.118,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_gsl": {
+          "value": 330.25,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hurs": {
+          "value": 67.066,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_id": {
+          "value": 0.05,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_rxmonth": {
+          "value": 281.698,
+          "source": "CCKP_0.25deg"
+        },
+        "kma_tasmax": {
+          "value": 25.0136,
+          "source": "KMA_RDA"
+        },
+        "kma_tasmin": {
+          "value": 12.6677,
+          "source": "KMA_RDA"
+        },
+        "kma_pr": {
+          "value": 4.5193,
+          "source": "KMA_RDA"
+        },
+        "kma_sfcWind": {
+          "value": 2.2858,
+          "source": "KMA_RDA"
+        },
+        "kma_hurs": {
+          "value": 50.0226,
+          "source": "KMA_RDA"
+        },
+        "kma_rsds": {
+          "value": 15.0982,
+          "source": "KMA_RDA"
+        }
+      }
+    },
+    "ssp585": {
+      "baseline": {
+        "tasmax": {
+          "value": 16.86,
+          "source": "CMIP6"
+        },
+        "tasmin": {
+          "value": 11.67,
+          "source": "CMIP6"
+        },
+        "tas": {
+          "value": 14.36,
+          "source": "CMIP6"
+        },
+        "pr": {
+          "value": 3.733,
+          "source": "CMIP6"
+        },
+        "prsn": {
+          "value": 0.035,
+          "source": "CMIP6"
+        },
+        "sfcWind": {
+          "value": 4.1644,
+          "source": "CMIP6"
+        },
+        "evspsbl": {
+          "value": 2.975,
+          "source": "CMIP6"
+        },
+        "etccdi_txx": {
+          "value": 29.39,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_tnn": {
+          "value": 10.325,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_su": {
+          "value": 91.1,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_tr": {
+          "value": 135.037,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_fd": {
+          "value": 4.416,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_wsdi": {
+          "value": 7.0,
+          "source": "ETCCDI_est",
+          "confidence": "low"
+        },
+        "etccdi_wbgt": {
+          "value": 14.232,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_cdd": {
+          "value": 40.806,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_cwd": {
+          "value": 2.0,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx1day": {
+          "value": 43.948,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx5day": {
+          "value": 23.363,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_r95p": {
+          "value": 381.5,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_sdii": {
+          "value": 18.038,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "flood_risk": {
+          "value": 28.0,
+          "source": "PhyRisk"
+        },
+        "drought_risk": {
+          "value": 36.3,
+          "source": "PhyRisk"
+        },
+        "heat_stress": {
+          "value": 11.5,
+          "source": "PhyRisk"
+        },
+        "extreme_heat_35c": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "work_loss_high": {
+          "value": 9.8,
+          "source": "PhyRisk"
+        },
+        "work_loss_medium": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "heat_degree_days": {
+          "value": 10.3,
+          "source": "PhyRisk"
+        },
+        "water_stress": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "water_depletion": {
+          "value": 7.0,
+          "source": "PhyRisk"
+        },
+        "cyclone_risk": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "wildfire_risk": {
+          "value": 21.8,
+          "source": "PhyRisk"
+        },
+        "sea_level_rise": {
+          "value": 45,
+          "source": "PhyRisk"
+        },
+        "storm_surge": {
+          "value": 8.0,
+          "source": "PhyRisk"
+        },
+        "earthquake_risk": {
+          "value": 35.0,
+          "source": "PhyRisk"
+        },
+        "landslide_risk": {
+          "value": 14.0,
+          "source": "PhyRisk"
+        },
+        "coastal_flood": {
+          "value": 40.5,
+          "source": "PhyRisk"
+        },
+        "pluvial_flood": {
+          "value": 19.6,
+          "source": "PhyRisk"
+        },
+        "river_flood": {
+          "value": 23.8,
+          "source": "PhyRisk"
+        },
+        "tc_annual_freq": {
+          "value": 0.302,
+          "source": "IBTrACS"
+        },
+        "tc_max_wind_kt": {
+          "value": 62.2,
+          "source": "IBTrACS"
+        },
+        "tc_cat3_count": {
+          "value": 0.0,
+          "source": "IBTrACS"
+        },
+        "aq_water_stress": {
+          "value": 0.68,
+          "source": "Aqueduct4"
+        },
+        "aq_river_flood": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_coastal_flood": {
+          "value": 0.0,
+          "source": "Aqueduct4"
+        },
+        "aq_drought": {
+          "value": 0.18,
+          "source": "Aqueduct4"
+        },
+        "aq_interann_var": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_water_stress_2050": {
+          "value": 0.82,
+          "source": "Aqueduct4"
+        },
+        "aq_scale": {
+          "value": 5,
+          "source": "Aqueduct4"
+        },
+        "psha_pga_475": {
+          "value": 0.11,
+          "source": "PSHA"
+        },
+        "psha_pga_2475": {
+          "value": 0.22,
+          "source": "PSHA"
+        },
+        "TC_EAL": {
+          "value": 57.65,
+          "source": "CLIMADA_HDF5"
+        },
+        "Flood_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "Wildfire_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "EQ_EAL": {
+          "value": 2.02,
+          "source": "CLIMADA_HDF5"
+        },
+        "cckp_hi35": {
+          "value": 0.9,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hd40": {
+          "value": 0.0,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_tr26": {
+          "value": 4.4,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd65": {
+          "value": 1350.127,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hdd65": {
+          "value": 4221.199,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_csdi": {
+          "value": 2.05,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_wsdi": {
+          "value": 4.0,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd_consec": {
+          "value": 21.95,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_spei12": {
+          "value": -0.059,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_gsl": {
+          "value": 283.05,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hurs": {
+          "value": 66.673,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_id": {
+          "value": 4.7,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_rxmonth": {
+          "value": 267.869,
+          "source": "CCKP_0.25deg"
+        },
+        "kma_tasmax": {
+          "value": 18.7449,
+          "source": "KMA_RDA"
+        },
+        "kma_tasmin": {
+          "value": 7.3721,
+          "source": "KMA_RDA"
+        },
+        "kma_pr": {
+          "value": 3.7235,
+          "source": "KMA_RDA"
+        },
+        "kma_sfcWind": {
+          "value": 2.3433,
+          "source": "KMA_RDA"
+        },
+        "kma_hurs": {
+          "value": 50.9897,
+          "source": "KMA_RDA"
+        },
+        "kma_rsds": {
+          "value": 14.906,
+          "source": "KMA_RDA"
+        },
+        "cordex_pr": {
+          "value": 3.7937,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_tas": {
+          "value": 13.9827,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_tasmax": {
+          "value": 17.5636,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_tasmin": {
+          "value": 11.0662,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_rsds": {
+          "value": 14.7983,
+          "source": "KMA_CORDEX"
+        }
+      },
+      "near": {
+        "tasmax": {
+          "value": 17.22,
+          "source": "CMIP6"
+        },
+        "tasmin": {
+          "value": 12.01,
+          "source": "CMIP6"
+        },
+        "tas": {
+          "value": 14.73,
+          "source": "CMIP6"
+        },
+        "pr": {
+          "value": 3.77,
+          "source": "CMIP6"
+        },
+        "prsn": {
+          "value": 0.02,
+          "source": "CMIP6"
+        },
+        "sfcWind": {
+          "value": 4.1135,
+          "source": "CMIP6"
+        },
+        "evspsbl": {
+          "value": 3.046,
+          "source": "CMIP6"
+        },
+        "etccdi_txx": {
+          "value": 29.986,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_tnn": {
+          "value": 10.602,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_su": {
+          "value": 94.6,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_tr": {
+          "value": 141.998,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_fd": {
+          "value": 3.604,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_wsdi": {
+          "value": 7.5,
+          "source": "ETCCDI_est",
+          "confidence": "low"
+        },
+        "etccdi_wbgt": {
+          "value": 14.604,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_cdd": {
+          "value": 40.893,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_cwd": {
+          "value": 2.0,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx1day": {
+          "value": 44.684,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx5day": {
+          "value": 24.5,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_r95p": {
+          "value": 385.3,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_sdii": {
+          "value": 18.245,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "flood_risk": {
+          "value": 28.0,
+          "source": "PhyRisk"
+        },
+        "drought_risk": {
+          "value": 36.3,
+          "source": "PhyRisk"
+        },
+        "heat_stress": {
+          "value": 11.5,
+          "source": "PhyRisk"
+        },
+        "extreme_heat_35c": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "work_loss_high": {
+          "value": 9.8,
+          "source": "PhyRisk"
+        },
+        "work_loss_medium": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "heat_degree_days": {
+          "value": 10.3,
+          "source": "PhyRisk"
+        },
+        "water_stress": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "water_depletion": {
+          "value": 7.0,
+          "source": "PhyRisk"
+        },
+        "cyclone_risk": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "wildfire_risk": {
+          "value": 21.8,
+          "source": "PhyRisk"
+        },
+        "sea_level_rise": {
+          "value": 45,
+          "source": "PhyRisk"
+        },
+        "storm_surge": {
+          "value": 8.0,
+          "source": "PhyRisk"
+        },
+        "earthquake_risk": {
+          "value": 35.0,
+          "source": "PhyRisk"
+        },
+        "landslide_risk": {
+          "value": 14.0,
+          "source": "PhyRisk"
+        },
+        "coastal_flood": {
+          "value": 40.5,
+          "source": "PhyRisk"
+        },
+        "pluvial_flood": {
+          "value": 19.6,
+          "source": "PhyRisk"
+        },
+        "river_flood": {
+          "value": 23.8,
+          "source": "PhyRisk"
+        },
+        "tc_annual_freq": {
+          "value": 0.302,
+          "source": "IBTrACS"
+        },
+        "tc_max_wind_kt": {
+          "value": 62.2,
+          "source": "IBTrACS"
+        },
+        "tc_cat3_count": {
+          "value": 0.0,
+          "source": "IBTrACS"
+        },
+        "aq_water_stress": {
+          "value": 0.68,
+          "source": "Aqueduct4"
+        },
+        "aq_river_flood": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_coastal_flood": {
+          "value": 0.0,
+          "source": "Aqueduct4"
+        },
+        "aq_drought": {
+          "value": 0.18,
+          "source": "Aqueduct4"
+        },
+        "aq_interann_var": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_water_stress_2050": {
+          "value": 0.82,
+          "source": "Aqueduct4"
+        },
+        "aq_scale": {
+          "value": 5,
+          "source": "Aqueduct4"
+        },
+        "psha_pga_475": {
+          "value": 0.11,
+          "source": "PSHA"
+        },
+        "psha_pga_2475": {
+          "value": 0.22,
+          "source": "PSHA"
+        },
+        "TC_EAL": {
+          "value": 57.65,
+          "source": "CLIMADA_HDF5"
+        },
+        "Flood_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "Wildfire_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "EQ_EAL": {
+          "value": 2.02,
+          "source": "CLIMADA_HDF5"
+        },
+        "cckp_hi35": {
+          "value": 5.15,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hd40": {
+          "value": 0.0,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_tr26": {
+          "value": 11.95,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd65": {
+          "value": 1638.297,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hdd65": {
+          "value": 3832.456,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_csdi": {
+          "value": 0.9,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_wsdi": {
+          "value": 23.6,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd_consec": {
+          "value": 22.45,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_spei12": {
+          "value": -0.121,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_gsl": {
+          "value": 295.05,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hurs": {
+          "value": 66.519,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_id": {
+          "value": 2.9,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_rxmonth": {
+          "value": 267.861,
+          "source": "CCKP_0.25deg"
+        },
+        "kma_tasmax": {
+          "value": 20.6963,
+          "source": "KMA_RDA"
+        },
+        "kma_tasmin": {
+          "value": 8.8655,
+          "source": "KMA_RDA"
+        },
+        "kma_pr": {
+          "value": 4.0212,
+          "source": "KMA_RDA"
+        },
+        "kma_sfcWind": {
+          "value": 2.2967,
+          "source": "KMA_RDA"
+        },
+        "kma_hurs": {
+          "value": 50.0728,
+          "source": "KMA_RDA"
+        },
+        "kma_rsds": {
+          "value": 15.2039,
+          "source": "KMA_RDA"
+        },
+        "cordex_pr": {
+          "value": 3.8114,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_tas": {
+          "value": 15.037,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_tasmax": {
+          "value": 18.6143,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_tasmin": {
+          "value": 12.129,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_rsds": {
+          "value": 14.8267,
+          "source": "KMA_CORDEX"
+        }
+      },
+      "mid": {
+        "tasmax": {
+          "value": 18.37,
+          "source": "CMIP6"
+        },
+        "tasmin": {
+          "value": 13.18,
+          "source": "CMIP6"
+        },
+        "tas": {
+          "value": 15.89,
+          "source": "CMIP6"
+        },
+        "pr": {
+          "value": 3.946,
+          "source": "CMIP6"
+        },
+        "prsn": {
+          "value": 0.012,
+          "source": "CMIP6"
+        },
+        "sfcWind": {
+          "value": 4.0795,
+          "source": "CMIP6"
+        },
+        "evspsbl": {
+          "value": 3.17,
+          "source": "CMIP6"
+        },
+        "etccdi_txx": {
+          "value": 31.374,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_tnn": {
+          "value": 11.656,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_su": {
+          "value": 106.2,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_tr": {
+          "value": 162.122,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_fd": {
+          "value": 0.0,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_wsdi": {
+          "value": 8.8,
+          "source": "ETCCDI_est",
+          "confidence": "low"
+        },
+        "etccdi_wbgt": {
+          "value": 15.685,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_cdd": {
+          "value": 40.982,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_cwd": {
+          "value": 2.0,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx1day": {
+          "value": 46.897,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx5day": {
+          "value": 28.677,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_r95p": {
+          "value": 403.3,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_sdii": {
+          "value": 18.84,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "flood_risk": {
+          "value": 28.0,
+          "source": "PhyRisk"
+        },
+        "drought_risk": {
+          "value": 36.3,
+          "source": "PhyRisk"
+        },
+        "heat_stress": {
+          "value": 11.5,
+          "source": "PhyRisk"
+        },
+        "extreme_heat_35c": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "work_loss_high": {
+          "value": 9.8,
+          "source": "PhyRisk"
+        },
+        "work_loss_medium": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "heat_degree_days": {
+          "value": 10.3,
+          "source": "PhyRisk"
+        },
+        "water_stress": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "water_depletion": {
+          "value": 7.0,
+          "source": "PhyRisk"
+        },
+        "cyclone_risk": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "wildfire_risk": {
+          "value": 21.8,
+          "source": "PhyRisk"
+        },
+        "sea_level_rise": {
+          "value": 45,
+          "source": "PhyRisk"
+        },
+        "storm_surge": {
+          "value": 8.0,
+          "source": "PhyRisk"
+        },
+        "earthquake_risk": {
+          "value": 35.0,
+          "source": "PhyRisk"
+        },
+        "landslide_risk": {
+          "value": 14.0,
+          "source": "PhyRisk"
+        },
+        "coastal_flood": {
+          "value": 40.5,
+          "source": "PhyRisk"
+        },
+        "pluvial_flood": {
+          "value": 19.6,
+          "source": "PhyRisk"
+        },
+        "river_flood": {
+          "value": 23.8,
+          "source": "PhyRisk"
+        },
+        "tc_annual_freq": {
+          "value": 0.302,
+          "source": "IBTrACS"
+        },
+        "tc_max_wind_kt": {
+          "value": 62.2,
+          "source": "IBTrACS"
+        },
+        "tc_cat3_count": {
+          "value": 0.0,
+          "source": "IBTrACS"
+        },
+        "aq_water_stress": {
+          "value": 0.68,
+          "source": "Aqueduct4"
+        },
+        "aq_river_flood": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_coastal_flood": {
+          "value": 0.0,
+          "source": "Aqueduct4"
+        },
+        "aq_drought": {
+          "value": 0.18,
+          "source": "Aqueduct4"
+        },
+        "aq_interann_var": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_water_stress_2050": {
+          "value": 0.82,
+          "source": "Aqueduct4"
+        },
+        "aq_scale": {
+          "value": 5,
+          "source": "Aqueduct4"
+        },
+        "psha_pga_475": {
+          "value": 0.11,
+          "source": "PSHA"
+        },
+        "psha_pga_2475": {
+          "value": 0.22,
+          "source": "PSHA"
+        },
+        "TC_EAL": {
+          "value": 57.65,
+          "source": "CLIMADA_HDF5"
+        },
+        "Flood_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "Wildfire_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "EQ_EAL": {
+          "value": 2.02,
+          "source": "CLIMADA_HDF5"
+        },
+        "cckp_hi35": {
+          "value": 16.45,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hd40": {
+          "value": 0.0,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_tr26": {
+          "value": 24.75,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd65": {
+          "value": 1930.67,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hdd65": {
+          "value": 3424.045,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_csdi": {
+          "value": 0.1,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_wsdi": {
+          "value": 66.75,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd_consec": {
+          "value": 21.6,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_spei12": {
+          "value": 0.0,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_gsl": {
+          "value": 316.4,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hurs": {
+          "value": 66.52,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_id": {
+          "value": 0.9,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_rxmonth": {
+          "value": 279.618,
+          "source": "CCKP_0.25deg"
+        },
+        "kma_tasmax": {
+          "value": 22.4894,
+          "source": "KMA_RDA"
+        },
+        "kma_tasmin": {
+          "value": 10.3617,
+          "source": "KMA_RDA"
+        },
+        "kma_pr": {
+          "value": 4.1822,
+          "source": "KMA_RDA"
+        },
+        "kma_sfcWind": {
+          "value": 2.2851,
+          "source": "KMA_RDA"
+        },
+        "kma_hurs": {
+          "value": 49.9916,
+          "source": "KMA_RDA"
+        },
+        "kma_rsds": {
+          "value": 15.4048,
+          "source": "KMA_RDA"
+        },
+        "cordex_pr": {
+          "value": 4.2347,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_tas": {
+          "value": 16.1478,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_tasmax": {
+          "value": 19.7215,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_tasmin": {
+          "value": 13.2303,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_rsds": {
+          "value": 14.657,
+          "source": "KMA_CORDEX"
+        }
+      },
+      "far": {
+        "tasmax": {
+          "value": 20.19,
+          "source": "CMIP6"
+        },
+        "tasmin": {
+          "value": 14.97,
+          "source": "CMIP6"
+        },
+        "tas": {
+          "value": 17.71,
+          "source": "CMIP6"
+        },
+        "pr": {
+          "value": 4.152,
+          "source": "CMIP6"
+        },
+        "prsn": {
+          "value": 0.006,
+          "source": "CMIP6"
+        },
+        "sfcWind": {
+          "value": 4.0,
+          "source": "CMIP6"
+        },
+        "evspsbl": {
+          "value": 3.312,
+          "source": "CMIP6"
+        },
+        "etccdi_txx": {
+          "value": 33.753,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_tnn": {
+          "value": 13.226,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_su": {
+          "value": 125.9,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_tr": {
+          "value": 194.325,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_fd": {
+          "value": 0.0,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_wsdi": {
+          "value": 11.0,
+          "source": "ETCCDI_est",
+          "confidence": "low"
+        },
+        "etccdi_wbgt": {
+          "value": 17.418,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_cdd": {
+          "value": 41.211,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_cwd": {
+          "value": 2.0,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx1day": {
+          "value": 50.37,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx5day": {
+          "value": 34.961,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_r95p": {
+          "value": 424.3,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_sdii": {
+          "value": 19.787,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "flood_risk": {
+          "value": 28.0,
+          "source": "PhyRisk"
+        },
+        "drought_risk": {
+          "value": 36.3,
+          "source": "PhyRisk"
+        },
+        "heat_stress": {
+          "value": 11.5,
+          "source": "PhyRisk"
+        },
+        "extreme_heat_35c": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "work_loss_high": {
+          "value": 9.8,
+          "source": "PhyRisk"
+        },
+        "work_loss_medium": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "heat_degree_days": {
+          "value": 10.3,
+          "source": "PhyRisk"
+        },
+        "water_stress": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "water_depletion": {
+          "value": 7.0,
+          "source": "PhyRisk"
+        },
+        "cyclone_risk": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "wildfire_risk": {
+          "value": 21.8,
+          "source": "PhyRisk"
+        },
+        "sea_level_rise": {
+          "value": 45,
+          "source": "PhyRisk"
+        },
+        "storm_surge": {
+          "value": 8.0,
+          "source": "PhyRisk"
+        },
+        "earthquake_risk": {
+          "value": 35.0,
+          "source": "PhyRisk"
+        },
+        "landslide_risk": {
+          "value": 14.0,
+          "source": "PhyRisk"
+        },
+        "coastal_flood": {
+          "value": 40.5,
+          "source": "PhyRisk"
+        },
+        "pluvial_flood": {
+          "value": 19.6,
+          "source": "PhyRisk"
+        },
+        "river_flood": {
+          "value": 23.8,
+          "source": "PhyRisk"
+        },
+        "tc_annual_freq": {
+          "value": 0.302,
+          "source": "IBTrACS"
+        },
+        "tc_max_wind_kt": {
+          "value": 62.2,
+          "source": "IBTrACS"
+        },
+        "tc_cat3_count": {
+          "value": 0.0,
+          "source": "IBTrACS"
+        },
+        "aq_water_stress": {
+          "value": 0.68,
+          "source": "Aqueduct4"
+        },
+        "aq_river_flood": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_coastal_flood": {
+          "value": 0.0,
+          "source": "Aqueduct4"
+        },
+        "aq_drought": {
+          "value": 0.18,
+          "source": "Aqueduct4"
+        },
+        "aq_interann_var": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_water_stress_2050": {
+          "value": 0.82,
+          "source": "Aqueduct4"
+        },
+        "aq_scale": {
+          "value": 5,
+          "source": "Aqueduct4"
+        },
+        "psha_pga_475": {
+          "value": 0.11,
+          "source": "PSHA"
+        },
+        "psha_pga_2475": {
+          "value": 0.22,
+          "source": "PSHA"
+        },
+        "TC_EAL": {
+          "value": 57.65,
+          "source": "CLIMADA_HDF5"
+        },
+        "Flood_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "Wildfire_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "EQ_EAL": {
+          "value": 2.02,
+          "source": "CLIMADA_HDF5"
+        },
+        "cckp_hi35": {
+          "value": 35.2,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hd40": {
+          "value": 0.0,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_tr26": {
+          "value": 44.25,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd65": {
+          "value": 2293.18,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hdd65": {
+          "value": 2960.008,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_csdi": {
+          "value": 0,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_wsdi": {
+          "value": 122.8,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd_consec": {
+          "value": 22.9,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_spei12": {
+          "value": -0.136,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_gsl": {
+          "value": 330.55,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hurs": {
+          "value": 66.256,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_id": {
+          "value": 0.3,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_rxmonth": {
+          "value": 284.756,
+          "source": "CCKP_0.25deg"
+        },
+        "kma_tasmax": {
+          "value": 24.5152,
+          "source": "KMA_RDA"
+        },
+        "kma_tasmin": {
+          "value": 12.1197,
+          "source": "KMA_RDA"
+        },
+        "kma_pr": {
+          "value": 4.35,
+          "source": "KMA_RDA"
+        },
+        "kma_sfcWind": {
+          "value": 2.2687,
+          "source": "KMA_RDA"
+        },
+        "kma_hurs": {
+          "value": 49.8093,
+          "source": "KMA_RDA"
+        },
+        "kma_rsds": {
+          "value": 15.5033,
+          "source": "KMA_RDA"
+        },
+        "cordex_pr": {
+          "value": 4.16,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_tas": {
+          "value": 17.8157,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_tasmax": {
+          "value": 21.4941,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_tasmin": {
+          "value": 14.8328,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_rsds": {
+          "value": 14.9187,
+          "source": "KMA_CORDEX"
+        }
+      },
+      "end": {
+        "tasmax": {
+          "value": 21.31,
+          "source": "CMIP6"
+        },
+        "tasmin": {
+          "value": 16.13,
+          "source": "CMIP6"
+        },
+        "tas": {
+          "value": 18.84,
+          "source": "CMIP6"
+        },
+        "pr": {
+          "value": 4.277,
+          "source": "CMIP6"
+        },
+        "prsn": {
+          "value": 0.003,
+          "source": "CMIP6"
+        },
+        "sfcWind": {
+          "value": 3.9806,
+          "source": "CMIP6"
+        },
+        "evspsbl": {
+          "value": 3.383,
+          "source": "CMIP6"
+        },
+        "etccdi_txx": {
+          "value": 35.02,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_tnn": {
+          "value": 14.289,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_su": {
+          "value": 138.6,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_tr": {
+          "value": 213.644,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_fd": {
+          "value": 0.0,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_wsdi": {
+          "value": 12.4,
+          "source": "ETCCDI_est",
+          "confidence": "low"
+        },
+        "etccdi_wbgt": {
+          "value": 18.454,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "etccdi_cdd": {
+          "value": 41.278,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_cwd": {
+          "value": 2.0,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx1day": {
+          "value": 52.494,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_rx5day": {
+          "value": 39.098,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_r95p": {
+          "value": 437.1,
+          "source": "ETCCDI_est",
+          "confidence": "medium"
+        },
+        "etccdi_sdii": {
+          "value": 20.356,
+          "source": "ETCCDI_est",
+          "confidence": "high"
+        },
+        "flood_risk": {
+          "value": 28.0,
+          "source": "PhyRisk"
+        },
+        "drought_risk": {
+          "value": 36.3,
+          "source": "PhyRisk"
+        },
+        "heat_stress": {
+          "value": 11.5,
+          "source": "PhyRisk"
+        },
+        "extreme_heat_35c": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "work_loss_high": {
+          "value": 9.8,
+          "source": "PhyRisk"
+        },
+        "work_loss_medium": {
+          "value": 6.3,
+          "source": "PhyRisk"
+        },
+        "heat_degree_days": {
+          "value": 10.3,
+          "source": "PhyRisk"
+        },
+        "water_stress": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "water_depletion": {
+          "value": 7.0,
+          "source": "PhyRisk"
+        },
+        "cyclone_risk": {
+          "value": 10,
+          "source": "PhyRisk"
+        },
+        "wildfire_risk": {
+          "value": 21.8,
+          "source": "PhyRisk"
+        },
+        "sea_level_rise": {
+          "value": 45,
+          "source": "PhyRisk"
+        },
+        "storm_surge": {
+          "value": 8.0,
+          "source": "PhyRisk"
+        },
+        "earthquake_risk": {
+          "value": 35.0,
+          "source": "PhyRisk"
+        },
+        "landslide_risk": {
+          "value": 14.0,
+          "source": "PhyRisk"
+        },
+        "coastal_flood": {
+          "value": 40.5,
+          "source": "PhyRisk"
+        },
+        "pluvial_flood": {
+          "value": 19.6,
+          "source": "PhyRisk"
+        },
+        "river_flood": {
+          "value": 23.8,
+          "source": "PhyRisk"
+        },
+        "tc_annual_freq": {
+          "value": 0.302,
+          "source": "IBTrACS"
+        },
+        "tc_max_wind_kt": {
+          "value": 62.2,
+          "source": "IBTrACS"
+        },
+        "tc_cat3_count": {
+          "value": 0.0,
+          "source": "IBTrACS"
+        },
+        "aq_water_stress": {
+          "value": 0.68,
+          "source": "Aqueduct4"
+        },
+        "aq_river_flood": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_coastal_flood": {
+          "value": 0.0,
+          "source": "Aqueduct4"
+        },
+        "aq_drought": {
+          "value": 0.18,
+          "source": "Aqueduct4"
+        },
+        "aq_interann_var": {
+          "value": 0.35,
+          "source": "Aqueduct4"
+        },
+        "aq_water_stress_2050": {
+          "value": 0.82,
+          "source": "Aqueduct4"
+        },
+        "aq_scale": {
+          "value": 5,
+          "source": "Aqueduct4"
+        },
+        "psha_pga_475": {
+          "value": 0.11,
+          "source": "PSHA"
+        },
+        "psha_pga_2475": {
+          "value": 0.22,
+          "source": "PSHA"
+        },
+        "TC_EAL": {
+          "value": 57.65,
+          "source": "CLIMADA_HDF5"
+        },
+        "Flood_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "Wildfire_EAL": {
+          "value": 0.0,
+          "source": "CLIMADA_HDF5"
+        },
+        "EQ_EAL": {
+          "value": 2.02,
+          "source": "CLIMADA_HDF5"
+        },
+        "cckp_hi35": {
+          "value": 52.5,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hd40": {
+          "value": 0.0,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_tr26": {
+          "value": 64.2,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd65": {
+          "value": 2748.953,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hdd65": {
+          "value": 2548.717,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_csdi": {
+          "value": 0,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_wsdi": {
+          "value": 208.1,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_cdd_consec": {
+          "value": 22.25,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_spei12": {
+          "value": -0.175,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_gsl": {
+          "value": 343.5,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_hurs": {
+          "value": 66.175,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_id": {
+          "value": 0,
+          "source": "CCKP_0.25deg"
+        },
+        "cckp_rxmonth": {
+          "value": 297.546,
+          "source": "CCKP_0.25deg"
+        },
+        "kma_tasmax": {
+          "value": 26.6067,
+          "source": "KMA_RDA"
+        },
+        "kma_tasmin": {
+          "value": 13.9963,
+          "source": "KMA_RDA"
+        },
+        "kma_pr": {
+          "value": 4.8109,
+          "source": "KMA_RDA"
+        },
+        "kma_sfcWind": {
+          "value": 2.2471,
+          "source": "KMA_RDA"
+        },
+        "kma_hurs": {
+          "value": 49.5875,
+          "source": "KMA_RDA"
+        },
+        "kma_rsds": {
+          "value": 15.6441,
+          "source": "KMA_RDA"
+        },
+        "cordex_pr": {
+          "value": 3.7407,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_tas": {
+          "value": 18.9245,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_tasmax": {
+          "value": 22.666,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_tasmin": {
+          "value": 15.9141,
+          "source": "KMA_CORDEX"
+        },
+        "cordex_rsds": {
+          "value": 15.1393,
+          "source": "KMA_CORDEX"
+        }
+      }
+    }
+  },
+  "interpretation": {
+    "evaluated_ssp": "ssp245",
+    "evaluated_period": "mid",
+    "tcfd": {
+      "acute": [
+        "etccdi_sdii"
+      ],
+      "chronic": [
+        "etccdi_su",
+        "etccdi_tr",
+        "etccdi_cdd"
+      ]
+    },
+    "top_risks": [
+      {
+        "var": "etccdi_tr",
+        "label": "열대야(TR>20°C)",
+        "value": 145.76,
+        "unit": "days/yr",
+        "level": "VERY_HIGH",
+        "tcfd_type": "chronic",
+        "threshold_min": 90,
+        "threshold_source": "WMO Guidelines on the Definition and Monitoring of Extreme Weather (2020)",
+        "threshold_url": "https://library.wmo.int/records/item/55803",
+        "threshold_inst": "WMO",
+        "context": "현재(128.5days/yr) 대비 +17.3days/yr, WMO 매우 높음 임계값(90days/yr) 초과",
+        "business_impacts": [
+          "야간 작업 환경 관리 비용 급증",
+          "근로자 보건 리스크 증가 → 노동법상 의무 강화 가능성",
+          "데이터센터·정밀 제조시설 냉각 신뢰성 위험"
+        ]
+      },
+      {
+        "var": "etccdi_su",
+        "label": "서머데이(SU>25°C)",
+        "value": 99.4,
+        "unit": "days/yr",
+        "level": "HIGH",
+        "tcfd_type": "chronic",
+        "threshold_min": 90,
+        "threshold_source": "IPCC AR6 WG1 Chapter 12 (2021), Table 12.SM.1",
+        "threshold_url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-12/",
+        "threshold_inst": "IPCC",
+        "context": "현재(89.8days/yr) 대비 +9.6days/yr, IPCC 높음 임계값(90days/yr) 초과",
+        "business_impacts": [
+          "냉방 에너지 비용 연간 +15~30% 증가 예상 (IEA Energy Outlook 2023)",
+          "야외 작업환경 제한 강화 필요 (WBGT 연동 시 효율 저하)",
+          "냉각 물류 수요 증가 및 공급망 관리 비용 상승"
+        ]
+      },
+      {
+        "var": "etccdi_cdd",
+        "label": "연속건조일수(CDD)",
+        "value": 40.55,
+        "unit": "days",
+        "level": "HIGH",
+        "tcfd_type": "chronic",
+        "threshold_min": 40,
+        "threshold_source": "IPCC AR6 WG1 Chapter 11 (2021); WMO Drought Index Guidelines",
+        "threshold_url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-11/",
+        "threshold_inst": "IPCC / WMO",
+        "context": "현재(40.5days) 대비 +0.1days, IPCC / WMO 높음 임계값(40days) 초과",
+        "business_impacts": [
+          "공업용수 취수 가능성 감소 → 생산 제약 리스크",
+          "가뭄에 따른 원자재(농산물·목재) 수급 불안 및 가격 변동성"
+        ]
+      },
+      {
+        "var": "etccdi_sdii",
+        "label": "강수강도(SDII)",
+        "value": 18.34,
+        "unit": "mm/wetday",
+        "level": "HIGH",
+        "tcfd_type": "acute",
+        "threshold_min": 18,
+        "threshold_source": "WMO ETCCDI Index Definitions (2009); IPCC AR6 WG1 Ch.11",
+        "threshold_url": "https://www.wmo.int/pages/prog/wcp/ccl/opace/opace4/etccdi.php",
+        "threshold_inst": "WMO / ETCCDI",
+        "context": "현재(17.8mm/wetday) 대비 +0.5mm/wetday, WMO / ETCCDI 높음 임계값(18mm/wetday) 초과",
+        "business_impacts": [
+          "강수 강도 증가로 도시 배수 시스템 단기 과부하 빈도 증가",
+          "야외 작업·배송 효율 저하 (강우 강도 의존)"
+        ]
+      },
+      {
+        "var": "cckp_cdd65",
+        "label": "냉방도일 (CDD base 65°F)",
+        "value": 1752.41,
+        "unit": "°F·day/yr",
+        "level": "HIGH",
+        "tcfd_type": "other",
+        "threshold_min": 1500,
+        "threshold_source": "World Bank CCKP CMIP6 0.25° — Cooling Degree Days base 65°F (ASHRAE)",
+        "threshold_url": "https://climateknowledgeportal.worldbank.org",
+        "threshold_inst": "World Bank CCKP",
+        "context": "현재(1350.1°F·day/yr) 대비 +402.3°F·day/yr, World Bank CCKP 높음 임계값(1500°F·day/yr) 초과",
+        "business_impacts": [
+          "CDD 1500+: 냉방 에너지 수요 50%+ 증가, 냉방설비 용량 증설 투자 필요"
+        ]
+      },
+      {
+        "var": "cckp_hdd65",
+        "label": "난방도일 (HDD base 65°F)",
+        "value": 3610.12,
+        "unit": "°F·day/yr",
+        "level": "HIGH",
+        "tcfd_type": "other",
+        "threshold_min": 3000,
+        "threshold_source": "World Bank CCKP CMIP6 0.25° — Heating Degree Days base 65°F (ASHRAE)",
+        "threshold_url": "https://climateknowledgeportal.worldbank.org",
+        "threshold_inst": "World Bank CCKP",
+        "context": "현재(4221.2°F·day/yr) 대비 -611.1°F·day/yr, World Bank CCKP 높음 임계값(3000°F·day/yr) 초과",
+        "business_impacts": [
+          "HDD 3000+: 동절기 난방 에너지 비용 상당, 가스·열원 가격 변동 취약"
+        ]
+      },
+      {
+        "var": "cckp_wsdi",
+        "label": "온난 지속기간 (WSDI-CP)",
+        "value": 36.5,
+        "unit": "days/yr",
+        "level": "HIGH",
+        "tcfd_type": "other",
+        "threshold_min": 20,
+        "threshold_source": "World Bank CCKP CMIP6 0.25° — Warm Spell Duration Index (ETCCDI)",
+        "threshold_url": "https://climateknowledgeportal.worldbank.org",
+        "threshold_inst": "World Bank CCKP",
+        "context": "현재(4.0days/yr) 대비 +32.5days/yr, World Bank CCKP 높음 임계값(20days/yr) 초과",
+        "business_impacts": [
+          "WSDI 20+일: 장기 폭염 지속 — 냉방 부하 급증, 실외 작업 생산성 저하"
+        ]
+      },
+      {
+        "var": "etccdi_r95p",
+        "label": "극한강수(R95p)",
+        "value": 395.0,
+        "unit": "mm/yr",
+        "level": "MEDIUM",
+        "tcfd_type": "acute",
+        "threshold_min": 200,
+        "threshold_source": "IPCC AR6 WG1 Chapter 11 (2021); ETCCDI Expert Team",
+        "threshold_url": "https://www.ipcc.ch/report/ar6/wg1/",
+        "threshold_inst": "IPCC / ETCCDI",
+        "context": "현재(377.7mm/yr) 대비 +17.3mm/yr",
+        "business_impacts": [
+          "극한 강수 이벤트 연간 누적 증가 → 홍수 빈도 상승",
+          "배수 설비 과부하 발생 빈도 증가 (연간 유지보수비 상승)"
+        ]
+      },
+      {
+        "var": "tc_annual_freq",
+        "label": "태풍 연간빈도(IBTrACS)",
+        "value": 0.3,
+        "unit": "회/yr",
+        "level": "MEDIUM",
+        "tcfd_type": "acute",
+        "threshold_min": 0.1,
+        "threshold_source": "NOAA IBTrACS v04 (1980-2023); WMO Tropical Cyclone Operational Plan",
+        "threshold_url": "https://www.ncei.noaa.gov/products/international-best-track-archive",
+        "threshold_inst": "WMO / NOAA",
+        "context": "0.3회/yr",
+        "business_impacts": [
+          "연 0.5~1회: 태풍 직접 영향 연 1회 이상 가능 → BCP 필수",
+          "시설 강풍·침수 피해 및 조업 중단 리스크"
+        ]
+      },
+      {
+        "var": "psha_pga_475",
+        "label": "지진 PGA 475년 빈도(PSHA)",
+        "value": 0.11,
+        "unit": "g",
+        "level": "MEDIUM",
+        "tcfd_type": "acute",
+        "threshold_min": 0.05,
+        "threshold_source": "GEM Global Seismic Hazard Assessment Programme (2018); Eurocode 8 (EN 1998-1)",
+        "threshold_url": "https://www.globalquakemodel.org/gem-maps",
+        "threshold_inst": "GEM / CEN",
+        "context": "0.1g",
+        "business_impacts": [
+          "PGA 0.15g 이상: 내진 설계 기준 강화 적용 필요 (Eurocode 8 Zone 2)",
+          "시설 내진 보강 투자 및 구조 검토 의무화 가능"
+        ]
+      },
+      {
+        "var": "sea_level_rise",
+        "label": "해수면 상승 리스크",
+        "value": 45.0,
+        "unit": "score (0-100)",
+        "level": "MEDIUM",
+        "tcfd_type": "chronic",
+        "threshold_min": 30,
+        "threshold_source": "IPCC AR6 WG1 Chapter 9 — Ocean, Cryosphere and Sea Level (2021); OS-Climate PhyRisk",
+        "threshold_url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-9/",
+        "threshold_inst": "IPCC / OS-Climate",
+        "context": "45.0score (0-100)",
+        "business_impacts": [
+          "해안 저지대 시설 침수 및 해일 위험 증가",
+          "항만·물류 인프라 설계 기준 재검토 필요"
+        ]
+      },
+      {
+        "var": "drought_risk",
+        "label": "가뭄 위험(PhyRisk)",
+        "value": 36.3,
+        "unit": "score (0-100)",
+        "level": "MEDIUM",
+        "tcfd_type": "chronic",
+        "threshold_min": 30,
+        "threshold_source": "OS-Climate Physical Risk — Drought Risk Score; WRI Aqueduct 4.0 Drought Exposure",
+        "threshold_url": "https://os-climate.org/physical-risk/",
+        "threshold_inst": "OS-Climate / WRI",
+        "context": "36.3score (0-100)",
+        "business_impacts": [
+          "냉각수·공정용수 취수 제한 위험 — 생산 용량 감소 가능",
+          "농업 공급망 차질 및 원자재 가격 상승"
+        ]
+      }
+    ],
+    "materiality": {
+      "acute_red": 1,
+      "chronic_red": 3,
+      "total_red": 7,
+      "level": "HIGH",
+      "issb_s2_note": "IFRS S2 §10에 따른 물질적 기후 리스크 해당 가능성 있음 — 추가 평가 권장",
+      "cdp_ref": "CDP C2.3 — 물리적 위험 영향 가능성: HIGH"
+    },
+    "narrative": null
+  },
+  "_site": {
+    "name": "OCI_Pohang_Plant",
+    "display": "OCI 포항 사업장",
+    "lat": 36.0095,
+    "lon": 129.3435,
+    "country": "KOR"
+  }
+}
