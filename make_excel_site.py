@@ -544,6 +544,7 @@ info_rows = [
     ("데이터 소스", "설명"),
     ("CMIP6", "17개 모델 앙상블 — SSP126/245/370/585 × 5시점"),
     ("PhyRisk", "OS-Climate PhyRisk — 18개 위험 유형 (0~1 스케일)"),
+    ("CLIMADA HDF5", "ETH Zürich CLIMADA — TC/홍수/산불/지진 EAL 4종 (역사적 정적값, 0~100 지수)"),
     ("Aqueduct", "WRI Aqueduct 4.0 — 수자원 위험 6종 (0~5 스케일)"),
     ("IBTrACS", "NOAA IBTrACS v04 — 역사적 태풍 통계 (1980-2023)"),
     ("PSHA", "GEM Global Earthquake Model — PGA (475yr, 2475yr)"),
@@ -569,6 +570,106 @@ for label, val in info_rows:
 
 ws.column_dimensions["A"].width = 22
 ws.column_dimensions["B"].width = 55
+
+# 임계점 테이블
+THRESH_HEADERS = ["변수 코드", "변수명", "단위", "주의 기준 (Amber)", "위험 기준 (Red)", "임계점 근거 / 참조 기준"]
+THRESH_DATA = [
+    # CMIP6
+    ("tasmax",            "최고기온",              "°C",           "> 33",      "> 38",      "ILO 열 노동안전: 33°C 야외작업 주의, 38°C 작업 중단 권고"),
+    ("tasmin",            "최저기온",              "°C",           "> 22",      "—",         "22°C 이상 = 열대야 기준 (야간 냉각 불충분, 전력 야간 수요 증가)"),
+    ("tas",               "평균기온",              "°C",           "> 25",      "> 30",      "25°C: 냉방 에너지 수요 급증; 30°C: 전력망 과부하 임계"),
+    ("pr",                "강수량",                "mm/day",       "< 1 또는 > 10", "—",     "< 1 mm/day: 가뭄 징후; > 10 mm/day: 도시 침수 임계 강도"),
+    ("sfcWind",           "지표풍속",              "m/s",          "> 10",      "> 15",      "10 m/s: 크레인·야외 작업 한계; 15 m/s: 구조물 손상 위험 (KBC 기준)"),
+    # ETCCDI 열
+    ("etccdi_wbgt",       "습구흑구온도 (WBGT)",   "°C",           "> 28",      "> 32",      "ILO/WBGT 기준: 28°C 경보(중강도 제한), 32°C 위험(경작업도 제한)"),
+    ("etccdi_txx",        "월최고기온 극값 (TXx)", "°C",           "> 33",      "> 38",      "연중 피크 폭염 강도 — 설비 냉각·전력 임계 온도"),
+    ("etccdi_su",         "여름일수 (SU>25°C)",    "days/yr",      "> 60",      "> 100",     "60일: 냉방 설계 기준; 100일: 아열대 기후 진입 수준"),
+    ("etccdi_tr",         "열대야 (TR>20°C)",      "days/yr",      "> 10",      "> 30",      "10일: 야간 전력 수요 급증; 30일: 연속 야간 열 스트레스"),
+    ("etccdi_wsdi",       "온난기간 (WSDI)",        "days/yr",      "> 10",      "> 30",      "연속 6일 이상 고온 지속 — 열파 사건 빈도 지표"),
+    ("etccdi_fd",         "결빙일수 (FD<0°C)",     "days/yr",      "> 60",      "—",         "60일 이상: 동파·결빙 피해 위험 (한냉 기후 사업장)"),
+    # ETCCDI 강수
+    ("etccdi_cdd",        "연속건조일수 (CDD)",     "days",         "> 30",      "> 60",      "30일: 가뭄 주의; 60일: 심각한 취수 장애 (WMO 기준)"),
+    ("etccdi_rx1day",     "1일 최대강수 (Rx1day)", "mm",           "> 50",      "> 100",     "50 mm: 도시 배수 한계; 100 mm: 홍수 피해 임계 강도"),
+    ("etccdi_rx5day",     "5일 최대강수 (Rx5day)", "mm",           "> 100",     "> 200",     "댐·제방 설계 기준 초과 — 침수 사업 중단 위험"),
+    ("etccdi_r95p",       "극한강수 (R95p)",        "mm/yr",        "> 200",     "> 500",     "연간 극한강수 누적량 — 장기 홍수·침식 리스크 지표"),
+    ("etccdi_sdii",       "강수강도 (SDII)",        "mm/wet-day",   "> 20",      "—",         "20 mm/wet-day: 집중호우 패턴 (단기 침수 위험 증가)"),
+    # PhyRisk
+    ("heat_stress",       "열 스트레스",            "score 0-1",    "> 0.5",     "> 0.7",     "0.5: 노동생산성·설비 냉각 비용 유의미한 영향"),
+    ("flood_risk",        "홍수 위험",              "score 0-1",    "> 0.5",     "> 0.7",     "시설 침수·사업 중단 가능성 (OS-Climate PhyRisk v2)"),
+    ("cyclone_risk",      "사이클론 위험",          "score 0-1",    "> 0.5",     "> 0.7",     "풍속·해일 복합 피해 가능성 — 연안·항만 사업장 주의"),
+    ("drought_risk",      "가뭄 위험",              "score 0-1",    "> 0.5",     "> 0.7",     "취수 안정성 위협 — 제조·에너지 냉각 공정 중단 위험"),
+    ("wildfire_risk",     "산불 위험",              "score 0-1",    "> 0.5",     "> 0.7",     "산림 인접 사업장 화재 보험료·대피 계획 기준"),
+    ("earthquake_risk",   "지진 위험",              "score 0-1",    "> 0.5",     "> 0.7",     "PhyRisk 지진 취약성 점수 — PSHA PGA와 교차 검증"),
+    # CLIMADA EAL
+    ("TC_EAL",            "태풍 연간기대손실 (EAL)", "score 0-100", "> 20",      "> 50",      "CLIMADA 역사 손실 지수: 20 = 보험 재검토; 50 = 중대 위험"),
+    ("Flood_EAL",         "홍수 연간기대손실 (EAL)", "score 0-100", "> 20",      "> 50",      "연간기대손실(EAL) 지수: 홍수 역사 손실 기반 정량화"),
+    ("Wildfire_EAL",      "산불 연간기대손실 (EAL)", "score 0-100", "> 20",      "> 50",      "산불 EAL: 산림 인접 사업장 손실 위험 정량화"),
+    ("EQ_EAL",            "지진 연간기대손실 (EAL)", "score 0-100", "> 20",      "> 50",      "지진 EAL: 내진 설계 재점검 — CLIMADA OpenQuake 기반"),
+    # Aqueduct
+    ("aq_water_stress",   "수자원 스트레스",         "0-5",          "> 3",       "> 4",       "WRI Aqueduct: 3 = 높은 스트레스, 4 = 극도 스트레스 (CDP 공시 기준)"),
+    ("aq_river_flood",    "하천홍수 위험",           "0-5",          "> 3",       "> 4",       "WRI: 하천 홍수 빈도·심도 복합 위험 지수"),
+    ("aq_drought",        "가뭄 위험 (Aq)",          "0-5",          "> 3",       "> 4",       "WRI: 수자원 가뭄 취약성 지수 (농업·제조 취수 영향)"),
+    # IBTrACS
+    ("tc_annual_freq",    "태풍 연간 빈도",          "건/yr",        "> 0.5",     "> 1.0",     "0.5건: 주의 수준; 1.0건 이상: 연 1회 이상 태풍 직접 노출"),
+    ("tc_max_wind_kt",    "최대 풍속",               "kt",           "> 64",      "> 96",      "64 kt = Cat 1 (구조 피해 시작); 96 kt = Cat 3 (중대 구조 피해)"),
+    ("tc_cat3_count",     "Cat 3+ 태풍 건수",        "건",           "> 1",       "> 3",       "역사적 강태풍 직접 노출 건수 (1980~2023)"),
+    # PSHA
+    ("psha_pga_475",      "PGA 475년 재현주기",      "g",            "> 0.1",     "> 0.3",     "IBC/KBC 내진 설계: 0.1g 기본 설계값; 0.3g 고위험 (특수 설계 필요)"),
+    ("psha_pga_2475",     "PGA 2475년 재현주기",     "g",            "> 0.2",     "> 0.5",     "최대 고려 지진(MCE): 0.2g 주의; 0.5g = 고위험 지역 특수 구조 기준"),
+    # CCKP
+    ("cckp_hi35",         "열지수 초과일 (HI>35°C)", "days/yr",      "> 20",      "> 60",      "20일: 냉방 인프라 유의미; 60일: 연중 냉방 필수 (열대 기후 임박)"),
+    ("cckp_hd40",         "극한고온일 (Tmax>40°C)",  "days/yr",      "> 10",      "> 30",      "40°C 이상: 산업 냉각 시스템 설계 한계 초과 — 긴급 대응 필요"),
+    ("cckp_tr26",         "열대야 한국기준 (>26°C)", "days/yr",      "> 10",      "> 30",      "한국 기상청 열대야 기준(26°C) — 야간 전력 수요 급증 지표"),
+    ("cckp_cdd65",        "냉방도일 (CDD base 65°F)","°F·day/yr",   "> 1500",    "> 2500",    "에너지 인프라 냉방 설계 기준: 2500 이상 = 냉방 집약 지역"),
+    ("cckp_hdd65",        "난방도일 (HDD base 65°F)","°F·day/yr",   "> 2000",    "> 4000",    "난방 에너지 수요: 4000 이상 = 한랭 기후 (가스·열 인프라 필수)"),
+    ("cckp_spei12",       "가뭄지수 (SPEI-12)",      "index",        "< -0.5",    "< -1.5",    "SPEI 음수 = 건조: -0.5 경도 가뭄, -1.5 심각 가뭄 (FAO/WMO 기준)"),
+    ("cckp_rxmonth",      "월최대강수 (Rx-month)",   "mm/month",     "> 250",     "> 400",     "250 mm: 하수·배수 설계 초과; 400 mm: 대규모 홍수 피해 기준"),
+]
+
+r += 2
+# 임계점 섹션 제목
+c = ws.cell(row=r, column=1, value="변수별 위험 임계점 (RAG 기준 근거)")
+c.font      = hfont(bold=True, color=ACCENT, size=11)
+c.fill      = hfill(HEADER_BG)
+c.alignment = Alignment(horizontal="left", vertical="center")
+ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=6)
+ws.row_dimensions[r].height = 22
+r += 1
+
+# 임계점 컬럼 헤더
+AMBER_COLOR = "FFB300"
+RED_COLOR   = "C62828"
+for ci, h in enumerate(THRESH_HEADERS, 1):
+    c = ws.cell(row=r, column=ci, value=h)
+    c.font      = hfont(bold=True, color="FFFFFF", size=9)
+    c.fill      = hfill(HEADER_BG)
+    c.border    = hborder()
+    c.alignment = Alignment(horizontal="center", vertical="center")
+ws.row_dimensions[r].height = 16
+r += 1
+
+# 임계점 데이터 행
+for i, (key, name_k, unit, amber, red, reason) in enumerate(THRESH_DATA):
+    bg = CARD_BG if i % 2 == 0 else "0E1C30"
+    vals = [key, name_k, unit, amber, red, reason]
+    for ci, v in enumerate(vals, 1):
+        c = ws.cell(row=r, column=ci, value=v)
+        c.font      = hfont(bold=(ci == 1), color=ACCENT if ci == 1 else TEXT_FG, size=9)
+        c.fill      = hfill(bg)
+        c.border    = hborder()
+        c.alignment = Alignment(horizontal="center" if ci <= 3 else "left", vertical="center", wrap_text=(ci == 6))
+        if ci == 4 and amber not in ("—", ""):
+            c.font = hfont(bold=True, color=AMBER_COLOR, size=9)
+        if ci == 5 and red not in ("—", ""):
+            c.font = hfont(bold=True, color=RED_COLOR, size=9)
+    ws.row_dimensions[r].height = 28
+    r += 1
+
+# 임계점 열 너비
+for ci, w in zip(range(1, 7), [18, 22, 13, 18, 18, 55]):
+    ws.column_dimensions[get_column_letter(ci)].width = w
+
+freeze(ws, "A3")
 
 
 # ── 시트 7: 데이터 출처 안내 ──────────────────────────────────────────────────
@@ -637,6 +738,16 @@ SOURCE_META = [
         "지진 위험도 기준값 제공\n내진 설계 기준 적합성 판단\n지진 손실 추정(PGA → EAL 변환)",
         "IBC·KBC 내진 설계 등급 분류\n건물·플랜트 보험 인수 심사\n지진다발지역 사업 타당성 검토\nSendai Framework 재해위험 지표",
         "정적 데이터\nPGA → 리스크 점수 변환\n(pga_to_risk_score() 함수)",
+    ),
+    (
+        "CLIMADA\nHDF5 EAL",
+        4,
+        "ETH Zürich\nWECC\n(CLIMADA 개발팀)\n/ 오픈소스",
+        "CLIMADA (Climate Change Adaptation)\nHDF5 손실 모델 데이터베이스\n- TC_EAL: 태풍 연간기대손실 지수\n- Flood_EAL: 홍수 연간기대손실 지수\n- Wildfire_EAL: 산불 연간기대손실 지수\n- EQ_EAL: 지진 연간기대손실 지수\n- 역사적 관측 기반 손실 모델 (2000~2020년)",
+        "전세계\n~30km 격자\n(역사적 정적값)",
+        "정량 손실 모델 기반\n연간기대손실(EAL) 지수 산출\n자산 가치 대비 손실률 정량화\n보험·재보험 언더라이팅 핵심 입력\n타 점수형 데이터와 달리\n실제 손실액 기반 정량화",
+        "재보험사 기후 손실 포트폴리오 관리\nMunich Re / Swiss Re 대재해 모델 비교\n국제개발은행 기후 사업 경제성 분석\n(BCR·NPV 기후 조정)\nIFRS 17 보험부채 기후 리스크 조정\nTCFD 시나리오 분석 정량화",
+        "역사적 손실 기반 정적 데이터\nSSP·시점 무관 동일값\n미래 기후 변화에 따른 손실 변화는\nPhyRisk(cyclone/flood/wildfire/earthquake)\n로 보완하여 사용",
     ),
     (
         "CCKP\n에너지·극한열\n(World Bank)",
@@ -709,7 +820,8 @@ for i, w in enumerate(COL_WIDTHS, 1):
 # 주석 행
 r += 1
 note = ("※ score(0~1): 0=무위험, 1=최고위험  |  0~5 스케일: WRI Aqueduct 기준  |  "
-        "정적 데이터: Aqueduct/IBTrACS/PSHA는 SSP·시점 무관 동일값  |  "
+        "EAL score(0~100): CLIMADA 역사 손실 지수 (20 이상 주의·보험 재검토, 50 이상 위험)  |  "
+        "정적 데이터: Aqueduct/IBTrACS/PSHA/CLIMADA는 SSP·시점 무관 동일값  |  "
         "KMA·CORDEX: 한반도 좌표 = 고해상도값, 해외 좌표 = KMA N/A / CORDEX 해당 도메인값")
 c = ws.cell(row=r, column=1, value=note)
 c.font      = hfont(bold=False, color=DIM_FG, size=8)
