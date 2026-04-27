@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   bindTabSwitcher();
   bindSearchButtons();
   bindExcelButton();
-  bindExampleButton();
   await loadSiteChips();
   checkServerOnFirstUse();
 });
@@ -39,7 +38,7 @@ async function loadSiteChips() {
 
   const fallback = [
     { id: "OCI_HQ_Seoul",     display: "서울 본사",  lat: 37.5649, lon: 126.9793 },
-    { id: "Pohang_Plant",     display: "포항",       lat: 36.0095, lon: 129.3435 },
+    { id: "Pohang_Plant",     display: "포항",       lat: 36.0095, lon: 129.3435, example: true },
     { id: "OCI_Shanghai",     display: "상해",       lat: 31.2304, lon: 121.4737 },
     { id: "OCI_Japan_Tokyo",  display: "도쿄",       lat: 35.6762, lon: 139.6503 },
     { id: "Philko_Makati",    display: "마카티",     lat: 14.5995, lon: 120.9842 },
@@ -47,19 +46,50 @@ async function loadSiteChips() {
 
   const list = (sites.length > 0 ? sites : fallback).slice(0, 10);
   container.innerHTML = list.map(s => `
-    <span class="site-chip"
-      data-lat="${s.lat}" data-lon="${s.lon}" data-name="${s.display || s.id}">
+    <span class="site-chip${s.example ? " site-chip-example" : ""}"
+      data-lat="${s.lat}" data-lon="${s.lon}" data-name="${s.display || s.id}"
+      ${s.example ? 'data-example="true"' : ""}>
       ${s.display || s.id}
     </span>
   `).join("");
 
   container.querySelectorAll(".site-chip").forEach(chip => {
-    chip.addEventListener("click", () => {
-      const lat = parseFloat(chip.dataset.lat);
-      const lon = parseFloat(chip.dataset.lon);
-      runQuery(lat, lon, chip.dataset.name);
+    chip.addEventListener("click", async () => {
+      if (chip.dataset.example) {
+        await loadExampleSite(chip.dataset.name);
+      } else {
+        const lat = parseFloat(chip.dataset.lat);
+        const lon = parseFloat(chip.dataset.lon);
+        runQuery(lat, lon, chip.dataset.name);
+      }
     });
   });
+}
+
+async function loadExampleSite(name) {
+  setLoading(true, `데이터 불러오는 중...`);
+  try {
+    const resp = await fetch("data/pohang_example.json");
+    if (!resp.ok) throw new Error("예시 파일 로드 실패");
+    const result = await resp.json();
+    const site = result._site || {};
+    result.meta = {
+      ...result.meta,
+      lat:  site.lat  || 36.0095,
+      lon:  site.lon  || 129.3435,
+      tier: "EXAMPLE",
+      resolution: "precomputed",
+      data_source: "사전계산 (OCI 포항 사업장 예시)",
+      kma_rda:    true,
+      kma_cordex: true,
+    };
+    _lastResult = result;
+    renderResults(result);
+    showStatus(`✅ ${name} (36.0095°N, 129.3435°E)`, false);
+  } catch (e) {
+    showStatus(`❌ 로드 실패: ${e.message}`, false);
+    setLoading(false);
+  }
 }
 
 // ── 검색 버튼 바인딩 ─────────────────────────────────────────────────────────
@@ -154,41 +184,6 @@ function renderResults(result, siteLabel) {
   showStatus("", false);
 }
 
-// ── 예시 데모 버튼 ───────────────────────────────────────────────────────────
-
-function bindExampleButton() {
-  const btn = document.getElementById("btn-example-pohang");
-  if (!btn) return;
-  btn.addEventListener("click", async () => {
-    btn.disabled = true;
-    btn.textContent = "로딩 중...";
-    try {
-      const resp = await fetch("data/pohang_example.json");
-      if (!resp.ok) throw new Error("예시 파일 로드 실패");
-      const result = await resp.json();
-      const site = result._site || {};
-      // meta 보정 — 예시 표시용
-      result.meta = {
-        ...result.meta,
-        lat:  site.lat  || 36.0095,
-        lon:  site.lon  || 129.3435,
-        tier: "EXAMPLE",
-        resolution: "precomputed",
-        data_source: "사전계산 (OCI 포항 사업장 예시)",
-        kma_rda:    true,
-        kma_cordex: true,
-      };
-      _lastResult = result;
-      renderResults(result, site.display || "OCI 포항 사업장");
-      showStatus(`✅ 예시 리포트: ${site.display || "OCI 포항 사업장"} (36.0095°N, 129.3435°E)`, false);
-    } catch (e) {
-      showStatus(`❌ 예시 로드 실패: ${e.message}`, false);
-    } finally {
-      btn.disabled = false;
-      btn.innerHTML = '<span class="example-flag">🇰🇷</span> OCI 포항 사업장 — 즉시 보기';
-    }
-  });
-}
 
 function renderTierBanner(meta) {
   const banner = document.getElementById("tier-banner");
